@@ -15,12 +15,12 @@ const useRouter = (isAuthenticated: boolean) => {
   }
   return (
     <Switch>
-      <Route path="/home">
-        <LoginPage />
-      </Route>
-      <Route path="/register">
-        <RegisterPage />
-      </Route>
+      {/* <Route path="/login"> */}
+      {/*  <LoginPage /> */}
+      {/* </Route> */}
+      {/* <Route path="/register"> */}
+      {/*  <RegisterPage /> */}
+      {/* </Route> */}
       <Redirect to="/home" />
     </Switch>
   );

@@ -37,7 +37,7 @@ const formItems: CustomItemProps[] = [
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  function onSubmit(values: AuthData) {
+  function onSubmit(values: any) {
     dispatch(actions.loginUserPending(values));
   }
 
