@@ -3,6 +3,7 @@ export interface IProfile {
   firstname?: string,
   lastname?: string,
   email: string,
+  password?: string,
   description?: string,
   isMentor?: boolean,
   careerStart?: string,
