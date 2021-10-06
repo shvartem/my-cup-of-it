@@ -25,5 +25,4 @@ const useRouter = (isAuthenticated: boolean) => {
     </Switch>
   );
 };
-
 export default useRouter;
