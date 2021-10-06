@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { ITodo } from '../../types';
 
 export async function getData(url: string) {
   try {

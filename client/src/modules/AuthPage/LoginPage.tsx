@@ -1,7 +1,8 @@
 import React from 'react';
-import CustomForm from '../Form';
+import { Form, Input } from 'antd';
+import CustomForm from '../Form/Form';
 import { CustomItemProps } from '../types/customFormProps';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../hooks';
 import { actions } from '../../redux/slices';
 import { AuthData } from '../types/authTypes';
 
@@ -41,7 +42,37 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <CustomForm formItems={formItems} submitHandler={onSubmit} />
+    <CustomForm formItems={formItems} submitHandler={onSubmit}>
+      <Form.Item
+        label="Ваш email"
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: 'Введите ваш email',
+            type: 'email',
+          },
+        ]}
+        initialValue=""
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        label="Ваш пароль"
+        name="password"
+        rules={[
+          {
+            required: true,
+            min: 6,
+            message: 'Пароль должен быть не менее 6 символов',
+          },
+        ]}
+        initialValue=""
+      >
+        <Input />
+      </Form.Item>
+    </CustomForm>
+
   );
 };
 

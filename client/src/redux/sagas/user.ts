@@ -3,12 +3,13 @@ import {
 } from 'redux-saga/effects';
 import { actions } from '../slices';
 import { getData, postData } from '../tools';
-export interface IProfile {
-  id: number;
-  name: string;
-}
+import { IProfile } from '../../types';
 
 interface ILoginUserAction {
+  type: string;
+  payload: IProfile
+}
+interface IRegisterUserAction {
   type: string;
   payload: IProfile
 }
@@ -33,7 +34,7 @@ function* logoutUser(): Generator<StrictEffect> {
   }
 }
 
-function* registerUser({ payload }: ILoginUserAction): Generator<StrictEffect> {
+function* registerUser({ payload }: IRegisterUserAction): Generator<StrictEffect> {
   try {
     const loggedUser = yield call(postData, '/api/register', payload);
     yield put(actions.loginUserFullfilled(loggedUser as IProfile));

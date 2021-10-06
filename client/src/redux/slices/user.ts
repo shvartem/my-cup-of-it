@@ -1,14 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProfile } from '../../types';
 
-interface UserSliceState {
+interface IUserSliceState {
   profile: IProfile;
   isLoading: boolean;
   error: string | null
 }
 
-const initialState: UserSliceState = {
-  profile: { id: 0, name: '' },
+const initialState: IUserSliceState = {
+  profile: {
+    id: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+    description: '',
+  },
   isLoading: false,
   error: null,
 };
@@ -38,7 +44,7 @@ const userSlice = createSlice({
       state.isLoading = true;
     },
     logoutUserFullfilled: (state) => {
-      state.profile = { id: 0, name: '' };
+      state.profile = initialState.profile;
       state.error = null;
       state.isLoading = false;
     },

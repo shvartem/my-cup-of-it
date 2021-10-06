@@ -3,7 +3,7 @@ import React from 'react';
 import { Layout, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { actions } from '../../redux/slices';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../hooks';
 
 const { Header } = Layout;
 

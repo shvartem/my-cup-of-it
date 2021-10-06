@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { AuthData } from '../types/authTypes';
 import { defaultFormItems, defaultSubmitHandler } from './defaultFormSettings';
 import { CustomItemProps } from '../types/customFormProps';
+import { IProfile } from '../../types';
 
 const Container = styled.div`
   margin: 50px auto;
@@ -14,14 +15,15 @@ const Container = styled.div`
 
 interface ICustomForm {
   formItems: CustomItemProps[];
-  submitHandler: (values: AuthData) => void
+  submitHandler: (values: IProfile) => void
 }
 
 const CustomForm: React.FC<ICustomForm> = ({
   formItems = defaultFormItems,
   submitHandler = defaultSubmitHandler,
+  children,
 }) => {
-  const onFinish = (values: AuthData) => {
+  const onFinish = (values: IProfile) => {
     submitHandler(values);
   };
 
@@ -41,18 +43,18 @@ const CustomForm: React.FC<ICustomForm> = ({
         onFinish={onFinish}
         autoComplete="off"
       >
-        {formItems.map((el, index) => (
-          <Form.Item
-            key={index}
-            label={el.label}
-            name={el.name}
-            rules={el.rules}
-            initialValue={el.initialValue}
-          >
-            {el.isPassword ? <Input.Password /> : <Input />}
-          </Form.Item>
-        ))}
-
+        {/* {formItems.map((el, index) => ( */}
+        {/* <Form.Item */}
+        {/*   key={index} */}
+        {/*   label={el.label} */}
+        {/*   name={el.name} */}
+        {/*   rules={el.rules} */}
+        {/*   initialValue={el.initialValue} */}
+        {/* > */}
+        {/*   {el.isPassword ? <Input.Password /> : <Input />} */}
+        {/* </Form.Item> */}
+        {/* ))} */}
+        {children}
         <Form.Item
           wrapperCol={{
             offset: 8,
@@ -60,7 +62,7 @@ const CustomForm: React.FC<ICustomForm> = ({
           }}
         >
           <Button type="primary" htmlType="submit">
-            Submit
+            Продолжить
           </Button>
         </Form.Item>
       </Form>
