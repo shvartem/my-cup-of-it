@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { BtnsWrapper } from '../../style';
+import { BtnsWrapper } from '../style';
 
 const CommunicateButtons: React.FC = () => (
   <BtnsWrapper>

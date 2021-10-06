@@ -3,10 +3,7 @@ import { Image, Card } from 'antd';
 import EditProfileButtons from './components/EditProfileButtons';
 import { Container, CardWrapper, ImageWrapper } from './style';
 import CommunicateButtons from './components/CommunicateButtons';
-
-interface IInfoPageProps {
-  isAuth: boolean
-}
+import IInfoPageProps from './components/types';
 
 const InfoPage: React.FC<IInfoPageProps> = ({ isAuth }) => (
   <>
