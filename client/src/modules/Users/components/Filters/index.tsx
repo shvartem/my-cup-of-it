@@ -8,32 +8,36 @@ const {
 
 const { SubMenu } = Menu;
 
-const Filters: React.FC = () => (
+interface MyUser {
+ id: number,
+    firstname: string,
+    lastname: string,
+    isMentor: boolean,
+    company: string,
+
+    // technology: {}
+}
+interface userProps{
+  users: MyUser[]
+}
+
+const Filters: React.FC<userProps> = ({ users }) => (
+
   <Layout style={{ minHeight: '100vh' }}>
     <Sider collapsible>
       <div className="logo" />
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <SubMenu key="sub1" title="Filters">
-          <Menu.Item key="3">Filter1</Menu.Item>
-          <Menu.Item key="4">Filter2</Menu.Item>
-          <Menu.Item key="5">Filter3</Menu.Item>
-          <Menu.Item key="6">Filter4</Menu.Item>
-          <Menu.Item key="7">Filter5</Menu.Item>
-          <Menu.Item key="8">Filter6</Menu.Item>
+          {users.map((f) => <Menu.Item key={f.id}>{f.company}</Menu.Item>)}
+
         </SubMenu>
       </Menu>
     </Sider>
     <Layout className="site-layout">
       <Header className="site-layout-background" style={{ padding: 0 }} />
       <Content style={{ margin: '0 16px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          {/* <Breadcrumb.Item>User</Breadcrumb.Item>
-          <Breadcrumb.Item>Bill</Breadcrumb.Item> */}
-        </Breadcrumb>
-        {/* <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-          Bill is a cat.
-        </div> */}
-        <CardUser />
+        {/* {users.map((user) => <CardUser key={user.id}>{user.firstname}</CardUser>)} */}
+        <CardUser users={users} />
       </Content>
       <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
     </Layout>
