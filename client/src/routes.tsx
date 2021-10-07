@@ -1,6 +1,9 @@
 import { Switch, Redirect, Route } from 'react-router-dom';
+
 import LoginPage from './modules/AuthPage/components/LoginPage';
 import RegisterPage from './modules/AuthPage/components/RegisterPage';
+import Profile from './modules/Profile';
+import Filters from './modules/Users/components/Filters';
 
 const useRouter = (isAuthenticated: boolean) => {
   if (isAuthenticated) {
@@ -8,6 +11,14 @@ const useRouter = (isAuthenticated: boolean) => {
       <Switch>
         <Route path="/home">
           <div>home</div>
+        </Route>
+
+        <Route path="/profile">
+          <Profile />
+        </Route>
+
+        <Route path="/users">
+          <Filters />
         </Route>
         <Redirect to="/home" />
       </Switch>
