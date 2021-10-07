@@ -27,6 +27,9 @@ module.exports = {
       comment: {
         type: Sequelize.TEXT,
       },
+      status: {
+        type: Sequelize.ENUM('completed', 'pending', 'cancelled'),
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
