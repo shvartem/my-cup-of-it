@@ -17,6 +17,7 @@ const initialState: IUserSliceState = {
     isMentor: false,
     isActive: false,
     careerStart: '',
+    meets: [],
     company: '',
     createdAt: '',
     updatedAt: '',

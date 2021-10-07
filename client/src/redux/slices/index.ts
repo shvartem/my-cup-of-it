@@ -3,7 +3,7 @@ import allUserReducer, { allUserActions } from './allUsers';
 
 const rootReducer = {
   user: userReducer,
-  allUser: allUserReducer,
+  allUsers: allUserReducer,
 };
 
 export default rootReducer;

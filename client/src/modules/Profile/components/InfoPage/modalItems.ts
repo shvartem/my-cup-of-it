@@ -1,8 +1,9 @@
-import { IProfileData } from '../types';
+import { IProfile } from '../../../../redux/types';
+import { IUser } from '../../../../redux/allUsersTypes';
 
 export default function getModalItems({
   firstname, lastname, company, description,
-}: IProfileData) {
+}: any) {
   return [
     {
       name: 'firstname',
