@@ -12,8 +12,6 @@ async function getAllUsers(req, res) {
           [db.sequelize.literal('"Technology"."id"'), 'id'],
           [db.sequelize.literal('"Technology"."category"'), 'category'],
           [db.sequelize.literal('"Technology"."title"'), 'title'],
-          [db.sequelize.literal('"Technology"."createdAt"'), 'createdAt'],
-          [db.sequelize.literal('"Technology"."updatedAt"'), 'updatedAt'],
         ],
         raw: true,
         where: {
@@ -28,7 +26,6 @@ async function getAllUsers(req, res) {
       return { ...user, technologies: userTechnologies };
     });
     const mappedUsers = await Promise.all(mappedUsersPromises);
-    console.log(mappedUsers);
 
     return res.status(200).json(mappedUsers);
   } catch (e) {
