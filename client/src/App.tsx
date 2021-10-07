@@ -1,11 +1,21 @@
 /* eslint-disable no-unused-vars */
-import { useEffect } from 'react';
+import React, { Children, useEffect, useState } from 'react';
+import { url } from 'inspector';
 import Navbar from './modules/Navbar';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
+import UserCard from './modules/UserCard';
 
-const App = () => {
+const App: React.FC = () => {
+  const userProps = {
+    name: 'Артур Пиражков',
+    url: 'https://thumbs.dreamstime.com/b/professional-programmer-thinking-how-to-design-developing-online-steal-system-code-language-hacking-identity-119739196.jpg',
+    experience: '3 years',
+    company: 'yandex',
+    prevCompany: 'google',
+  };
+
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.profile);
   const isLoading = useAppSelector((state) => state.user.isLoading);
@@ -30,6 +40,7 @@ const App = () => {
   return (
     <>
       <Navbar isAuth={isAuthenticated} />
+      <UserCard mentor={userProps} />
       {routes}
     </>
   );
