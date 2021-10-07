@@ -39,7 +39,7 @@ const Profile: React.FC = () => {
             </InnerContainer>
           </TabPane>
           <TabPane tab="Менеджер встреч" key="2">
-            {/* <Manager meets={user ? user.meets : []} /> */}
+            <Manager meets={user && user.meets} />
           </TabPane>
         </Tabs>
       </Contaiter>

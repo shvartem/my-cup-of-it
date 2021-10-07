@@ -7,7 +7,6 @@ import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
 import UserCard from './modules/Home/componenets/UserCard';
-import Home from './modules/Home';
 
 const App: React.FC = () => {
   // const userProps = {
@@ -44,8 +43,6 @@ const App: React.FC = () => {
       <Navbar isAuth={isAuthenticated} />
 
       {/* <UserCard mentor={userProps} /> */}
-
-      <Home />
 
       {routes}
     </>
