@@ -3,11 +3,13 @@ import { Tabs } from 'antd';
 import FeatureMeets from './components/FeatureMeetsTab';
 import PastMeets from './components/PastMeets';
 import SuggestionsTab from './components/SuggestionsTab';
+import IManagerProps from './types';
 
 const { TabPane } = Tabs;
 
-const Manager: React.FC = () => (
-  <>
+const Manager: React.FC<IManagerProps> = ({ meets }) => {
+  console.log(meets);
+  return (
     <Tabs defaultActiveKey="1">
       <TabPane tab="Предстоящие встречи" key="1">
         <FeatureMeets />
@@ -19,7 +21,7 @@ const Manager: React.FC = () => (
         <SuggestionsTab />
       </TabPane>
     </Tabs>
-  </>
-);
+  );
+};
 
 export default Manager;

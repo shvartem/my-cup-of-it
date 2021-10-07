@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { Children, useEffect, useState } from 'react';
 import { url } from 'inspector';
+import { Link } from 'react-router-dom';
 import Navbar from './modules/Navbar';
 import useRouter from './routes';
 import { actions } from './redux/slices';
@@ -8,13 +9,13 @@ import { useAppDispatch, useAppSelector } from './hooks';
 import UserCard from './modules/UserCard';
 
 const App: React.FC = () => {
-  const userProps = {
-    name: 'Артур Пиражков',
-    url: 'https://thumbs.dreamstime.com/b/professional-programmer-thinking-how-to-design-developing-online-steal-system-code-language-hacking-identity-119739196.jpg',
-    experience: '3 years',
-    company: 'yandex',
-    prevCompany: 'google',
-  };
+  // const userProps = {
+  //   name: 'Артур Пиражков',
+  //   url: 'https://thumbs.dreamstime.com/b/professional-programmer-thinking-how-to-design-developing-online-steal-system-code-language-hacking-identity-119739196.jpg',
+  //   experience: '3 years',
+  //   company: 'yandex',
+  //   prevCompany: 'google',
+  // };
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.profile);
@@ -39,8 +40,12 @@ const App: React.FC = () => {
   return (
     <>
       <Navbar isAuth={isAuthenticated} />
-      <UserCard mentor={userProps} />
+      {/* <UserCard mentor={userProps} /> */}
       {routes}
+      <Link to="users/1">1</Link>
+      <Link to="users/2">2</Link>
+      <Link to="users/3">3</Link>
+      <Link to="users/4">4</Link>
     </>
   );
 };

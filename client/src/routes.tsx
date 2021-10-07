@@ -65,6 +65,10 @@ const useRouter = (isAuthenticated: boolean) => {
           <Profile />
         </Route>
 
+        <Route path="/users/:userId">
+          <Profile />
+        </Route>
+
         <Route path="/users">
           <Filters users={users} />
         </Route>
@@ -80,7 +84,7 @@ const useRouter = (isAuthenticated: boolean) => {
       <Route path="/register">
         <RegisterPage />
       </Route>
-      <Redirect to="/home" />
+      <Redirect to="/login" />
     </Switch>
   );
 };
