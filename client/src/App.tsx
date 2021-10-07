@@ -42,10 +42,6 @@ const App: React.FC = () => {
       <Navbar isAuth={isAuthenticated} />
       {/* <UserCard mentor={userProps} /> */}
       {routes}
-      <Link to="users/1">1</Link>
-      <Link to="users/2">2</Link>
-      <Link to="users/3">3</Link>
-      <Link to="users/4">4</Link>
     </>
   );
 };
