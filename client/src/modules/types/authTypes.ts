@@ -1,5 +1,4 @@
-export type AuthData = {
-  username?: string;
+export type LoginData = {
   email: string;
   password?: string;
 }

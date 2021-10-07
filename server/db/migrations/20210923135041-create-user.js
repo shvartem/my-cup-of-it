@@ -39,11 +39,11 @@ module.exports = {
       },
       careerStart: {
         type: Sequelize.STRING,
-        defaultValue: null,
+        defaultValue: '',
       },
       company: {
         type: Sequelize.STRING,
-        defaultValue: null,
+        defaultValue: '',
       },
       createdAt: {
         type: Sequelize.DATE,
