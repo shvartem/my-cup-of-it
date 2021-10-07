@@ -79,42 +79,45 @@ async function getLoggedUser(req, res) {
   const { user } = req.session;
 
   let userMeets;
+  try {
+    if (!user.isMentor) {
+      userMeets = await db.Meet.findAll({
+        attributes: [
+          'id',
+          'comment',
+          'date',
+          'status',
+          [db.sequelize.literal('"Mentor"."firstname"'), 'firstname'],
+          [db.sequelize.literal('"Mentor"."lastname"'), 'lastname'],
+        ],
+        raw: true,
+        where: {
+          interviewerId: user.id,
+        },
+        include: { model: db.User, as: 'Mentor', attributes: [] },
+      });
+    } else {
+      userMeets = await db.Meet.findAll({
+        attributes: [
+          'id',
+          'comment',
+          'date',
+          'status',
+          [db.sequelize.literal('"Interviewer"."firstname"'), 'firstname'],
+          [db.sequelize.literal('"Interviewer"."lastname"'), 'lastname'],
+        ],
+        raw: true,
+        where: {
+          mentorId: user.id,
+        },
+        include: { model: db.User, as: 'Interviewer', attributes: [] },
+      });
+    }
 
-  if (!user.isMentor) {
-    userMeets = await db.Meet.findAll({
-      attributes: [
-        'id',
-        'comment',
-        'date',
-        'status',
-        [db.sequelize.literal('"Mentor"."firstname"'), 'firstname'],
-        [db.sequelize.literal('"Mentor"."lastname"'), 'lastname'],
-      ],
-      raw: true,
-      where: {
-        interviewerId: user.id,
-      },
-      include: { model: db.User, as: 'Mentor', attributes: [] },
-    });
-  } else {
-    userMeets = await db.Meet.findAll({
-      attributes: [
-        'id',
-        'comment',
-        'date',
-        'status',
-        [db.sequelize.literal('"Interviewer"."firstname"'), 'firstname'],
-        [db.sequelize.literal('"Interviewer"."lastname"'), 'lastname'],
-      ],
-      raw: true,
-      where: {
-        mentorId: user.id,
-      },
-      include: { model: db.User, as: 'Interviewer', attributes: [] },
-    });
+    return res.json({ ...req.session.user, meets: userMeets });
+  } catch (e) {
+    return res.status(500).send('Что-то пошло не так..');
   }
-
-  return res.json({ ...req.session.user, meets: userMeets });
 }
 
 async function logoutUser(req, res) {
