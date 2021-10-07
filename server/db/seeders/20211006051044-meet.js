@@ -1,5 +1,3 @@
-const { nanoid } = require('nanoid');
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Meets', [
@@ -9,6 +7,7 @@ module.exports = {
         mentorId: 'ebDFCJPBOF',
         date: '04.10.2021 15:00',
         comment: 'завалимся в бар',
+        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -18,6 +17,17 @@ module.exports = {
         mentorId: 'MaDbYp9oK9',
         date: '07.10.2021 19:00',
         comment: 'подымим в кальянке',
+        status: 'cancelled',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'b73c401b5c',
+        interviewerId: '2qVZQ5gh2R',
+        mentorId: 'MaDbYp9oK9',
+        date: '12-10-2021 19:00',
+        comment: 'покатаемся на метро',
+        status: 'cancelled',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
