@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IProfile } from '../../types';
+import { IProfile } from '../types';
 
 interface IUserSliceState {
   profile: IProfile;
@@ -14,6 +14,12 @@ const initialState: IUserSliceState = {
     lastname: '',
     email: '',
     description: '',
+    isMentor: false,
+    isActive: false,
+    careerStart: '',
+    company: '',
+    createdAt: '',
+    updatedAt: '',
   },
   isLoading: false,
   error: null,
@@ -23,10 +29,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    getInitialUserPending: (state) => {
-      state.isLoading = true;
-    },
-
     loginUserPending: (state, action) => {
       state.isLoading = true;
     },
@@ -56,6 +58,11 @@ const userSlice = createSlice({
     registerUserPending: (state, action) => {
       state.isLoading = true;
     },
+
+    getInitialUserPending: (state) => {
+      state.isLoading = true;
+    },
+
   },
 });
 

@@ -8,15 +8,21 @@ async function registerUser(req, res) {
     email,
     password,
     description,
-    isMentor = false,
-    isActive = null,
-    careerStart = null,
-    company = null,
+    isMentor,
+    isActive,
+    careerStart = '',
+    company = '',
   } = req.body;
 
-  let user;
+  let newUser;
   try {
-    user = await db.User.create({
+    const duplicateUser = await db.User.findOne({ where: { email } });
+
+    if (duplicateUser) {
+      return res.status(400).json({ message: 'Пользователь с таким email уже существует' });
+    }
+
+    newUser = await db.User.create({
       id: nanoid(10),
       firstname,
       lastname,
@@ -34,33 +40,35 @@ async function registerUser(req, res) {
   }
 
   req.session.user = {
-    id: user.id,
+    id: newUser.id,
     firstname,
     lastname,
     email,
+    isMentor,
+    isActive,
   };
 
-  return res.status(201).json(user);
+  return res.status(201).json(newUser);
 }
 
 async function loginUser(req, res) {
   const { email, password } = req.body;
   let user;
   try {
-    user = await db.User.findOne({ where: { email } });
+    user = await db.User.findOne({ raw: true, where: { email } });
   } catch (e) {
     console.log(e);
     return res.status(500).send('Что-то пошло не так');
   }
 
-  if (password === user.password) {
-    req.session.user = {
-      id: user.id,
-      name: user.name,
-    };
+  if (user && (password === user.password)) {
+    delete user.password;
+    console.log(user);
+
+    req.session.user = user;
     return res.json(user);
   }
-  return res.sendStatus(404);
+  return res.status(404).send('Email или пароль не совпадают');
 }
 
 async function getLoggedUser(req, res) {

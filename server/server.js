@@ -1,8 +1,13 @@
 const express = require('express');
-const logger = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
+
+const logger = require('morgan');
+const testConnect = require('./db/testConnect');
+
 const authRouter = require('./routes/auth.router');
+
+const PORT = process.env.PORT ?? 5000;
 
 const sessionConfig = {
   store: new FileStore(),
@@ -11,7 +16,7 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: false,
   cookie: {
-    expires: new Date('Dec 31, 2021'),
+    expires: 1000 * 60 * 60 * 23,
     httpOnly: true,
   },
 };
@@ -24,6 +29,7 @@ app.use(express.json());
 
 app.use('/api', authRouter);
 
-app.listen(4000, () => {
-  console.log('server started');
+app.listen(PORT, () => {
+  console.log(`Server started on http://localhost:${PORT}`);
+  testConnect();
 });

@@ -47,11 +47,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     careerStart: {
       type: DataTypes.STRING,
-      defaultValue: false,
+      defaultValue: '',
     },
     company: {
       type: DataTypes.STRING,
-      defaultValue: false,
+      defaultValue: '',
     },
     createdAt: {
       type: DataTypes.DATE,
