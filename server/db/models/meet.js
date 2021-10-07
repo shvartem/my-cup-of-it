@@ -35,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
     comment: {
       type: DataTypes.TEXT,
     },
+    status: {
+      type: DataTypes.ENUM('completed', 'pending', 'cancelled'),
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
