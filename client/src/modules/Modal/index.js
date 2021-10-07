@@ -6,7 +6,7 @@ const defaultFormItems = [
   {
     name: 'username',
     label: 'Your Name',
-    defaultValue: '',
+    initialValue: '',
     rules: [
       {
         required: true,
@@ -17,7 +17,7 @@ const defaultFormItems = [
   {
     name: 'password',
     label: 'Password',
-    defaultValue: '',
+    initialValue: '',
     rules: [
       {
         required: true,
@@ -46,7 +46,7 @@ export default function ModalForm({
   return (
     <div>
       <Button
-        type="primary"
+        style={{ width: '100%' }}
         onClick={() => {
           setVisible(true);
         }}

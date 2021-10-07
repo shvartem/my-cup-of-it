@@ -6,6 +6,6 @@ export const Contaiter = styled.div`
   margin: 20px auto;
 `;
 
-export const TabWrapper = styled.div`
+export const InnerContainer = styled.div`
   padding: 30px 0;
 `;

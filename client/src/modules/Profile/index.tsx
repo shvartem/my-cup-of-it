@@ -1,39 +1,69 @@
 import React from 'react';
 import { Tabs } from 'antd';
+import { useParams } from 'react-router-dom';
 import InfoPage from './components/InfoPage';
 import Manager from './components/Manager';
-import Chat from './components/Chat';
-import { Contaiter, TabWrapper } from './style';
+import { Contaiter, InnerContainer } from './style';
 
 const { TabPane } = Tabs;
 
+const user = {
+  firstname: 'Julia',
+  lastname: 'Glukhova',
+  photoUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  email: 'julia@gmail.com',
+  careerStart: '01.01.2016',
+  company: 'Google',
+  description: 'hahhhahahha',
+  isMentor: true,
+  isActive: true,
+  meets: [
+    {
+      interviewerId: 1, date: '21.10.2021', comment: 'ahahhahaha', status: 'pending',
+    },
+    {
+      interviewerId: 2, date: '21.10.2021', comment: 'ahahhahaha', status: 'upcoming',
+    },
+    {
+      interviewerId: 3, date: '21.10.2021', comment: 'ahahhahaha', status: 'upcoming',
+    },
+    {
+      interviewerId: 1, date: '21.10.2021', comment: 'ahahhahaha', status: 'past',
+    },
+    {
+      interviewerId: 2, date: '21.10.2021', comment: 'ahahhahaha', status: 'past',
+    },
+    {
+      interviewerId: 3, date: '21.10.2021', comment: 'ahahhahaha', status: 'pending',
+    },
+  ],
+};
+
 const Profile: React.FC = () => {
-  // const user = useAppSelector((state) => state.user.profile);
-  // const isAuthenticated = Boolean(user?.id);
-  const isAuth = true;
+  const { userId }: { userId: string } = useParams();
+  const isMe = Boolean(!userId);
+
+  if (!isMe) {
+    return (
+      <Contaiter>
+        <InnerContainer>
+          <InfoPage isMe={isMe} profileData={user} />
+        </InnerContainer>
+      </Contaiter>
+    );
+  }
 
   return (
     <>
       <Contaiter>
         <Tabs type="card">
           <TabPane tab="Профиль" key="1">
-            <TabWrapper>
-              <InfoPage isAuth={isAuth} />
-            </TabWrapper>
+            <InnerContainer>
+              <InfoPage isMe={isMe} profileData={user} />
+            </InnerContainer>
           </TabPane>
-          {isAuth
-            ? (
-              <>
-                <TabPane tab="Менеджер встреч" key="2">
-                  <Manager />
-                </TabPane>
-              </>
-            )
-            : ''}
-          <TabPane tab="Чат" key="3">
-            <TabWrapper>
-              <Chat />
-            </TabWrapper>
+          <TabPane tab="Менеджер встреч" key="2">
+            <Manager meets={user.meets} />
           </TabPane>
         </Tabs>
       </Contaiter>
