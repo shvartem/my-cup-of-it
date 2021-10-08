@@ -12,10 +12,12 @@ const initialState: IMyProfileState = {
     isMentor: false,
     isActive: false,
     careerStart: '',
-    meets: [],
     company: '',
+    userPhoto: '',
     createdAt: '',
     updatedAt: '',
+    technologies: [],
+    meets: [],
   },
   isLoading: false,
   error: null,
@@ -25,10 +27,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUserPending: (state, action) => {
+    loginUserPending: (state, action: PayloadAction<IMyProfile>) => {
       state.isLoading = true;
     },
-    loginUserFullfilled: (state, action: PayloadAction<IProfile>) => {
+    loginUserFullfilled: (state, action: PayloadAction<IMyProfile>) => {
       state.profile = action.payload;
       state.error = null;
       state.isLoading = false;
@@ -46,7 +48,7 @@ const userSlice = createSlice({
       state.error = null;
       state.isLoading = false;
     },
-    logoutUserRejected: (state, action) => {
+    logoutUserRejected: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.isLoading = false;
     },

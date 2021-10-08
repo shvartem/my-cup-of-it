@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getData = async <T>(url: string): Promise<T> => {
   try {
-    const { data } = await axios.get<any>(url);
+    const { data } = await axios.get(url);
     return data;
   } catch (e: any) {
     console.log(e);
@@ -28,7 +28,7 @@ export const deleteData = async (url: string, id: number) => {
   }
 };
 
-export const postData = async (url: string, body: any) => {
+export const postData = async <T>(url: string, body: any): Promise<T> => {
   try {
     const { data } = await axios.post(url, body);
     return data;
