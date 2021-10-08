@@ -4,56 +4,11 @@ import LoginPage from './modules/AuthPage/components/LoginPage';
 import RegisterPage from './modules/AuthPage/components/RegisterPage';
 import Profile from './modules/Profile';
 import Filters from './modules/Users/components/Filters';
+import { useAppSelector } from './hooks';
 
-const users = [
-  {
-    id: 1,
-    firstname: 'alex',
-    lastname: 'Borisov0',
-    isMentor: true,
-    company: 'yansex',
-    // technology: {
-    //   html: 'html',
-    //   css: 'css',
-    //   js: 'js',
-    // },
-  },
-  {
-    id: 2,
-    firstname: 'boris',
-    lastname: 'Borisov0',
-    isMentor: true,
-    company: 'googl',
-    // technologyId: {
-    //   html: 'html',
-
-    //   js: 'js',
-    // },
-  },
-  {
-    id: 3,
-    firstname: 'sergey',
-    lastname: 'Borisov0',
-    isMentor: true,
-    company: 'ozon',
-    // technologyId: {
-
-    //   js: 'js',
-    // },
-  },
-  {
-    id: 4,
-    firstname: 'vasya',
-    lastname: 'Borisov0',
-    isMentor: true,
-    company: 'alibaba',
-    // technologyId: {
-    //   html: 'html',
-
-    // },
-  },
-];
 const useRouter = (isAuthenticated: boolean) => {
+  const users = useAppSelector((state) => state.allUsers.data);
+
   if (isAuthenticated) {
     return (
       <Switch>

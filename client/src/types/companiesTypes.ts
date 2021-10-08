@@ -1,10 +1,10 @@
-export interface IInitialCompaniesState {
+export interface ICompaniesState {
   data: ICompany[];
   isLoading: boolean;
   error: string | null;
 }
 
-interface ICompany {
+export interface ICompany {
   id: string,
   title: string
 }

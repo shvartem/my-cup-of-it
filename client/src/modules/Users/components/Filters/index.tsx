@@ -3,8 +3,8 @@ import {
   Layout, Menu, Breadcrumb, Select,
 } from 'antd';
 import { useSelector } from 'react-redux';
-import { IInitialAllUsersState, IUser } from '../../../../redux/allUsersTypes';
 import store, { StateInterface } from '../../../../redux/store';
+import { IProfile } from '../../../../types/usersTypes';
 
 // import CardUser from '../CardUser';
 // import user from '../../../../redux/slices/user';
@@ -17,17 +17,8 @@ const {
 
 const { SubMenu } = Menu;
 
-interface MyUser {
- id: number,
-    firstname: string,
-    lastname: string,
-    isMentor: boolean,
-    company: string,
-
-    // technology: {}
-}
 interface userProps{
-  users: MyUser[]
+  users: IProfile[]
 }
 
 const Filters: React.FC<userProps> = () => {

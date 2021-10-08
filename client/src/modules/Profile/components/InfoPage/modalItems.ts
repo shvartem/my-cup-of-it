@@ -1,5 +1,5 @@
-import { IProfile } from '../../../../redux/types';
-import { IUser } from '../../../../redux/allUsersTypes';
+// import { IProfile } from '../../../../redux/types';
+// import { IUser } from '../../../../redux/allUsersTypes';
 
 export default function getModalItems({
   firstname, lastname, company, description,

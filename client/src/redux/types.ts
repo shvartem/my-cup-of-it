@@ -48,5 +48,3 @@ export interface IRegisterUserAction {
   type: string,
   payload: IRegisterData,
 }
-
-export type ErrorType = string | null

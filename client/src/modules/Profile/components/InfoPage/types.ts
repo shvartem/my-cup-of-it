@@ -1,5 +1,5 @@
 import { IProfile } from '../../../../redux/types';
-import { IUser } from '../../../../redux/allUsersTypes';
+// import { IUser } from '../../../../redux/allUsersTypes';
 
 export interface IInfoPageProps {
   isMe: boolean;

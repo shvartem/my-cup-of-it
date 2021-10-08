@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Card, Button } from 'antd';
 import { MyCard } from './types';
 import styles from './card.module.css';
-import { IUser } from '../../../../redux/allUsersTypes';
 
 const { Meta } = Card;
 type x = () => number;
@@ -30,12 +29,12 @@ const UserCard: React.FC<MyCard> = ({
         <div>
           До этого работал:
           {' '}
-          {mentor.prevCompany}
+          {/* {mentor.prevCompany} */}
         </div>
         <div>
           Опыт работы:
           {' '}
-          {mentor.experience}
+          {mentor.careerStart}
         </div>
       </div>
       <div className={styles.buttons}>
