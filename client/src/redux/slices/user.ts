@@ -1,13 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ErrorType, IProfile } from '../types';
+import {
+  ILoginData, IMyProfile, IMyProfileState, IRegisterData,
+} from '../../types/usersTypes';
 
-interface IUserSliceState {
-  profile: IProfile;
-  isLoading: boolean;
-  error: string | null
-}
-
-const initialState: IUserSliceState = {
+const initialState: IMyProfileState = {
   profile: {
     id: '',
     firstname: '',
@@ -17,10 +13,10 @@ const initialState: IUserSliceState = {
     isMentor: false,
     isActive: false,
     careerStart: '',
-    meets: [],
     company: '',
-    createdAt: '',
-    updatedAt: '',
+    userPhoto: '',
+    technologies: [],
+    meets: [],
   },
   isLoading: false,
   error: null,
@@ -30,38 +26,42 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUserPending: (state, action) => {
+    loginUserPending: (state: IMyProfileState, action) => {
       state.isLoading = true;
+      state.error = null;
     },
-    loginUserFullfilled: (state, action: PayloadAction<IProfile>) => {
+    loginUserFullfilled: (state: IMyProfileState, action: PayloadAction<IMyProfile>) => {
       state.profile = action.payload;
       state.error = null;
       state.isLoading = false;
     },
-    loginUserRejected: (state, action: PayloadAction<ErrorType>) => {
+    loginUserRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.isLoading = false;
     },
 
-    logoutUserPending: (state) => {
+    logoutUserPending: (state: IMyProfileState) => {
       state.isLoading = true;
+      state.error = null;
     },
-    logoutUserFullfilled: (state) => {
+    logoutUserFullfilled: (state: IMyProfileState) => {
       state.profile = initialState.profile;
       state.error = null;
       state.isLoading = false;
     },
-    logoutUserRejected: (state, action) => {
+    logoutUserRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.isLoading = false;
     },
 
-    registerUserPending: (state, action) => {
+    registerUserPending: (state: IMyProfileState, action) => {
       state.isLoading = true;
+      state.error = null;
     },
 
-    getInitialUserPending: (state) => {
+    getInitialUserPending: (state: IMyProfileState) => {
       state.isLoading = true;
+      state.error = null;
     },
   },
 });

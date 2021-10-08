@@ -1,10 +1,8 @@
 import axios from 'axios';
 
-import { IUser } from '../allUsersTypes';
-
-export const getData = async (url: string) => {
+export const getData = async <T>(url: string): Promise<T> => {
   try {
-    const { data } = await axios.get<any>(url);
+    const { data } = await axios.get(url);
     return data;
   } catch (e: any) {
     console.log(e);
@@ -30,7 +28,8 @@ export const deleteData = async (url: string, id: number) => {
   }
 };
 
-export const postData = async (url: string, body: any) => {
+export const postData = async <T>(url: string, body: any): Promise<T> => {
+  console.log(body);
   try {
     const { data } = await axios.post(url, body);
     return data;

@@ -1,10 +1,16 @@
-interface IMeets {
+export interface ITechnologies {
+  id: string,
+  category: string,
+  title: string,
+}
+
+export interface IMeet {
   id: string,
   firstname: string,
   lastname: string,
   status: string,
-  comment: string,
   date: string,
+  comment: string,
 }
 
 export interface IProfile {
@@ -14,21 +20,27 @@ export interface IProfile {
   email: string,
   description: string,
   isMentor: boolean,
-  isActive: boolean
+  isActive: boolean,
   careerStart: string,
   company: string,
-  meets: IMeetData[] | [],
-  createdAt: string,
-  updatedAt: string,
+  userPhoto: string,
+  technologies: ITechnologies[],
 }
 
-export interface IMeetData {
-  id: string;
-  firstname: string;
-  lastname: string;
-  date: string;
-  comment: string;
-  status: string;
+export interface IMyProfile extends IProfile{
+  meets: IMeet[],
+}
+
+export interface IAllUsersState {
+  data: IProfile[],
+  isLoading: boolean,
+  error: string | null,
+}
+
+export interface IMyProfileState {
+  profile: IMyProfile;
+  isLoading: boolean;
+  error: string | null
 }
 
 export interface ILoginData {
@@ -48,5 +60,3 @@ export interface IRegisterUserAction {
   type: string,
   payload: IRegisterData,
 }
-
-export type ErrorType = string | null

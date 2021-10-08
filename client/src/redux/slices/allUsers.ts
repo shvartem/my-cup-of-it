@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { IInitialAllUsersState } from '../allUsersTypes';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IAllUsersState, IProfile } from '../../types/usersTypes';
 
-const initialState: IInitialAllUsersState = {
+const initialState: IAllUsersState = {
   data: [],
   isLoading: false,
   error: null,
@@ -11,15 +11,15 @@ const allUsersSlice = createSlice({
   name: 'allUsers',
   initialState,
   reducers: {
-    getAllUsersPending: (state) => {
+    getAllUsersPending: (state: IAllUsersState) => {
       state.isLoading = true;
     },
-    getAllUsersFulfilled: (state, action) => {
+    getAllUsersFulfilled: (state:IAllUsersState, action:PayloadAction<IProfile[]>) => {
       state.data = action.payload;
       state.isLoading = false;
       state.error = null;
     },
-    getAllUsersRejected: (state, action) => {
+    getAllUsersRejected: (state: IAllUsersState, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },

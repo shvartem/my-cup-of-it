@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-  Form, Input, Checkbox, DatePicker, Button,
+  Form, Input, Checkbox, DatePicker, Button, Menu, Select,
 } from 'antd';
 import styled from 'styled-components';
 
@@ -38,6 +38,7 @@ const RegisterPage: React.FC = () => {
   console.log(companies);
 
   const onSubmit: RegisterSubmitType = (values) => {
+    console.log({ values });
     dispatch(actions.registerUserPending(values));
   };
 
@@ -150,12 +151,11 @@ const RegisterPage: React.FC = () => {
                 },
               ]}
             >
-              {/* <Input /> */}
               <DatePicker placeholder="01-01-2021" format="DD-MM-YYYY" />
             </Form.Item>
             <Form.Item
               label="Место работы"
-              name="company"
+              name="companyId"
               rules={[
                 {
                   required: true,
@@ -163,7 +163,11 @@ const RegisterPage: React.FC = () => {
                 },
               ]}
             >
-              <Input />
+              <Select>
+                {companies.map((company) => (
+                  <Select.Option value={company.id}>{company.title}</Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </>
         )}

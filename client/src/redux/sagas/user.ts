@@ -1,49 +1,43 @@
-import {
-  takeEvery, call, put, StrictEffect,
-} from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
+import { SagaIterator } from 'redux-saga';
 import { actions } from '../slices';
 import { getData, postData } from '../tools';
-import {
-  ILoginUserAction, IProfile, IRegisterUserAction,
-} from '../types';
+import { IRegisterUserAction, ILoginUserAction, IMyProfile } from '../../types/usersTypes';
 
-function* loginUser({ payload }: ILoginUserAction): Generator<StrictEffect> {
+function* loginUser({ payload }: ILoginUserAction): SagaIterator {
   try {
-    const loggedUser = yield call(postData, '/api/login', payload);
-    yield put(actions.loginUserFullfilled(loggedUser as IProfile));
-  } catch (e: any) {
-    console.log(e);
-    yield put(actions.loginUserRejected(e));
+    const loggedUser = yield call(() => postData<IMyProfile>('/api/login', payload));
+    yield put(actions.loginUserFullfilled(loggedUser as IMyProfile));
+  } catch (e) {
+    yield put(actions.loginUserRejected(e as string));
   }
 }
 
-function* logoutUser(): Generator<StrictEffect> {
+function* logoutUser(): SagaIterator {
   try {
     yield call(getData, '/api/logout');
     yield put(actions.logoutUserFullfilled());
-  } catch (e: any) {
-    console.log(e);
-    yield put(actions.logoutUserRejected(e));
+  } catch (e) {
+    yield put(actions.logoutUserRejected(e as string));
   }
 }
 
-function* registerUser({ payload }: IRegisterUserAction): Generator<StrictEffect> {
+function* registerUser({ payload }: IRegisterUserAction): SagaIterator {
   try {
-    const newUser = yield call(postData, '/api/register', payload);
-    yield put(actions.loginUserFullfilled(newUser as IProfile));
-  } catch (e: any) {
+    const newUser = yield call(() => postData<IMyProfile>('/api/register', payload));
+    yield put(actions.loginUserFullfilled(newUser as IMyProfile));
+  } catch (e) {
     console.log(e);
-    yield put(actions.loginUserRejected(e));
+    yield put(actions.loginUserRejected(e as string));
   }
 }
 
-function* loginInitialUser(): Generator<StrictEffect> {
+function* loginInitialUser(): SagaIterator {
   try {
-    const loggedUser = yield call(getData, '/api/me');
-    yield put(actions.loginUserFullfilled(loggedUser as IProfile));
-  } catch (e: any) {
-    console.log(e);
-    yield put(actions.loginUserRejected(e));
+    const loggedUser = yield call(() => getData<IMyProfile>('/api/me'));
+    yield put(actions.loginUserFullfilled(loggedUser as IMyProfile));
+  } catch (e) {
+    yield put(actions.loginUserRejected(e as string));
   }
 }
 
