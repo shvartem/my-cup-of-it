@@ -21,7 +21,7 @@ function* logoutUser(): Generator<StrictEffect> {
   try {
     yield call(getData, '/api/logout');
     yield put(actions.logoutUserFullfilled());
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     yield put(actions.logoutUserRejected(e));
   }

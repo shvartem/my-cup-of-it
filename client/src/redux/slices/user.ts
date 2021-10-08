@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ErrorType, IErrorAction, IProfile } from '../types';
+import { ErrorType, IProfile } from '../types';
 
 interface IUserSliceState {
   profile: IProfile;
