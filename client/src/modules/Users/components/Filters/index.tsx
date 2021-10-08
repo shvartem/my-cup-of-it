@@ -31,7 +31,7 @@ interface userProps{
 }
 
 const Filters: React.FC<userProps> = () => {
-  const users = useSelector((state: StateInterface) => state.allUser.data);
+  const users = useSelector((state: StateInterface) => state.allUsers.data);
   console.log(users);
   const company = Array.from(new Set(users.map((el) => {
     if (el.company === null || el.company === '') { return 'no conmpany'; }

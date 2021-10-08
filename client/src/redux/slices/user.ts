@@ -19,7 +19,6 @@ const initialState: IUserSliceState = {
     careerStart: '',
     meets: [],
     company: '',
-    meets: [],
     createdAt: '',
     updatedAt: '',
   },
