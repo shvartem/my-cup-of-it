@@ -14,7 +14,7 @@ async function registerUser(req, res) {
     isMentor,
     isActive,
     careerStart = '',
-    company = '',
+    companyId = '',
   } = req.body;
 
   let newUser;
@@ -36,7 +36,7 @@ async function registerUser(req, res) {
       isMentor,
       isActive,
       careerStart,
-      company,
+      companyId,
     });
   } catch (e) {
     console.log(e);
