@@ -14,12 +14,21 @@ export interface IProfile {
   email: string,
   description: string,
   isMentor: boolean,
-  isActive: boolean,
-  careerStart?: string,
-  company?: string,
-  meets: IMeets[],
+  isActive: boolean
+  careerStart: string,
+  company: string,
+  meets: IMeetData[] | [],
   createdAt: string,
   updatedAt: string,
+}
+
+export interface IMeetData {
+  id: string;
+  firstname: string;
+  lastname: string;
+  date: string;
+  comment: string;
+  status: string;
 }
 
 export interface ILoginData {
@@ -27,7 +36,7 @@ export interface ILoginData {
   password: string,
 }
 
-export interface IRegisterData extends IProfile{
+export interface IRegisterData extends IProfile {
   password: string,
 }
 

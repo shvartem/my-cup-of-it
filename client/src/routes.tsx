@@ -1,5 +1,5 @@
 import { Switch, Redirect, Route } from 'react-router-dom';
-
+import Home from './modules/Home';
 import LoginPage from './modules/AuthPage/components/LoginPage';
 import RegisterPage from './modules/AuthPage/components/RegisterPage';
 import Profile from './modules/Profile';
@@ -58,7 +58,7 @@ const useRouter = (isAuthenticated: boolean) => {
     return (
       <Switch>
         <Route path="/home">
-          <div>home</div>
+          <Home />
         </Route>
 
         <Route path="/profile">

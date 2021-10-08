@@ -1,8 +1,9 @@
-import { IProfileData } from '../types';
+import { IProfile } from '../../../../redux/types';
+import { IUser } from '../../../../redux/allUsersTypes';
 
 export interface IInfoPageProps {
   isMe: boolean;
-  profileData: IProfileData;
+  profileData: any;
 }
 
 export interface IEditButtons {
@@ -11,5 +12,5 @@ export interface IEditButtons {
   changeRole: () => void;
   changeStatus: () => void;
   formItems: any[];
-  editProfile: (values: IProfileData) => void
+  editProfile: (values: IProfile) => void
 }
