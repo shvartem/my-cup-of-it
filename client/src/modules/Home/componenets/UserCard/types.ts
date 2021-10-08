@@ -1,9 +1,5 @@
+import { IUser } from '../../../../redux/allUsersTypes';
+
 export type MyCard = {
-  mentor: {
-    name: string
-          url: string
-      experience: string
-    company: string
-      prevCompany: string
-  }
+  mentor: IUser;
 }
