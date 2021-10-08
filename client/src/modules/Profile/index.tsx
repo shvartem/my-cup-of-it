@@ -1,39 +1,45 @@
 import React from 'react';
 import { Tabs } from 'antd';
+import { useParams } from 'react-router-dom';
 import InfoPage from './components/InfoPage';
 import Manager from './components/Manager';
-import Chat from './components/Chat';
-import { Contaiter, TabWrapper } from './style';
+import { Contaiter, InnerContainer } from './style';
+import { useAppSelector } from '../../hooks';
 
 const { TabPane } = Tabs;
 
 const Profile: React.FC = () => {
-  // const user = useAppSelector((state) => state.user.profile);
-  // const isAuthenticated = Boolean(user?.id);
-  const isAuth = true;
+  const currentUser = useAppSelector((state) => state.user.profile);
+  const users = useAppSelector((state) => state.allUsers.data);
+  const { userId }: { userId: string } = useParams();
+  const isMe = Boolean(!userId);
+
+  console.log({ currentUser });
+  let user;
+  if (isMe) user = currentUser;
+  else user = users.find((userData) => userData.id === userId);
+
+  if (!isMe) {
+    return (
+      <Contaiter>
+        <InnerContainer>
+          <InfoPage isMe={isMe} profileData={user} />
+        </InnerContainer>
+      </Contaiter>
+    );
+  }
 
   return (
     <>
       <Contaiter>
         <Tabs type="card">
           <TabPane tab="Профиль" key="1">
-            <TabWrapper>
-              <InfoPage isAuth={isAuth} />
-            </TabWrapper>
+            <InnerContainer>
+              <InfoPage isMe={isMe} profileData={user} />
+            </InnerContainer>
           </TabPane>
-          {isAuth
-            ? (
-              <>
-                <TabPane tab="Менеджер встреч" key="2">
-                  <Manager />
-                </TabPane>
-              </>
-            )
-            : ''}
-          <TabPane tab="Чат" key="3">
-            <TabWrapper>
-              <Chat />
-            </TabWrapper>
+          <TabPane tab="Менеджер встреч" key="2">
+            <Manager meets={user && user.meets} />
           </TabPane>
         </Tabs>
       </Contaiter>

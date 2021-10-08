@@ -3,6 +3,7 @@ import {
   Modal, Form, Input,
 } from 'antd';
 
+const { TextArea } = Input;
 export default function CollectionCreateForm({
   visible, onCreate, onCancel, title, formItems,
 }) {
@@ -11,8 +12,8 @@ export default function CollectionCreateForm({
     <Modal
       visible={visible}
       title={title}
-      okText="Submit"
-      cancelText="Cancel"
+      okText="Отправить"
+      cancelText=" Отменить"
       onCancel={onCancel}
       onOk={() => {
         form
@@ -37,9 +38,9 @@ export default function CollectionCreateForm({
             name={el.name}
             label={el.label}
             rules={el.rules}
-            initialValue={el.defaultValue}
+            initialValue={el.initialValue}
           >
-            <Input />
+            {el.isTextarea ? <TextArea /> : <Input />}
           </Form.Item>
         ))}
       </Form>

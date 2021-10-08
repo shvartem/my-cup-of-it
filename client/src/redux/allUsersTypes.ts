@@ -9,6 +9,7 @@ export interface IUser {
   firstname: string;
   lastname: string;
   email: string;
+  meets: any[];
   description: string;
   isMentor: boolean;
   isActive: boolean;
