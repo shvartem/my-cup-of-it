@@ -1,5 +1,5 @@
-import { IUser } from '../../../../redux/allUsersTypes';
+import { IProfile } from '../../../../types/usersTypes';
 
 export type MyCard = {
-  mentor: IUser;
+  mentor: IProfile;
 }

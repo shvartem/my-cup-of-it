@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { List } from 'antd';
 import UserCard from '../UserCard';
 // import { MyCard } from './types';
 import styles from './feed.module.css';
@@ -15,10 +16,28 @@ const userProps = {
 const Feed: React.FC = () => {
   const users = useAppSelector((state) => state.allUsers.data);
   console.log(users);
+  const mentors = users.filter((user) => user.isMentor);
 
   return (
     <>
-      <UserCard mentor={userProps} />
+      {/* <UserCard mentor={userProps} /> */}
+      <List
+        grid={{
+          gutter: 16,
+          xs: 1,
+          sm: 2,
+          md: 4,
+          lg: 4,
+          xl: 6,
+          xxl: 3,
+        }}
+        dataSource={mentors}
+        renderItem={(mentor) => (
+          <List.Item>
+            <UserCard mentor={mentor} />
+          </List.Item>
+        )}
+      />
     </>
   );
 };
