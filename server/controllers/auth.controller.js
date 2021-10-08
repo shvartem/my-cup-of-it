@@ -75,7 +75,7 @@ async function loginUser(req, res) {
     console.log(e);
     return res.status(500).send('Что-то пошло не так');
   }
-
+  console.log({ user });
   if (user) {
     const isSame = await bcrypt.compare(password, user.password);
     if (isSame) {

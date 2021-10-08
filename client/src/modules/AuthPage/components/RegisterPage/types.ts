@@ -1,17 +1,8 @@
-export interface IRegisterValues {
-  firstname: string,
-  lastname: string,
-  email: string,
-  password: string,
-  description: string,
-  isMentor: boolean,
-  careerStart: string,
-  company: string,
-}
+import { IRegisterData } from '../../../../types/usersTypes';
 
-export type RegisterSubmitType = (values: IRegisterValues) => void
+export type RegisterSubmitType = (values: IRegisterData) => void
 
 export type OnChangeRegisterValuesType = (
   changedValues: {[item: string]: string | boolean },
-  allValues: IRegisterValues
+  allValues: IRegisterData
 ) => void
