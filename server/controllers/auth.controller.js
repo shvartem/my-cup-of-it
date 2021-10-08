@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 
 const db = require('../db/models');
 const meetsService = require('../services/meets.service');
+const companyService = require('../services/company.service');
 
 async function registerUser(req, res) {
   const {
@@ -14,7 +15,7 @@ async function registerUser(req, res) {
     isMentor,
     isActive,
     careerStart = '',
-    companyId = '',
+    companyId = null,
   } = req.body;
 
   let newUser;
@@ -26,7 +27,7 @@ async function registerUser(req, res) {
     }
     const hashPassword = await bcrypt.hash(password, 10);
 
-    newUser = await db.User.create({
+    const { dataValues } = await db.User.create({
       id: nanoid(6),
       firstname,
       lastname,
@@ -38,10 +39,13 @@ async function registerUser(req, res) {
       careerStart,
       companyId,
     });
+    newUser = dataValues;
   } catch (e) {
     console.log(e);
     return res.status(500).send('Что-то пошло не так');
   }
+
+  const company = await companyService.findCompanyById(newUser.companyId);
 
   req.session.user = {
     id: newUser.id,
@@ -50,16 +54,21 @@ async function registerUser(req, res) {
     email,
     isMentor,
     isActive,
+    companyId,
   };
 
-  return res.status(201).json({ ...newUser, meets: [] });
+  delete newUser.companyId;
+  return res.status(201).json({ ...newUser, meets: [], company });
 }
 
 async function loginUser(req, res) {
   const { email, password } = req.body;
   let user;
   try {
-    user = await db.User.findOne({ raw: true, where: { email } });
+    user = await db.User.findOne({
+      raw: true,
+      where: { email },
+    });
   } catch (e) {
     console.log(e);
     return res.status(500).send('Что-то пошло не так');
@@ -73,10 +82,13 @@ async function loginUser(req, res) {
       req.session.user = user;
 
       let userMeets;
+      let company;
       try {
         userMeets = await meetsService.findUserMeets(user);
+        company = await companyService.findCompanyById(user.companyId);
 
-        return res.json({ ...user, meets: userMeets });
+        delete user.companyId;
+        return res.json({ ...user, meets: userMeets, company });
       } catch (e) {
         console.error(e.message);
         return res.status(500).send('Что-то пошло не так');
@@ -93,10 +105,14 @@ async function getLoggedUser(req, res) {
   const { user } = req.session;
 
   let userMeets;
+  let company;
+
   try {
     userMeets = await meetsService.findUserMeets(user);
+    company = await companyService.findCompanyById(user.companyId);
 
-    return res.json({ ...req.session.user, meets: userMeets });
+    delete user.companyId;
+    return res.json({ ...user, meets: userMeets, company });
   } catch (e) {
     console.error(e.message);
     return res.status(500).send('Что-то пошло не так..');

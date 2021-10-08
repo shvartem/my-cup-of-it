@@ -13,7 +13,7 @@ async function getAllUsers(req, res) {
         'isMentor', 'isActive',
         'careerStart',
         'userPhoto',
-        [sequelize.literal('"Company"."title"'), 'companyTitle'],
+        [sequelize.literal('"Company"."title"'), 'company'],
       ],
       raw: true,
       include: {
