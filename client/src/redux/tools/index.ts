@@ -1,8 +1,10 @@
 import axios from 'axios';
 
+import { IUser } from '../allUsersTypes';
+
 export const getData = async (url: string) => {
   try {
-    const { data } = await axios.get(url);
+    const { data } = await axios.get<any>(url);
     return data;
   } catch (e: any) {
     console.log(e);
