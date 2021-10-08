@@ -41,9 +41,11 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: '',
       },
-      company: {
+      companyId: {
         type: Sequelize.STRING,
-        defaultValue: '',
+        references: {
+          model: 'Companies',
+        },
       },
       createdAt: {
         type: Sequelize.DATE,

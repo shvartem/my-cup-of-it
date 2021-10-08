@@ -1,3 +1,4 @@
+// import { RootState } from 'typesafe-actions';
 import userReducer, { userActions } from './user';
 import allUserReducer, { allUserActions } from './allUsers';
 
