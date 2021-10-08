@@ -18,6 +18,7 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(actions.getInitialUserPending());
     dispatch(actions.getAllUsersPending());
+    dispatch(actions.getAllTechnologiesPending());
   }, [dispatch]);
 
   if (isLoading) {

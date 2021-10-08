@@ -1,8 +1,4 @@
-export interface ITechnologies {
-  id: string,
-  category: string,
-  title: string,
-}
+import { ITechnology } from './technologiesTypes';
 
 export interface IMeet {
   id: string,
@@ -24,7 +20,7 @@ export interface IProfile {
   careerStart: string,
   company: string,
   userPhoto: string,
-  technologies: ITechnologies[],
+  technologies: ITechnology[],
 }
 
 export interface IMyProfile extends IProfile{
