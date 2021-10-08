@@ -1,3 +1,12 @@
+interface IMeets {
+  id: string,
+  firstname: string,
+  lastname: string,
+  status: string,
+  comment: string,
+  date: string,
+}
+
 export interface IProfile {
   id: string,
   firstname: string,
@@ -10,7 +19,7 @@ export interface IProfile {
   company: string,
   meets: IMeetData[] | [],
   createdAt: string,
-  updatedAt: string
+  updatedAt: string,
 }
 
 export interface IMeetData {
@@ -32,10 +41,12 @@ export interface IRegisterData extends IProfile {
 }
 
 export interface ILoginUserAction {
-  type: string;
-  payload: ILoginData
+  type: string,
+  payload: ILoginData,
 }
 export interface IRegisterUserAction {
-  type: string;
-  payload: IRegisterData
+  type: string,
+  payload: IRegisterData,
 }
+
+export type ErrorType = string | null

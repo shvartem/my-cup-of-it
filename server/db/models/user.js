@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: '',
     },
+    userPhoto: {
+      type: DataTypes.STRING,
+      defaultValue: '',
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,

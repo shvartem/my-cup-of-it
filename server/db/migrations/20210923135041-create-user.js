@@ -47,6 +47,10 @@ module.exports = {
           model: 'Companies',
         },
       },
+      userPhoto: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

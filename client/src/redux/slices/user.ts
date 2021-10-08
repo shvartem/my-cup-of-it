@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IProfile } from '../types';
+import { ErrorType, IErrorAction, IProfile } from '../types';
 
 interface IUserSliceState {
   profile: IProfile;
@@ -19,6 +19,7 @@ const initialState: IUserSliceState = {
     careerStart: '',
     meets: [],
     company: '',
+    meets: [],
     createdAt: '',
     updatedAt: '',
   },
@@ -38,7 +39,7 @@ const userSlice = createSlice({
       state.error = null;
       state.isLoading = false;
     },
-    loginUserRejected: (state, action) => {
+    loginUserRejected: (state, action: PayloadAction<ErrorType>) => {
       state.error = action.payload;
       state.isLoading = false;
     },
