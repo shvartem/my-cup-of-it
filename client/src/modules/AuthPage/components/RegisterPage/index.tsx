@@ -6,7 +6,7 @@ import {
 import styled from 'styled-components';
 
 import { actions } from '../../../../redux/slices';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 import { OnChangeRegisterValuesType, RegisterSubmitType } from './types';
 
@@ -26,9 +26,16 @@ const initialRegisterFormValues = {
 };
 
 const RegisterPage: React.FC = () => {
+  const [registerData, setRegisterData] = useState(initialRegisterFormValues);
+
   const dispatch = useAppDispatch();
 
-  const [registerData, setRegisterData] = useState(initialRegisterFormValues);
+  useEffect(() => {
+    dispatch(actions.getAllCompaniesPending());
+  }, []);
+
+  const companies = useAppSelector((state) => state.companies.data);
+  console.log(companies);
 
   const onSubmit: RegisterSubmitType = (values) => {
     dispatch(actions.registerUserPending(values));

@@ -63,7 +63,6 @@ const userSlice = createSlice({
     getInitialUserPending: (state) => {
       state.isLoading = true;
     },
-
   },
 });
 
