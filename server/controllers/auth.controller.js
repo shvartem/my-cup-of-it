@@ -1,6 +1,7 @@
-/* eslint-disable no-restricted-syntax */
-const { nanoid } = require('nanoid');
+const { customAlphabet } = require('nanoid');
 const bcrypt = require('bcrypt');
+
+const nanoid = customAlphabet('1234567890', 6);
 
 const db = require('../db/models');
 const meetsService = require('../services/meets.service');

@@ -1,5 +1,6 @@
 const db = require('../db/models');
 const { sequelize } = require('../db/models');
+const technologiesService = require('../services/technologies.service');
 
 async function getAllUsers(req, res) {
   try {
@@ -23,21 +24,7 @@ async function getAllUsers(req, res) {
     });
 
     const mappedUsersPromises = users.map(async (user) => {
-      const userTechnologies = await db.Stack.findAll({
-        attributes: [
-          [db.sequelize.literal('"Technology"."id"'), 'id'],
-          [db.sequelize.literal('"Technology"."category"'), 'category'],
-          [db.sequelize.literal('"Technology"."title"'), 'title'],
-        ],
-        raw: true,
-        where: {
-          userId: user.id,
-        },
-        include: {
-          model: db.Technology,
-          attributes: [],
-        },
-      });
+      const userTechnologies = await technologiesService.findTecnnologiesByUserId(user.id);
 
       return { ...user, technologies: userTechnologies };
     });
