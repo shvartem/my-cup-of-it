@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ErrorType, IProfile } from '../types';
+import { IProfile } from '../types';
+import { IMyProfile, IMyProfileState } from '../../types/usersTypes';
 
-interface IUserSliceState {
-  profile: IProfile;
-  isLoading: boolean;
-  error: string | null
-}
-
-const initialState: IUserSliceState = {
+const initialState: IMyProfileState = {
   profile: {
     id: '',
     firstname: '',
@@ -38,7 +33,7 @@ const userSlice = createSlice({
       state.error = null;
       state.isLoading = false;
     },
-    loginUserRejected: (state, action: PayloadAction<ErrorType>) => {
+    loginUserRejected: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.isLoading = false;
     },

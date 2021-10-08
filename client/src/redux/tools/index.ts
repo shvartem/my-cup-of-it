@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-import { IUser } from '../allUsersTypes';
-
-export const getData = async (url: string) => {
+export const getData = async <T>(url: string): Promise<T> => {
   try {
     const { data } = await axios.get<any>(url);
     return data;
