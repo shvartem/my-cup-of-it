@@ -51,4 +51,15 @@ async function getAllUsers(req, res) {
   }
 }
 
-module.exports = { getAllUsers };
+async function editUser(req, res) {
+  const { userId } = req.params;
+  try {
+    await db.User.update(req.body, { where: { id: userId } });
+    return res.status(200).json({ ...req.body });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send('Что-то пошло не так');
+  }
+}
+
+module.exports = { getAllUsers, editUser };

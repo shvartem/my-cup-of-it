@@ -23,7 +23,7 @@ export interface IProfile {
   technologies: ITechnology[],
 }
 
-export interface IMyProfile extends IProfile{
+export interface IMyProfile extends IProfile {
   meets: IMeet[],
 }
 
@@ -55,4 +55,8 @@ export interface ILoginUserAction {
 export interface IRegisterUserAction {
   type: string,
   payload: IRegisterData,
+}
+export interface IEditUserAction {
+  type: string,
+  payload: IProfile,
 }

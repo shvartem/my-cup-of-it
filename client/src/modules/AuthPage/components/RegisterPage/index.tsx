@@ -32,13 +32,11 @@ const RegisterPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(actions.getAllCompaniesPending());
-  }, []);
+  }, [dispatch]);
 
   const companies = useAppSelector((state) => state.companies.data);
-  console.log(companies);
 
   const onSubmit: RegisterSubmitType = (values) => {
-    console.log({ values });
     dispatch(actions.registerUserPending(values));
   };
 
@@ -116,7 +114,7 @@ const RegisterPage: React.FC = () => {
             },
           ]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
         <Form.Item
           label="О себе"

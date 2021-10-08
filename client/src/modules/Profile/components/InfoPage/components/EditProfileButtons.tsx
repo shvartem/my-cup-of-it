@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { BtnsWrapper, ModalWrapper } from '../style';
 import { IEditButtons } from '../types';
-import ModalForm from '../../../../Modal';
+import ModalForm from '../../../../common/Modal';
 
 const EditProfileButtons: React.FC<IEditButtons> = ({
   isMentor, isActive, changeRole, changeStatus, editProfile, formItems,

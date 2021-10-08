@@ -1,8 +1,19 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { actions } from '../slices';
-import { getData, postData } from '../tools';
-import { IRegisterUserAction, ILoginUserAction, IMyProfile } from '../../types/usersTypes';
+import { getData, postData, editData } from '../tools';
+import {
+  IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserAction, IProfile,
+} from '../../types/usersTypes';
+
+function* editUser({ payload }: IEditUserAction): SagaIterator {
+  try {
+    const editedUser = yield call(() => editData<IMyProfile>('/api/users', payload));
+    yield put(actions.editUserFullfilled(editedUser));
+  } catch (e) {
+    yield put(actions.editUserRejected(e as string));
+  }
+}
 
 function* loginUser({ payload }: ILoginUserAction): SagaIterator {
   try {
@@ -46,4 +57,5 @@ export default function* userSaga() {
   yield takeEvery(`${actions.logoutUserPending}`, logoutUser);
   yield takeEvery(`${actions.registerUserPending}`, registerUser);
   yield takeEvery(`${actions.getInitialUserPending}`, loginInitialUser);
+  yield takeEvery(`${actions.editUserPending}`, editUser);
 }
