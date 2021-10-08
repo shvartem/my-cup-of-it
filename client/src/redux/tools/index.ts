@@ -29,6 +29,7 @@ export const deleteData = async (url: string, id: number) => {
 };
 
 export const postData = async <T>(url: string, body: any): Promise<T> => {
+  console.log(body);
   try {
     const { data } = await axios.post(url, body);
     return data;

@@ -1,6 +1,3 @@
-export interface ILoginValues {
-  email: string,
-  password: string,
-}
+import { ILoginData } from '../../../../types/usersTypes';
 
-export type LoginSubmitType = (values: ILoginValues) => void
+export type LoginSubmitType = (values: ILoginData) => void

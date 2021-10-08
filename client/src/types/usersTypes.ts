@@ -6,11 +6,11 @@ export interface ITechnologies {
 
 export interface IMeet {
   id: string,
-  comment: string,
-  date: string,
-  status: string,
   firstname: string,
   lastname: string,
+  status: string,
+  date: string,
+  comment: string,
 }
 
 export interface IProfile {
@@ -24,8 +24,6 @@ export interface IProfile {
   careerStart: string,
   company: string,
   userPhoto: string,
-  createdAt: string,
-  updatedAt: string,
   technologies: ITechnologies[],
 }
 
@@ -43,4 +41,22 @@ export interface IMyProfileState {
   profile: IMyProfile;
   isLoading: boolean;
   error: string | null
+}
+
+export interface ILoginData {
+  email: string,
+  password: string,
+}
+
+export interface IRegisterData extends IProfile {
+  password: string,
+}
+
+export interface ILoginUserAction {
+  type: string,
+  payload: ILoginData,
+}
+export interface IRegisterUserAction {
+  type: string,
+  payload: IRegisterData,
 }

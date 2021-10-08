@@ -1,4 +1,4 @@
-import { IProfile } from '../../../../redux/types';
+import { IProfile } from '../../../../types/usersTypes';
 // import { IUser } from '../../../../redux/allUsersTypes';
 
 export interface IInfoPageProps {

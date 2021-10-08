@@ -17,7 +17,6 @@ const Profile: React.FC = () => {
 
   const isCurrentUser = (user: IMyProfile | IProfile | undefined): user is IMyProfile => Boolean(user) && isMe;
 
-  console.log({ currentUser });
   let user: IMyProfile | IProfile | undefined;
   if (isMe) user = currentUser;
   else user = users.find((userData) => userData.id === userId);

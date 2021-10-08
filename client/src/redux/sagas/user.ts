@@ -1,18 +1,13 @@
-import {
-  takeEvery, call, put, StrictEffect,
-} from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { actions } from '../slices';
 import { getData, postData } from '../tools';
-import {
-  ILoginUserAction, IRegisterData, IRegisterUserAction,
-} from '../types';
-import { IMyProfile } from '../../types/usersTypes';
+import { IRegisterUserAction, ILoginUserAction, IMyProfile } from '../../types/usersTypes';
 
 function* loginUser({ payload }: ILoginUserAction): SagaIterator {
   try {
-    const loggedUser = yield call(() => getData<IMyProfile>('/api/users'));
-    yield put(actions.getAllUsersFulfilled(loggedUser));
+    const loggedUser = yield call(() => postData<IMyProfile>('/api/login', payload));
+    yield put(actions.loginUserFullfilled(loggedUser as IMyProfile));
   } catch (e) {
     yield put(actions.loginUserRejected(e as string));
   }
@@ -30,7 +25,7 @@ function* logoutUser(): SagaIterator {
 function* registerUser({ payload }: IRegisterUserAction): SagaIterator {
   try {
     const newUser = yield call(() => postData<IMyProfile>('/api/register', payload));
-    yield put(actions.loginUserFullfilled(newUser));
+    yield put(actions.loginUserFullfilled(newUser as IMyProfile));
   } catch (e) {
     console.log(e);
     yield put(actions.loginUserRejected(e as string));
@@ -39,8 +34,8 @@ function* registerUser({ payload }: IRegisterUserAction): SagaIterator {
 
 function* loginInitialUser(): SagaIterator {
   try {
-    const loggedUser = yield call(() => getData<IMyProfile>('/api/ме'));
-    yield put(actions.loginUserFullfilled(loggedUser));
+    const loggedUser = yield call(() => getData<IMyProfile>('/api/me'));
+    yield put(actions.loginUserFullfilled(loggedUser as IMyProfile));
   } catch (e) {
     yield put(actions.loginUserRejected(e as string));
   }

@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { List } from 'antd';
 import UserCard from '../UserCard';
-// import { MyCard } from './types';
 import styles from './feed.module.css';
 import { useAppSelector } from '../../../../hooks';
 
