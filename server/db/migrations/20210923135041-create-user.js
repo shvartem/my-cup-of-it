@@ -45,6 +45,10 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: '',
       },
+      userPhoto: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

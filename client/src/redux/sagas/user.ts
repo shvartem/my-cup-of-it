@@ -11,7 +11,7 @@ function* loginUser({ payload }: ILoginUserAction): Generator<StrictEffect> {
   try {
     const loggedUser = yield call(postData, '/api/login', payload);
     yield put(actions.loginUserFullfilled(loggedUser as IProfile));
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     yield put(actions.loginUserRejected(e));
   }

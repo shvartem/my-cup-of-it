@@ -3,8 +3,8 @@ module.exports = {
     await queryInterface.bulkInsert('Meets', [
       {
         id: 'bCko3HJhVm',
-        interviewerId: '2qVZQ5gh2R',
-        mentorId: 'ebDFCJPBOF',
+        interviewerId: '2qVZQ5',
+        mentorId: 'ebDFCJ',
         date: '04.10.2021 15:00',
         comment: 'завалимся в бар',
         status: 'pending',
@@ -13,8 +13,8 @@ module.exports = {
       },
       {
         id: 'd0zpm7Wtrt',
-        interviewerId: 'k8WMC-DRGc',
-        mentorId: 'MaDbYp9oK9',
+        interviewerId: 'k8WMCD',
+        mentorId: 'MaDbYp',
         date: '07.10.2021 19:00',
         comment: 'подымим в кальянке',
         status: 'cancelled',
@@ -23,8 +23,8 @@ module.exports = {
       },
       {
         id: 'b73c401b5c',
-        interviewerId: '2qVZQ5gh2R',
-        mentorId: 'MaDbYp9oK9',
+        interviewerId: '2qVZQ5',
+        mentorId: 'MaDbYp',
         date: '12-10-2021 19:00',
         comment: 'покатаемся на метро',
         status: 'cancelled',

@@ -18,7 +18,6 @@ const App: React.FC = () => {
   //   prevCompany: 'google',
   // };
 
-
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.profile);
   const isLoading = useAppSelector((state) => state.user.isLoading);
