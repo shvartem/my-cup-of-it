@@ -1,9 +1,25 @@
 const db = require('../db/models');
+const { sequelize } = require('../db/models');
 
 async function getAllUsers(req, res) {
   try {
     const users = await db.User.findAll({
+      attributes: [
+        'id',
+        'firstname',
+        'lastname',
+        'password',
+        'description',
+        'isMentor', 'isActive',
+        'careerStart',
+        'userPhoto',
+        [sequelize.literal('"Company"."title"'), 'companyTitle'],
+      ],
       raw: true,
+      include: {
+        model: db.Company,
+        attributes: [],
+      },
     });
 
     const mappedUsersPromises = users.map(async (user) => {
