@@ -57,8 +57,10 @@ async function registerUser(req, res) {
     companyId,
   };
 
-  delete newUser.companyId;
-  return res.status(201).json({ ...newUser, meets: [], company });
+  const { user } = req.session;
+
+  delete user.companyId;
+  return res.status(201).json({ ...user, meets: [], company });
 }
 
 async function loginUser(req, res) {
