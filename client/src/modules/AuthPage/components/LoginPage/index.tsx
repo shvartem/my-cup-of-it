@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
             },
           ]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
         <Form.Item
           wrapperCol={{

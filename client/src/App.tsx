@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { Children, useEffect, useState } from 'react';
-import { url } from 'inspector';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import Navbar from './modules/Navbar';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
+import Spinner from './modules/common/Spinner';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +23,7 @@ const App: React.FC = () => {
     return (
       <>
         <Navbar isAuth={isAuthenticated} />
-        <h1>Идёт загрузка, подождите</h1>
+        <Spinner />
       </>
     );
   }
@@ -32,9 +31,6 @@ const App: React.FC = () => {
   return (
     <>
       <Navbar isAuth={isAuthenticated} />
-
-      {/* <UserCard mentor={userProps} /> */}
-
       {routes}
     </>
   );

@@ -5,16 +5,19 @@ import { Container, CardWrapper, ImageWrapper } from './style';
 import CommunicateButtons from './components/CommunicateButtons';
 import { IInfoPageProps } from './types';
 import getModalItems from './modalItems';
+import { actions } from '../../../../redux/slices';
+import { useAppDispatch } from '../../../../hooks';
 
 const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
+  const dispatch = useAppDispatch();
   const formItems = getModalItems(profileData);
 
   function changeRole() {
-    console.log('Tут логика смены роли');
+    dispatch(actions.editUserPending({ ...profileData, isMentor: !profileData.isMentor }));
   }
 
   function changeStatus() {
-    console.log('Tут логика смены статуса');
+    dispatch(actions.editUserPending({ ...profileData, isActive: !profileData.isActive }));
   }
 
   function editProfile(values: any) {

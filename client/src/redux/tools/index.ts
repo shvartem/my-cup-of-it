@@ -10,10 +10,10 @@ export const getData = async <T>(url: string): Promise<T> => {
   }
 };
 
-export const editData = async (url: string, body: any) => {
+export const editData = async <T>(url: string, body: any): Promise<T> => {
   try {
-    await axios.put(`${url}/${body.id}`, body);
-    return true;
+    const { data } = await axios.put(`${url}/${body.id}`, body);
+    return data;
   } catch (e: any) {
     throw e.response.data;
   }

@@ -63,6 +63,21 @@ const userSlice = createSlice({
       state.isLoading = true;
       state.error = null;
     },
+
+    editUserPending: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    editUserFullfilled: (state: IMyProfileState, action: PayloadAction<IMyProfile>) => {
+      state.profile = action.payload;
+      state.error = null;
+      state.isLoading = false;
+    },
+    editUserRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+
   },
 });
 
