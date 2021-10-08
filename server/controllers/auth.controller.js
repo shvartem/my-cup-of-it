@@ -1,6 +1,8 @@
 const { nanoid } = require('nanoid');
-const { Op } = require('sequelize');
+const bcrypt = require('bcrypt');
+
 const db = require('../db/models');
+const meetsService = require('../services/meets.service');
 
 async function registerUser(req, res) {
   const {
@@ -22,13 +24,14 @@ async function registerUser(req, res) {
     if (duplicateUser) {
       return res.status(400).json({ message: 'Пользователь с таким email уже существует' });
     }
+    const hashPassword = await bcrypt.hash(password, 10);
 
     newUser = await db.User.create({
-      id: nanoid(10),
+      id: nanoid(6),
       firstname,
       lastname,
       email,
-      password,
+      password: hashPassword,
       description,
       isMentor,
       isActive,
@@ -49,7 +52,7 @@ async function registerUser(req, res) {
     isActive,
   };
 
-  return res.status(201).json(newUser);
+  return res.status(201).json({ ...newUser, meets: [] });
 }
 
 async function loginUser(req, res) {
@@ -62,12 +65,23 @@ async function loginUser(req, res) {
     return res.status(500).send('Что-то пошло не так');
   }
 
-  if (user && (password === user.password)) {
-    delete user.password;
-    console.log(user);
+  if (user) {
+    const isSame = await bcrypt.compare(password, user.password);
+    if (isSame) {
+      delete user.password;
 
-    req.session.user = user;
-    return res.json(user);
+      req.session.user = user;
+
+      let userMeets;
+      try {
+        userMeets = await meetsService.findUserMeets(user);
+
+        return res.json({ ...user, meets: userMeets });
+      } catch (e) {
+        console.error(e.message);
+        return res.status(500).send('Что-то пошло не так');
+      }
+    }
   }
   return res.status(404).send('Email или пароль не совпадают');
 }
@@ -80,42 +94,11 @@ async function getLoggedUser(req, res) {
 
   let userMeets;
   try {
-    if (!user.isMentor) {
-      userMeets = await db.Meet.findAll({
-        attributes: [
-          'id',
-          'comment',
-          'date',
-          'status',
-          [db.sequelize.literal('"Mentor"."firstname"'), 'firstname'],
-          [db.sequelize.literal('"Mentor"."lastname"'), 'lastname'],
-        ],
-        raw: true,
-        where: {
-          interviewerId: user.id,
-        },
-        include: { model: db.User, as: 'Mentor', attributes: [] },
-      });
-    } else {
-      userMeets = await db.Meet.findAll({
-        attributes: [
-          'id',
-          'comment',
-          'date',
-          'status',
-          [db.sequelize.literal('"Interviewer"."firstname"'), 'firstname'],
-          [db.sequelize.literal('"Interviewer"."lastname"'), 'lastname'],
-        ],
-        raw: true,
-        where: {
-          mentorId: user.id,
-        },
-        include: { model: db.User, as: 'Interviewer', attributes: [] },
-      });
-    }
+    userMeets = await meetsService.findUserMeets(user);
 
     return res.json({ ...req.session.user, meets: userMeets });
   } catch (e) {
+    console.error(e.message);
     return res.status(500).send('Что-то пошло не так..');
   }
 }

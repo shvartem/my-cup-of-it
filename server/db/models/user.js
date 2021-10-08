@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.Technology, { through: 'Stacks', foreignKey: 'userId' });
       this.hasMany(models.Meet, { foreignKey: 'interviewerId' });
       this.hasMany(models.Meet, { foreignKey: 'mentorId' });
+      this.belongsTo(models.Company, { foreignKey: 'companyId' });
     }
   }
   User.init({
@@ -49,7 +50,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       defaultValue: '',
     },
-    company: {
+    companyId: {
+      type: DataTypes.STRING,
+      defaultValue: '',
+    },
+    userPhoto: {
       type: DataTypes.STRING,
       defaultValue: '',
     },

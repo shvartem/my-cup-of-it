@@ -41,7 +41,13 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: '',
       },
-      company: {
+      companyId: {
+        type: Sequelize.STRING,
+        references: {
+          model: 'Companies',
+        },
+      },
+      userPhoto: {
         type: Sequelize.STRING,
         defaultValue: '',
       },
