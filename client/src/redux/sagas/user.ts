@@ -31,9 +31,9 @@ function* registerUser({ payload }: IRegisterUserAction): Generator<StrictEffect
   try {
     const newUser = yield call(postData, '/api/register', payload);
     yield put(actions.loginUserFullfilled(newUser as IProfile));
-  } catch (e: any) {
+  } catch (e) {
     console.log(e);
-    yield put(actions.loginUserRejected(e));
+    yield put(actions.loginUserRejected(e as string));
   }
 }
 

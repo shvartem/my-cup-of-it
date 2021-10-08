@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IInitialCompaniesState } from '../companiesTypes';
+import { IInitialCompaniesState } from '../../types/companiesTypes';
 
 const initialState: IInitialCompaniesState = {
   data: [],
