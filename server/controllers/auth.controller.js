@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const { nanoid } = require('nanoid');
 const bcrypt = require('bcrypt');
 
@@ -16,6 +17,7 @@ async function registerUser(req, res) {
     isActive,
     careerStart = '',
     companyId = null,
+    technologies,
   } = req.body;
 
   let newUser;
@@ -40,6 +42,10 @@ async function registerUser(req, res) {
       companyId,
     });
     newUser = dataValues;
+
+    for await (const tech of technologies) {
+      db.Stack.create({ id: nanoid(6), userId: newUser.id, technologyId: tech });
+    }
   } catch (e) {
     console.log(e);
     return res.status(500).send('Что-то пошло не так');
