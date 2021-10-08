@@ -4,44 +4,20 @@ import { useParams } from 'react-router-dom';
 import InfoPage from './components/InfoPage';
 import Manager from './components/Manager';
 import { Contaiter, InnerContainer } from './style';
+import { useAppSelector } from '../../hooks';
 
 const { TabPane } = Tabs;
 
-const user = {
-  firstname: 'Julia',
-  lastname: 'Glukhova',
-  photoUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  email: 'julia@gmail.com',
-  careerStart: '01.01.2016',
-  company: 'Google',
-  description: 'hahhhahahha',
-  isMentor: true,
-  isActive: true,
-  meets: [
-    {
-      interviewerId: 1, date: '21.10.2021', comment: 'ahahhahaha', status: 'pending',
-    },
-    {
-      interviewerId: 2, date: '21.10.2021', comment: 'ahahhahaha', status: 'upcoming',
-    },
-    {
-      interviewerId: 3, date: '21.10.2021', comment: 'ahahhahaha', status: 'upcoming',
-    },
-    {
-      interviewerId: 1, date: '21.10.2021', comment: 'ahahhahaha', status: 'past',
-    },
-    {
-      interviewerId: 2, date: '21.10.2021', comment: 'ahahhahaha', status: 'past',
-    },
-    {
-      interviewerId: 3, date: '21.10.2021', comment: 'ahahhahaha', status: 'pending',
-    },
-  ],
-};
-
 const Profile: React.FC = () => {
+  const currentUser = useAppSelector((state) => state.user.profile);
+  const users = useAppSelector((state) => state.allUsers.data);
   const { userId }: { userId: string } = useParams();
   const isMe = Boolean(!userId);
+
+  console.log({ currentUser });
+  let user;
+  if (isMe) user = currentUser;
+  else user = users.find((userData) => userData.id === userId);
 
   if (!isMe) {
     return (
@@ -63,7 +39,7 @@ const Profile: React.FC = () => {
             </InnerContainer>
           </TabPane>
           <TabPane tab="Менеджер встреч" key="2">
-            <Manager meets={user.meets} />
+            <Manager meets={user && user.meets} />
           </TabPane>
         </Tabs>
       </Contaiter>

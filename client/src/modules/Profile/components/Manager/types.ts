@@ -1,7 +1,7 @@
-import { IMeetData } from '../types';
+import { IMeetData } from '../../../../redux/types';
 
 interface IManagerProps {
-  meets: IMeetData[]
+  meets: any
 }
 
 export default IManagerProps;
