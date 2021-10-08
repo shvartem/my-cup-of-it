@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
 import { ITechnologiesState, ITechnology } from '../../types/technologiesTypes';
 
 const initialState: ITechnologiesState = {

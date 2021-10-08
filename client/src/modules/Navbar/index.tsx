@@ -44,7 +44,7 @@ const Navbar: React.FC<INavbarProps> = ({ isAuth }) => {
           <Link to="/profile">Профиль</Link>
         </Menu.Item>
         <Menu.Item key="Logout">
-          <Button type="link" onClick={logoutHandler}>Logout</Button>
+          <Button type="link" onClick={logoutHandler} style={{ color: '#fff' }}>Logout</Button>
         </Menu.Item>
         <Menu.Item key="Users">
           <Link to="/users">Users</Link>
