@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import UserCard from '../UserCard';
 // import { MyCard } from './types';
 import styles from './feed.module.css';
+import { useAppSelector } from '../../../../hooks';
 
 const userProps = {
   name: 'Артур Пиражков',
@@ -11,13 +12,15 @@ const userProps = {
   prevCompany: 'google',
 };
 
-const Feed: React.FC = () => (
-  (
+const Feed: React.FC = () => {
+  const users = useAppSelector((state) => state.allUsers.data);
+  console.log(users);
+
+  return (
     <>
       <UserCard mentor={userProps} />
     </>
-  )
-
-);
+  );
+};
 
 export default Feed;

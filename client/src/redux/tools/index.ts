@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getData = async <T>(url: string): Promise<T> => {
   try {
-    const { data } = await axios.get(url);
+    const { data } = await axios.get<any>(url);
     return data;
   } catch (e: any) {
     console.log(e);
