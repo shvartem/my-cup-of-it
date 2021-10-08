@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Card, Button } from 'antd';
 import { MyCard } from './types';
 import styles from './card.module.css';
+import { IUser } from '../../../../redux/allUsersTypes';
 
 const { Meta } = Card;
 type x = () => number;
@@ -17,9 +18,9 @@ const UserCard: React.FC<MyCard> = ({
       hoverable
       size="small"
       style={{ width: 240, margin: '1rem' }}
-      cover={<img alt="example" src={mentor.url} />}
+      cover={<img alt="example" src={mentor.email} />}
     >
-      <Meta title={mentor.name} />
+      <Meta title={mentor.firstname} />
       <div className={styles.userDetails}>
         <div>
           Работает:
