@@ -1,11 +1,12 @@
+/* eslint-disable no-restricted-syntax */
 const { customAlphabet } = require('nanoid');
 const bcrypt = require('bcrypt');
 
 const nanoid = customAlphabet('1234567890', 6);
 
 const db = require('../db/models');
-const meetsService = require('../services/meets.service');
-const companyService = require('../services/company.service');
+const userService = require('../services/user.service');
+const technologiesService = require('../services/technologies.service');
 
 async function registerUser(req, res) {
   const {
@@ -21,7 +22,7 @@ async function registerUser(req, res) {
     technologies,
   } = req.body;
 
-  let newUser;
+  let user;
   try {
     const duplicateUser = await db.User.findOne({ where: { email } });
 
@@ -42,32 +43,21 @@ async function registerUser(req, res) {
       careerStart,
       companyId,
     });
-    newUser = dataValues;
+    user = dataValues;
 
-    for await (const tech of technologies) {
-      db.Stack.create({ id: nanoid(6), userId: newUser.id, technologyId: tech });
-    }
+    await technologiesService.addStackToUser(technologies, user.id);
   } catch (e) {
     console.log(e);
     return res.status(500).send('Что-то пошло не так');
   }
-
-  const company = await companyService.findCompanyById(newUser.companyId);
+  const userData = await userService.getFullUserData(user);
 
   req.session.user = {
-    id: newUser.id,
-    firstname,
-    lastname,
-    email,
-    isMentor,
-    isActive,
+    id: user.id,
     companyId,
   };
 
-  const { user } = req.session;
-
-  delete user.companyId;
-  return res.status(201).json({ ...user, meets: [], company });
+  return res.status(201).json(userData);
 }
 
 async function loginUser(req, res) {
@@ -85,18 +75,13 @@ async function loginUser(req, res) {
   if (user) {
     const isSame = await bcrypt.compare(password, user.password);
     if (isSame) {
-      delete user.password;
-
-      req.session.user = user;
-
-      let userMeets;
-      let company;
+      req.session.user = {
+        id: user.id,
+        companyId: user.companyId,
+      };
       try {
-        userMeets = await meetsService.findUserMeets(user);
-        company = await companyService.findCompanyById(user.companyId);
-
-        delete user.companyId;
-        return res.json({ ...user, meets: userMeets, company });
+        const userData = await userService.getFullUserData(user);
+        return res.json(userData);
       } catch (e) {
         console.error(e.message);
         return res.status(500).send('Что-то пошло не так');
@@ -110,17 +95,15 @@ async function getLoggedUser(req, res) {
   if (!req.session.user) {
     return res.json({});
   }
-  const { user } = req.session;
 
-  let userMeets;
-  let company;
+  let user;
+  const { id } = req.session.user;
 
   try {
-    userMeets = await meetsService.findUserMeets(user);
-    company = await companyService.findCompanyById(user.companyId);
+    user = await db.User.findOne({ where: { id }, raw: true });
 
-    delete user.companyId;
-    return res.json({ ...user, meets: userMeets, company });
+    const userData = await userService.getFullUserData(user);
+    return res.json(userData);
   } catch (e) {
     console.error(e.message);
     return res.status(500).send('Что-то пошло не так..');

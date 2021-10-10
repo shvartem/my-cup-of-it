@@ -1,17 +1,38 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { actions } from '../slices';
-import { getData, postData, editData } from '../tools';
 import {
-  IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserAction, IProfile,
+  getData, postData, editData, patchData,
+} from '../tools';
+import {
+  IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserProfileAction, IProfile, IEditProfileStatusAction, IEditProfileRoleAction,
 } from '../../types/usersTypes';
 
-function* editUser({ payload }: IEditUserAction): SagaIterator {
+function* editUserProfile({ payload }: IEditUserProfileAction): SagaIterator {
   try {
-    const editedUser = yield call(() => editData<IMyProfile>('/api/users', payload));
-    yield put(actions.editUserFullfilled(editedUser));
+    const updatedUser = yield call(() => editData<IMyProfile>('/api/users', payload));
+    console.log({ updatedUser });
+    yield put(actions.editUserProfileFullfilled(updatedUser));
   } catch (e) {
-    yield put(actions.editUserRejected(e as string));
+    yield put(actions.editUserProfileRejected(e as string));
+  }
+}
+
+function* toggleUserStatus({ payload }: IEditProfileStatusAction): SagaIterator {
+  try {
+    yield call(() => patchData<IMyProfile>('/api/users', payload));
+    yield put(actions.toggleUserStatusFullfilled());
+  } catch (e) {
+    yield put(actions.toggleUserStatusRejected(e as string));
+  }
+}
+
+function* toggleUserRole({ payload }: IEditProfileRoleAction): SagaIterator {
+  try {
+    yield call(() => patchData<IMyProfile>('/api/users', payload));
+    yield put(actions.toggleUserRoleFullfilled());
+  } catch (e) {
+    yield put(actions.toggleUserRoleRejected(e as string));
   }
 }
 
@@ -57,5 +78,7 @@ export default function* userSaga() {
   yield takeEvery(`${actions.logoutUserPending}`, logoutUser);
   yield takeEvery(`${actions.registerUserPending}`, registerUser);
   yield takeEvery(`${actions.getInitialUserPending}`, loginInitialUser);
-  yield takeEvery(`${actions.editUserPending}`, editUser);
+  yield takeEvery(`${actions.editUserProfilePending}`, editUserProfile);
+  yield takeEvery(`${actions.toggleUserRolePending}`, toggleUserRole);
+  yield takeEvery(`${actions.toggleUserStatusPending}`, toggleUserStatus);
 }

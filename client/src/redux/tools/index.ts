@@ -19,6 +19,15 @@ export const editData = async <T>(url: string, body: any): Promise<T> => {
   }
 };
 
+export const patchData = async <T>(url: string, body: any): Promise<T> => {
+  try {
+    const { data } = await axios.patch(`${url}/${body.id}`, body);
+    return data;
+  } catch (e: any) {
+    throw e.response.data;
+  }
+};
+
 export const deleteData = async (url: string, id: number) => {
   try {
     await axios.delete(`${url}/${id}`);

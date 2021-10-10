@@ -8,7 +8,7 @@ import {
 import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { initialRegisterFormValues } from '../RegisterPage';
-import { InnerContainer, ButtonsWrapper } from '../style';
+import { ButtonsWrapper } from '../style';
 
 const { Option } = Select;
 
@@ -24,7 +24,6 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
   const technologies = useAppSelector((state) => state.technologies.data);
 
   const onSubmit: RegisterSubmitType = (values) => {
-    console.log({ ...registerData, ...values });
     dispatch(actions.registerUserPending({ ...registerData, ...values }));
   };
 
@@ -52,87 +51,84 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
         onFinish={onSubmit}
         autoComplete="off"
       >
-        <InnerContainer>
 
-          {registerData.isMentor && (
-            <>
-              <Form.Item
-                label="Начало карьеры"
-                name="careerStart"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Введите дату начала работы',
-                  },
-                ]}
-              >
-                <DatePicker placeholder="01-01-2021" format="DD-MM-YYYY" />
-              </Form.Item>
-              <Form.Item
-                label="Место работы"
-                name="companyId"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Введите место работы',
-                  },
-                ]}
-              >
-                <Select>
-                  {companies.map((company) => (
-                    <Select.Option value={company.id}>{company.title}</Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </>
-          )}
-          <Form.Item
-            label="О себе"
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: 'Введите информацию о себе',
-              },
-            ]}
-          >
-            <Input.TextArea />
-          </Form.Item>
-          <Form.Item
-            label="Технологии"
-            name="technologies"
-            rules={[
-              {
-                required: true,
-                message: 'Введите место работы',
-              },
-            ]}
-          >
-            <Select
-              mode="multiple"
-              placeholder="Please select"
-              defaultValue={['a10', 'c12']}
-              style={{ width: '100%' }}
+        {registerData.isMentor && (
+          <>
+            <Form.Item
+              label="Начало карьеры"
+              name="careerStart"
+              rules={[
+                {
+                  required: true,
+                  message: 'Введите дату начала работы',
+                },
+              ]}
             >
-              {children}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            wrapperCol={{
-              offset: 4,
-              span: 16,
-            }}
+              <DatePicker placeholder="01-01-2021" format="DD-MM-YYYY" />
+            </Form.Item>
+            <Form.Item
+              label="Место работы"
+              name="companyId"
+              rules={[
+                {
+                  required: true,
+                  message: 'Введите место работы',
+                },
+              ]}
+            >
+              <Select>
+                {companies.map((company) => (
+                  <Select.Option value={company.id}>{company.title}</Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </>
+        )}
+        <Form.Item
+          label="О себе"
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: 'Введите информацию о себе',
+            },
+          ]}
+        >
+          <Input.TextArea />
+        </Form.Item>
+        <Form.Item
+          label="Технологии"
+          name="technologies"
+          rules={[
+            {
+              required: true,
+              message: 'Выберите используемые вами технологии',
+            },
+          ]}
+        >
+          <Select
+            mode="multiple"
+            placeholder="Please select"
+            style={{ width: '100%' }}
           >
-            <ButtonsWrapper>
-              <Button type="link" htmlType="submit" onClick={goBack}>
-                Вернуться
-              </Button>
-              <Button type="primary" htmlType="submit">
-                Продолжить
-              </Button>
-            </ButtonsWrapper>
-          </Form.Item>
-        </InnerContainer>
+            {children}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 4,
+            span: 16,
+          }}
+        >
+          <ButtonsWrapper>
+            <Button type="link" htmlType="submit" onClick={goBack}>
+              Назад
+            </Button>
+            <Button type="primary" htmlType="submit">
+              Продолжить
+            </Button>
+          </ButtonsWrapper>
+        </Form.Item>
       </Form>
     </Card>
   );

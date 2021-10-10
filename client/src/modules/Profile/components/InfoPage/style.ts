@@ -18,7 +18,3 @@ export const BtnsWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-export const ModalWrapper = styled.div`
-  width: 100%;
-`;

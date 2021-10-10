@@ -17,6 +17,7 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(actions.getInitialUserPending());
     dispatch(actions.getAllUsersPending());
+    dispatch(actions.getAllCompaniesPending());
     dispatch(actions.getAllTechnologiesPending());
   }, [dispatch]);
 
@@ -31,7 +32,6 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Navbar isAuth={isAuthenticated} />
       {routes}
     </>
   );
