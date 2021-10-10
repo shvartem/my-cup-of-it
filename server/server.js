@@ -9,6 +9,7 @@ const authRouter = require('./routes/auth.router');
 const usersRouter = require('./routes/users.router');
 const companiesRouter = require('./routes/companies.router');
 const technologiesRouter = require('./routes/technologies.router');
+const meetsRouter = require('./routes/meets.router');
 
 const PORT = process.env.PORT ?? 5000;
 
@@ -32,6 +33,7 @@ app.use(express.json());
 
 app.use('/api', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/meets', meetsRouter);
 app.use('/api/companies', companiesRouter);
 app.use('/api/technologies', technologiesRouter);
 

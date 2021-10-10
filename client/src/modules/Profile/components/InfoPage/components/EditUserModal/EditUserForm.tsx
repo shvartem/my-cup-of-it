@@ -79,7 +79,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
           >
             <Select>
               {companies.map((company) => (
-                <Select.Option value={company.id}>{company.title}</Select.Option>
+                <Select.Option key={company.id} value={company.id}>{company.title}</Select.Option>
               ))}
             </Select>
           </Form.Item>

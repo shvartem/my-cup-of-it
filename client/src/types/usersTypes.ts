@@ -80,3 +80,13 @@ export interface IEditProfileRolePayload {
   id: string;
   isMentor: boolean
 }
+
+export interface IChangeMeetStatusAction {
+  type: string,
+  payload: IChangeMeetStatusPayload
+}
+
+export interface IChangeMeetStatusPayload {
+  id: string,
+  status: string
+}
