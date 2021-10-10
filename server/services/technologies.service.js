@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+const { nanoid } = require('nanoid');
 const db = require('../db/models');
 
 async function findTecnnologiesByUserId(userId) {
@@ -17,11 +19,28 @@ async function findTecnnologiesByUserId(userId) {
         attributes: [],
       },
     });
-
     return stack;
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
-module.exports = { findTecnnologiesByUserId };
+async function addStackToUser(technologies, userId) {
+  try {
+    for await (const tech of technologies) {
+      await db.Stack.create({ id: nanoid(8), userId, technologyId: tech });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+async function clearUserStack(userId) {
+  try {
+    await db.Stack.destroy({ where: { userId } });
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+module.exports = { findTecnnologiesByUserId, addStackToUser, clearUserStack };

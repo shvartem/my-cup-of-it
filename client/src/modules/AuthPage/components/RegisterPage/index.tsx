@@ -3,21 +3,7 @@ import styled from 'styled-components';
 import RegisterStepOne from '../RegisterStep1';
 import RegisterStepTwo from '../RegisterStep2';
 import { IRegisterData } from '../../../../types/usersTypes';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 50px auto;
-`;
-interface IShowFormContainer {
-  isOpen: boolean;
-}
-
-const ShowFormContainer = styled.div<IShowFormContainer>`
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
-`;
+import { Container, ShowFormContainer } from '../style';
 
 export const initialRegisterFormValues: IRegisterData = {
   id: '',
