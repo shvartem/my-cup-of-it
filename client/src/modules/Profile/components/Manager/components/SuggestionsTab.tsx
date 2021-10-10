@@ -3,7 +3,7 @@ import React from 'react';
 import MeetCard from './MeetCardTab';
 import IManagerProps from '../types';
 import { IMeet } from '../../../../../types/usersTypes';
-import { AcceptMeetButton, DeclineMeetButton } from './MeetCardButtons';
+import CustomButton from './CustomButton';
 
 const SuggestionsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }) => (
   <>
@@ -12,8 +12,8 @@ const SuggestionsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }) =
         <MeetCard
           key={el.id}
           buttons={[
-            <AcceptMeetButton key="1" clickHandler={() => changeMeetsStatus('accepted', el.id)} />,
-            <DeclineMeetButton key="2" clickHandler={() => changeMeetsStatus('cancelled', el.id)} />,
+            <CustomButton key="1" buttonText="Принять встречу" clickHandler={() => changeMeetsStatus('accepted', el.id)} />,
+            <CustomButton key="2" buttonText="Отклонить встречу" clickHandler={() => changeMeetsStatus('cancelled', el.id)} />,
           ]}
           meetData={el}
         />

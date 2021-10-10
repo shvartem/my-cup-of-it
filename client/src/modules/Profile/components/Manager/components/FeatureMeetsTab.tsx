@@ -1,7 +1,7 @@
 import React from 'react';
 import IManagerProps from '../types';
 import MeetCard from './MeetCardTab';
-import { CloseMeetButton, CancelMeetButton } from './MeetCardButtons';
+import CustomButton from './CustomButton';
 import { IMeet } from '../../../../../types/usersTypes';
 
 const FeatureMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }) => (
@@ -11,8 +11,8 @@ const FeatureMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }) => 
         <MeetCard
           key={el.id}
           buttons={[
-            <CloseMeetButton key="1" clickHandler={() => changeMeetsStatus('completed', el.id)} />,
-            <CancelMeetButton key="2" clickHandler={() => changeMeetsStatus('cancelled', el.id)} />,
+            <CustomButton buttonText="Встреча состоялась" key="1" clickHandler={() => changeMeetsStatus('completed', el.id)} />,
+            <CustomButton buttonText="Отменить встречу" key="2" clickHandler={() => changeMeetsStatus('cancelled', el.id)} />,
           ]}
           meetData={el}
         />

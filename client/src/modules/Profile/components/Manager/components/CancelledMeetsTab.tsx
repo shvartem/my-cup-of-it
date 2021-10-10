@@ -1,7 +1,7 @@
 import React from 'react';
 import IManagerProps from '../types';
 import MeetCard from './MeetCardTab';
-import { AcceptMeetButton } from './MeetCardButtons';
+import CustomButton from './CustomButton';
 import { IMeet } from '../../../../../types/usersTypes';
 
 const CancelledMeetsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }) => (
@@ -11,7 +11,7 @@ const CancelledMeetsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }
         <MeetCard
           key={el.id}
           buttons={[
-            <AcceptMeetButton key="1" clickHandler={() => changeMeetsStatus('accepted', el.id)} />,
+            <CustomButton key="1" buttonText="Принять встречу" clickHandler={() => changeMeetsStatus('accepted', el.id)} />,
           ]}
           meetData={el}
         />
