@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
 
       <Card hoverable title="Войти" style={{ width: 500 }}>
         <Form
-          name="basic"
+          name="loginForm"
           labelCol={{
             span: 6,
           }}

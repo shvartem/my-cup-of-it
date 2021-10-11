@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "elbrus",
-    "password": "elbrus",
+    "username": "human",
+    "password": "human",
     "database": "my_cup_of_it",
     "host": "127.0.0.1",
     "dialect": "postgres"
@@ -14,8 +14,8 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "elbrus_practice",
-    "password": 7236,
+    "username": "ilkhom",
+    "password": "me1980",
     "database": "",
     "host": "127.0.0.1",
     "dialect": "postgres"
