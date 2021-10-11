@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  IMeet, IRegisterData, ILoginData, IMyProfile, IMyProfileState, IChangeMeetStatusPayload, 
+  IMeet, IRegisterData, ILoginData, IMyProfile, IMyProfileState, IChangeMeetStatusPayload,
   IEditProfileRolePayload, IEditProfileStatusPayload,
 } from '../../types/usersTypes';
 

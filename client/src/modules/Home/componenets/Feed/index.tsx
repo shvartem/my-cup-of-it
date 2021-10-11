@@ -1,21 +1,20 @@
 import React, { FC } from 'react';
-import styled from 'styled-components';
-import { Button } from 'antd';
-import { List, Modal, Input } from 'antd';
-import { ThemeConsumer } from 'styled-components';
+import styled, { ThemeConsumer } from 'styled-components';
+import {
+  Button, List, Modal, Input,
+} from 'antd';
 import UserCard from '../UserCard';
 import { useAppSelector } from '../../../../hooks';
 import Spinner from '../../../common/Spinner';
-
-const Container = styled.div`
-  width: 80%;
-  margin: 50px auto 30px;
-`;
 
 import { modalFunc, modalFuncHandle, shuffleArrayFunc } from './types';
 import KnockingModal from '../knockingModal';
 import shuffleArray from './tools';
 
+const Container = styled.div`
+  width: 80%;
+  margin: 50px auto 30px;
+`;
 
 const CardsWrapper = styled.div`
   display: flex;
@@ -31,7 +30,7 @@ const Feed: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   //  срабатывает на кнопку "постучаться"
-  const showModal: modalFunc = (id1) => {
+  const showModal = (id1: string) => {
     setMentorId(id1);
     setIsModalVisible(true);
   };
@@ -45,10 +44,10 @@ const Feed: React.FC = () => {
     <Container>
       <h1>Часть наших профecсионалов</h1>
       <CardsWrapper>
-        <UserCard mentor={users[0]} />
-        <UserCard mentor={users[0]} />
-        <UserCard mentor={users[0]} />
-        <UserCard mentor={users[0]} />
+        <UserCard mentor={users[0]} showModal={showModal} />
+        <UserCard mentor={users[0]} showModal={showModal} />
+        <UserCard mentor={users[0]} showModal={showModal} />
+        <UserCard mentor={users[0]} showModal={showModal} />
       </CardsWrapper>
       <div style={{ textAlign: 'center', margin: '15px 0' }}>
         <Button>Посмотреть еще</Button>
