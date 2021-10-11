@@ -9,6 +9,7 @@ const authRouter = require('./routes/auth.router');
 const usersRouter = require('./routes/users.router');
 const companiesRouter = require('./routes/companies.router');
 const technologiesRouter = require('./routes/technologies.router');
+const meetRouter = require('./routes/meets.router')
 
 const PORT = process.env.PORT ?? 5000;
 
@@ -34,6 +35,7 @@ app.use('/api', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/companies', companiesRouter);
 app.use('/api/technologies', technologiesRouter);
+app.use('/api/meets', meetRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);

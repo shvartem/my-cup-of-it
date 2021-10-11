@@ -3,71 +3,38 @@ module.exports = {
     await queryInterface.bulkInsert('Users', [
       {
         id: '2qVZQ5',
-        firstname: 'Leanne',
-        lastname: 'Graham',
-        email: 'Sincere@april.biz',
+        firstname: 'Martin',
+        lastname: 'Scorsese',
+        email: 'martin@amail.biz',
         password: '$2a$10$JrxOllv.pb7XF4NLE35CO.Zlt9/Fw9HZrQuErDnLCmnU0dqG/plZe',
-        description: 'Multi-layered client-server neural-net',
-        isMentor: false,
+        description: 'React, Node.js, Postgres, typescript',
+        isMentor: true,
+        careerStart: '01.04.2020',
+        companyId: '2qVZQ5g23R',
+        isActive: true,
+        userPhoto: 'https://i1.sndcdn.com/artworks-000668037946-sxtf5b-t500x500.jpg',
         // createdAt: new Date(),
         // updatedAt: new Date(),
       },
       {
         id: 'ebDFCJ',
-        firstname: 'Ervin',
-        lastname: 'Howell',
-        email: 'Shanna@melissa.tv',
+        firstname: 'Артур',
+        lastname: 'Пирожков',
+        email: 'archie@mail.ru',
         password: '$2a$10$bRmTM4D7S/awhB4G.1HYRe2LL99n7DqmcOHly/f3J1YRZSSnUdpEC',
-        description: 'Proactive didactic contingency',
+        description: 'Proactive variability checker',
         isMentor: true,
         careerStart: '01.04.2020',
         companyId: '2qVZQ5g23R',
-        // createdAt: new Date(),
-        // updatedAt: new Date(),
-      },
-      {
-        id: 'k8WMCD',
-        firstname: 'Clementine',
-        lastname: 'Bauch',
-        email: 'Nathan@yesenia.net',
-        password: '$2a$10$0uOyE5mcB88GTuPglC.g6u79Otc/xuhxGpEF2LsSt6kj3rBlpXMHC',
-        description: 'Face to face bifurcated interface',
-        isMentor: false,
-        // createdAt: new Date(),
-        // updatedAt: new Date(),
-      },
-      {
-        id: 'MaDbYp',
-        firstname: 'Patricia',
-        lastname: 'Lebsack',
-        email: 'Julianne.OConner@kory.org',
-        password: '$2a$10$NHNDDmmhz/FXIBvZ4uXVNeT19Hl6VB01hQNSnFwx./EptJ79DSDSa',
-        description: 'Multi-tiered zero tolerance productivity',
-        isMentor: true,
-        careerStart: '02.08.2014',
-        companyId: 'ebDFCJ45OF',
+        isActive: true,
+        userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_KEvqvnEPoyufATZF3QinNk6oDCXMvVoVQg&usqp=CAU,',
         // createdAt: new Date(),
         // updatedAt: new Date(),
       },
     ], {});
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
   },
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('Users', null, {});
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
   },
 };

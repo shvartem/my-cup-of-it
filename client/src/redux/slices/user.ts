@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  ILoginData, IMyProfile, IMyProfileState, IRegisterData,
+  IMeet, ILoginData, IMyProfile, IMyProfileState, IRegisterData,
 } from '../../types/usersTypes';
 
 const initialState: IMyProfileState = {
@@ -26,11 +26,26 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    writeUserMeetingPending: (state: IMyProfileState, action) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+
+    writeUserMeetingFulfilled: (state: IMyProfileState, action: PayloadAction<IMeet>) => {
+      state.profile.meets.push(action.payload);
+      state.error = null;
+      state.isLoading = false;
+    },
+
+    writeUserMeetingRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
     loginUserPending: (state: IMyProfileState, action) => {
       state.isLoading = true;
       state.error = null;
     },
-    loginUserFullfilled: (state: IMyProfileState, action: PayloadAction<IMyProfile>) => {
+    loginUserFulfilled: (state: IMyProfileState, action: PayloadAction<IMyProfile>) => {
       state.profile = action.payload;
       state.error = null;
       state.isLoading = false;
