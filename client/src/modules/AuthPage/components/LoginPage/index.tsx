@@ -26,6 +26,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <Container>
+
       <Card hoverable title="Войти" style={{ width: 500 }}>
         <Form
           name="basic"

@@ -9,29 +9,43 @@ import Spinner from './modules/common/Spinner';
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.profile);
-  const isLoading = useAppSelector((state) => state.user.isLoading);
-  const isAuthenticated = Boolean(user?.id);
+  const currentAdmin = useAppSelector((state) => state.admin.profile);
 
-  const routes = useRouter(isAuthenticated);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
+
+  const isAuthenticated = Boolean(user?.id);
+  const isAdmin = Boolean(currentAdmin?.id);
+
+  const routes = useRouter(isAuthenticated, isAdmin);
 
   useEffect(() => {
+    dispatch(actions.getInitialAdminPending());
     dispatch(actions.getInitialUserPending());
-    dispatch(actions.getAllUsersPending());
-    dispatch(actions.getAllCompaniesPending());
-    dispatch(actions.getAllTechnologiesPending());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isAuthenticated || isAdmin) {
+      dispatch(actions.getAllUsersPending());
+      dispatch(actions.getAllCompaniesPending());
+      dispatch(actions.getAllTechnologiesPending());
+    }
+  }, [dispatch, isAuthenticated, isAdmin]);
 
   if (isLoading) {
     return (
       <>
-        <Navbar isAuth={isAuthenticated} />
-        <Spinner />
+        <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
+        <h1>Идёт загрузка, подождите</h1>
       </>
     );
   }
 
   return (
     <>
+      <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
+
+      {/* <UserCard mentor={userProps} /> */}
+          
       {routes}
     </>
   );

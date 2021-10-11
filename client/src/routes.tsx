@@ -5,12 +5,14 @@ import RegisterPage from './modules/AuthPage/components/RegisterPage';
 import Profile from './modules/Profile';
 import Filters from './modules/Users/components/Filters';
 import { useAppSelector } from './hooks';
+import LoginAdminPage from './modules/AuthAdminPage/components/LoginAdminPage';
+import AdminProfile from './modules/AdminProfile';
 import Navbar from './modules/Navbar';
 
-const useRouter = (isAuthenticated: boolean) => {
+const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
 
-  if (isAuthenticated) {
+  if (isAuthenticated || isAdmin) {
     return (
       <>
         <Navbar isAuth={isAuthenticated} />
@@ -21,7 +23,7 @@ const useRouter = (isAuthenticated: boolean) => {
           </Route>
 
           <Route path="/profile">
-            <Profile />
+            {isAdmin ? <AdminProfile /> : <Profile />}
           </Route>
 
           <Route path="/users/:userId">
@@ -38,14 +40,21 @@ const useRouter = (isAuthenticated: boolean) => {
       </>
     );
   }
+  
   return (
     <Switch>
       <Route path="/login">
         <LoginPage />
       </Route>
+
       <Route path="/register">
         <RegisterPage />
       </Route>
+
+      <Route path="/top-secret-route">
+        <LoginAdminPage />
+      </Route>
+
       <Redirect to="/login" />
     </Switch>
   );
