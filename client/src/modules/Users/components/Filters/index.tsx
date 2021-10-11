@@ -38,55 +38,12 @@ const Filters: React.FC<UserProps> = ({ users }) => {
 
   function handleChangetypeUser(value:string[]) {
     setfilteredTypeUsers(value);
-    // setfilteredTypeUsers(value);
-    // if (value.length === 0) return setFilterUser(users);
-    // if (value.includes('Студенты')) return setFilterUser(filteredUsers.filter((user) => user.isMentor === false));
-    // if (value.includes('Менторы')) return setFilterUser(filteredUsers.filter((user) => user.isMentor === true));
-    // return true;
   }
   function handleChangeCompanies(value:string[]) {
     setfilteredCompany(value);
-    // if (filteredTeh?.length === 0 && filteredTypeUsers?.length === 0) {
-    // setFilterUserPrev(users);
-    //   const newUser = filteredUsersPrev.filter((user) => value.includes(user.company || 'no company'));
-    //   setfilteredCompany(value);
-    //   if (value.length === 0) return setFilterUser(users);
-    //   return setFilterUser(newUser);
-    // }
-    // if (filteredTeh?.length === 0 && filteredTypeUsers?.length !== 0) {
-    //   let prev;
-    //   if (filteredTypeUsers.includes('Студенты')) prev = users.filter((user) => user.isMentor === false);
-    //   if (filteredTypeUsers.includes('Менторы')) prev = users.filter((user) => user.isMentor === true);
-    //   // @ts-ignore
-    //   const newUser = prev.filter((user) => value.includes(user.company || 'no company'));
-    //   setfilteredCompany(value);
-    //   // @ts-ignore
-    //   if (value.length === 0) return setFilterUser(prev);
-    //   return setFilterUser(newUser);
-    // }
-    // // @ts-ignore
-    // const prev = users.filter((user) => user.technologies.some((t) => filteredTeh.includes(t.title)));
-    // setFilterUserPrev(prev);
-    // const newUser = prev.filter((user) => value.includes(user.company || 'no company'));
-    // setfilteredCompany(value);
-    // if (value.length === 0) return setFilterUser(prev);
-    // return setFilterUser(newUser);
   }
   function handleChangetechnologies(value:string[]) {
     setfilteredTeh(value);
-    // if (filteredCompany?.length === 0) {
-    //   setFilterUserPrev(users);
-    //   const newUser = filteredUsersPrev.filter((user) => user.technologies.some((t) => value.includes(t.title)));
-    //   setfilteredTeh(value);
-    //   if (value.length === 0) return setFilterUser(users);
-    //   return setFilterUser(newUser);
-    // }
-    // const prev = filteredUsersPrev.filter((user) => filteredCompany.includes(user.company || 'no company'));
-    // setFilterUserPrev(prev);
-    // const newUser = prev.filter((user) => user.technologies.some((t) => value.includes(t.title)));
-    // setfilteredTeh(value);
-    // if (value.length === 0) return setFilterUser(prev);
-    // return setFilterUser(newUser);
   }
 
   const byCompanies = useCallback((user:IProfile) => {
@@ -108,40 +65,66 @@ const Filters: React.FC<UserProps> = ({ users }) => {
     setFilterUser(filtered);
   }, [byType, byCompanies, users, byStack]);
 
-  // const filterClickCompany = () => {
-  //   setFilterUser(users);
-  // };
-
+  const filterClickUserType = () => {
+    setfilteredTypeUsers([]);
+  };
+  const filterClickCompany = () => {
+    setfilteredCompany([]);
+  };
+  const filterClickTeh = () => {
+    setfilteredTeh([]);
+  };
+  const filterClear = () => {
+    setfilteredTypeUsers([]);
+    setfilteredCompany([]);
+    setfilteredTeh([]);
+  };
   return (
     <div className={styles.conteinerFilters}>
       <div className={styles.conteinerSiorch}>
-        <div className={styles.search1}>
-          {' '}
-          <p> SEARCH</p>
-          {' '}
+        <div className={styles.searchBlock}>
+
+          <div>
+            {filteredTypeUsers.length !== 0 || filteredCompany.length !== 0 || filteredTeh.length !== 0
+              ? <FilterOutlined style={{ fontSize: '20px', color: '#0dcaf0' }} onClick={filterClear} />
+              : <FilterOutlined style={{ fontSize: '16px' }} onClick={filterClear} />}
+          </div>
+          <div>
+            SEARCH
+          </div>
         </div>
-        <FilterOutlined />
-        Тип пользователя
-        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangetypeUser} tokenSeparators={[',']}>
+        <div className={styles.filterBlock}>
+          <div className={styles.filterBlockHeader}>Тип пользователя</div>
+          <div className={styles.filterBlockSearch}>
+            {filteredTypeUsers.length === 0 ? <FilterOutlined onClick={filterClickUserType} /> : <FilterOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickUserType} />}
+          </div>
+        </div>
+        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangetypeUser} value={filteredTypeUsers} tokenSeparators={[',']}>
           {typeUser.map((el) => <Option key={el} value={el}>{el}</Option>)}
         </Select>
-        {/* <FilterOutlined onClick={filterClickCompany} /> */}
-        Компании:
-        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangeCompanies} tokenSeparators={[',']}>
+        <div className={styles.filterBlock}>
+          <div className={styles.filterBlockHeader}>Компании:</div>
+          <div className={styles.filterBlockSearch}>
+            {filteredCompany.length === 0 ? <FilterOutlined onClick={filterClickCompany} /> : <FilterOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickCompany} />}
+          </div>
+        </div>
+        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangeCompanies} value={filteredCompany} tokenSeparators={[',']}>
           {company.map((el) => <Option key={el} value={el}>{el}</Option>)}
         </Select>
-        {' '}
-        <FilterOutlined />
-        Технологии:
-        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangetechnologies} tokenSeparators={[',']}>
+        <div className={styles.filterBlock}>
+          <div className={styles.filterBlockHeader}>Технологии:</div>
+          <div className={styles.filterBlockSearch}>
+            {filteredTeh.length === 0 ? <FilterOutlined onClick={filterClickTeh} /> : <FilterOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickTeh} />}
+            {/* <FilterOutlined onClick={filterClickTeh} /> */}
+          </div>
+        </div>
+        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangetechnologies} value={filteredTeh} tokenSeparators={[',']}>
           {technologies.map((el) => <Option key={el} value={el}>{el}</Option>)}
         </Select>
       </div>
       <div className={styles.conteinerUserCand}>
         <div className={styles.headerUserCard}>
-          {' '}
-          <p> Пользователи</p>
-          {' '}
+          <p> USERS</p>
         </div>
         <div className={styles.conteinerUser}>
           {filteredUsers.map((user) => <UserCard mentor={user} />)}
