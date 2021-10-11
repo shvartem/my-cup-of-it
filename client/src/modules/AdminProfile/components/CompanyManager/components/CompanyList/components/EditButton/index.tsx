@@ -38,6 +38,7 @@ const EditButton: React.FC<IEditButtonProp> = (props) => {
       <Modal
         title="Редактирование"
         visible={isModalVisible}
+        onCancel={handleCancel}
         okText="Сохранить"
         cancelText="Отменить"
         closable

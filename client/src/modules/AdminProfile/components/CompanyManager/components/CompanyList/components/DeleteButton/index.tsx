@@ -17,12 +17,12 @@ const DeletePopConfirm: React.FC<IDeleteButtonProps> = (props) => {
   function confirm(e: any) {
     console.log(e);
     dispatch(actions.deleteCompanyPending({ id: company.id }));
-    message.success('Click on Yes');
+    message.success('Удалено');
   }
 
   function cancel(e: any) {
     console.log(e);
-    message.error('Click on No');
+    message.error('Вы отменили удаление');
   }
 
   return (

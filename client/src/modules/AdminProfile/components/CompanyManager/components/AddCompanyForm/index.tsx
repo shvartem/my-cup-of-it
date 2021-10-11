@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import styled from 'styled-components';
 
+import { FormInstance } from 'antd/lib/form';
 import { useAppDispatch } from '../../../../../../hooks';
 import { actions } from '../../../../../../redux/slices';
 import { HandleSubmitAddCompanyFormType } from './types';
@@ -21,9 +22,11 @@ const initialAddCompanyFormValues = {
 
 const AddCompanyForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [form] = Form.useForm();
 
   const onSubmit: HandleSubmitAddCompanyFormType = (values) => {
     dispatch(actions.addNewCompanyPending(values));
+    form.resetFields();
   };
 
   return (
@@ -31,6 +34,7 @@ const AddCompanyForm: React.FC = () => {
       <Card hoverable style={{ width: 500 }}>
         <Form
           name="AddCompanyForm"
+          form={form}
           labelCol={{
             span: 6,
           }}

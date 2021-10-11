@@ -24,8 +24,8 @@ const CompanyList: React.FC = () => {
           >
             <List.Item.Meta
               avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              title={<a href="https://ant.design">{company.title}</a>}
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              title={<a href={`/companies/${company.id}`}>{company.title}</a>}
+              description=""
             />
           </List.Item>
         )}

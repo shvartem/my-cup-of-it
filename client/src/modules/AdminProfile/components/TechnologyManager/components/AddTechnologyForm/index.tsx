@@ -24,9 +24,11 @@ const initialAddCompanyFormValues = {
 
 const AddTechnologyForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [form] = Form.useForm();
 
   const onSubmit: HandleSubmitAddTechnologyFormType = (values) => {
     dispatch(actions.addNewTechnologyPending(values));
+    form.resetFields();
   };
 
   return (
@@ -34,6 +36,7 @@ const AddTechnologyForm: React.FC = () => {
       <Card hoverable style={{ width: 500 }}>
         <Form
           name="AddTechnologyForm"
+          form={form}
           labelCol={{
             span: 6,
           }}
