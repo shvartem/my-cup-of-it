@@ -15,7 +15,7 @@ const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   if (isAuthenticated || isAdmin) {
     return (
       <>
-        <Navbar isAuth={isAuthenticated} isAdmin={false} />
+        <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
 
         <Switch>
           <Route path="/home">

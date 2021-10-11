@@ -1,6 +1,9 @@
 const router = require('express').Router();
-const tachnologiesController = require('../controllers/technologies.controller');
+const technologiesController = require('../controllers/technologies.controller');
 
-router.get('/', tachnologiesController.getAllTechnologies);
+router.get('/', technologiesController.getAllTechnologies);
+router.post('/', technologiesController.createNewTechnology);
+router.put('/:technologyId', technologiesController.editTechnology);
+router.delete('/:technologyId', technologiesController.deleteTechnology);
 
 module.exports = router;

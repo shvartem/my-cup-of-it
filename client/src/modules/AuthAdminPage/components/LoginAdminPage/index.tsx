@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import styled from 'styled-components';
 
-import { IHandleSubmitAdminForm } from './types';
+import { HandleSubmitAdminFormType } from './types';
 import { ILoginAdminData } from '../../../../types/adminTypes';
 
 import { useAppDispatch } from '../../../../hooks';
@@ -14,7 +14,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px 0;
+  min-height: 80vh;
 `;
 
 const initialLoginAdminFormValues: ILoginAdminData = {
@@ -25,15 +25,18 @@ const initialLoginAdminFormValues: ILoginAdminData = {
 const LoginAdminPage: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const onSubmit: IHandleSubmitAdminForm = (values) => {
+  const onSubmit: HandleSubmitAdminFormType = (values) => {
     dispatch(actions.loginAdminPending(values));
   };
 
   return (
     <Container>
-      <Card hoverable style={{ width: 500 }}>
+      <Card hoverable title="Администратор" style={{ width: 500 }}>
         <Form
           name="LoginAdminPage"
+          labelCol={{
+            span: 6,
+          }}
           initialValues={initialLoginAdminFormValues}
           onFinish={onSubmit}
           autoComplete="off"
