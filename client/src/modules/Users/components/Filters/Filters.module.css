@@ -17,4 +17,12 @@ width: 20%;
 display: flex;
 flex-wrap: wrap;
 }
+.filterBlock{
+  display: flex;
+  justify-content: space-between;
+}
+.searchBlock{
+    display: flex;
+    /* justify-content: space-between; */
+}
 
