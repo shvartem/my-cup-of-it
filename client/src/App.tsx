@@ -34,7 +34,6 @@ const App: React.FC = () => {
   if (isLoading) {
     return (
       <>
-        <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
         <h1>Идёт загрузка, подождите</h1>
       </>
     );
@@ -42,10 +41,6 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
-
-      {/* <UserCard mentor={userProps} /> */}
-          
       {routes}
     </>
   );
