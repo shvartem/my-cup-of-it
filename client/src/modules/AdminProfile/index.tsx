@@ -3,6 +3,9 @@ import { Tabs } from 'antd';
 
 import FeedbackManager from './components/FeedbackManager';
 import { Container, InnerContainer } from './style';
+import AddCompanyForm from './components/CompanyManager/components/AddCompanyForm';
+import CompanyManager from './components/CompanyManager';
+import TechnologyManager from './components/TechnologyManager';
 
 const { TabPane } = Tabs;
 
@@ -15,14 +18,14 @@ const AdminProfile: React.FC = () => {
     <Container>
       <InnerContainer>
         <Tabs onChange={callback} type="card">
-          <TabPane tab="Tab 1" key="1">
-            Content of Tab Pane 1
-          </TabPane>
-          <TabPane tab="Заявки" key="2">
+          <TabPane tab="Заявки" key="1">
             <FeedbackManager />
           </TabPane>
-          <TabPane tab="Tab 3" key="3">
-            Content of Tab Pane 3
+          <TabPane tab="Технологии" key="2">
+            <TechnologyManager />
+          </TabPane>
+          <TabPane tab="Компании" key="3">
+            <CompanyManager />
           </TabPane>
         </Tabs>
       </InnerContainer>

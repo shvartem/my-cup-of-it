@@ -1,3 +1,3 @@
 import { ILoginAdminData } from '../../../../types/adminTypes';
 
-export type IHandleSubmitAdminForm = (values: ILoginAdminData) => void
+export type HandleSubmitAdminFormType = (values: ILoginAdminData) => void

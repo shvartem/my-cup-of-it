@@ -17,8 +17,8 @@ const App: React.FC = () => {
   const isLoading = useAppSelector((state) => state.user.isLoading);
 
   const isAuthenticated = Boolean(user?.id);
-  // const isAdmin = Boolean(currentAdmin?.id);
-  const isAdmin = false;
+  const isAdmin = Boolean(currentAdmin?.id);
+  // const isAdmin = false;
 
   const routes = useRouter(isAuthenticated, isAdmin);
 

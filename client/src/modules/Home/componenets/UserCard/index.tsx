@@ -5,16 +5,17 @@ import { MyCard } from './types';
 import styles from './card.module.css';
 
 const { Meta } = Card;
+type x = () => number;
 
 const UserCard: React.FC<MyCard> = ({
-  mentor,
+  mentor, showModal,
 }) => (
   <>
     <Card
       hoverable
       size="small"
       style={{ width: 240, margin: '1rem' }}
-      cover={<img alt="example" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />}
+      cover={<img alt="example" src={mentor.userPhoto} />}
     >
       <Meta title={mentor.firstname} />
       <div className={styles.userDetails}>
@@ -30,8 +31,8 @@ const UserCard: React.FC<MyCard> = ({
         </div>
       </div>
       <div className={styles.buttons}>
-        <Button size="small" type="primary">Постучаться</Button>
-        <Button size="small" type="primary">
+        <Button size="small" type="primary" onClick={() => showModal(mentor.id)} disabled={!mentor.isActive}>Постучаться</Button>
+        <Button size="small" type="primary" disabled={!mentor.isActive}>
           <Link to={`users/${mentor.id}`}>Профиль</Link>
         </Button>
       </div>
