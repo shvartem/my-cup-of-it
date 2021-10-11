@@ -14,7 +14,8 @@ const App: React.FC = () => {
   const isLoading = useAppSelector((state) => state.user.isLoading);
 
   const isAuthenticated = Boolean(user?.id);
-  const isAdmin = Boolean(currentAdmin?.id);
+  // const isAdmin = Boolean(currentAdmin?.id);
+  const isAdmin = false;
 
   const routes = useRouter(isAuthenticated, isAdmin);
 
@@ -33,9 +34,7 @@ const App: React.FC = () => {
 
   if (isLoading) {
     return (
-      <>
-        <h1>Идёт загрузка, подождите</h1>
-      </>
+      <Spinner />
     );
   }
 
