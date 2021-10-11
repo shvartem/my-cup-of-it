@@ -27,7 +27,7 @@ async function registerUser(req, res) {
     const duplicateUser = await db.User.findOne({ where: { email } });
 
     if (duplicateUser) {
-      return res.status(400).json({ message: 'Пользователь с таким email уже существует' });
+      return res.status(400).send('Пользователь с таким email уже существует');
     }
     const hashPassword = await bcrypt.hash(password, 10);
 
