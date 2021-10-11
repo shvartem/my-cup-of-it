@@ -20,6 +20,10 @@ const EditButton: React.FC<IEditButtonProp> = (props) => {
     setInitialFormValues((prevState) => ({ ...prevState, title: technology.title }));
   };
 
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
   const handleSubmitForm: HandleSubmitEditCompanyFormType = (values) => {
     dispatch(actions.editTechnologyPending({ ...technology, ...values }));
     setIsModalVisible(false);
@@ -38,7 +42,7 @@ const EditButton: React.FC<IEditButtonProp> = (props) => {
       <Modal
         title="Редактирование"
         visible={isModalVisible}
-        closable
+        onCancel={handleCancel}
         footer={[
           <Button type="primary" form="editCompanyForm" key="submit" htmlType="submit">
             Сохранить
