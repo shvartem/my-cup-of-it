@@ -2,18 +2,19 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Users', [
       {
-        id: '2qVZQ5',
+        id: '206802',
         firstname: 'Leanne',
         lastname: 'Graham',
         email: 'Sincere@april.biz',
         password: '$2a$10$JrxOllv.pb7XF4NLE35CO.Zlt9/Fw9HZrQuErDnLCmnU0dqG/plZe',
         description: 'Multi-layered client-server neural-net',
         isMentor: false,
+        careerStart: '',
         // createdAt: new Date(),
         // updatedAt: new Date(),
       },
       {
-        id: 'ebDFCJ',
+        id: '537982',
         firstname: 'Ervin',
         lastname: 'Howell',
         email: 'Shanna@melissa.tv',
@@ -26,7 +27,7 @@ module.exports = {
         // updatedAt: new Date(),
       },
       {
-        id: 'k8WMCD',
+        id: '145976',
         firstname: 'Clementine',
         lastname: 'Bauch',
         email: 'Nathan@yesenia.net',
@@ -37,7 +38,7 @@ module.exports = {
         // updatedAt: new Date(),
       },
       {
-        id: 'MaDbYp',
+        id: '365742',
         firstname: 'Patricia',
         lastname: 'Lebsack',
         email: 'Julianne.OConner@kory.org',

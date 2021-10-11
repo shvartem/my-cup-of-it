@@ -8,6 +8,10 @@ const testConnect = require('./db/testConnect');
 const authRouter = require('./routes/auth.router');
 const usersRouter = require('./routes/users.router');
 const companiesRouter = require('./routes/companies.router');
+const technologiesRouter = require('./routes/technologies.router');
+const adminsRouter = require('./routes/admins.router');
+const feedbacksRouter = require('./routes/feedbacks.router');
+const meetsRouter = require('./routes/meets.router');
 
 const PORT = process.env.PORT ?? 5000;
 
@@ -30,8 +34,12 @@ app.use(logger('dev'));
 app.use(express.json());
 
 app.use('/api', authRouter);
-app.use('/api', usersRouter);
-app.use('/api', companiesRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/meets', meetsRouter);
+app.use('/api/companies', companiesRouter);
+app.use('/api/technologies', technologiesRouter);
+app.use('/api/top-secret-route', adminsRouter);
+app.use('/api/feedbacks', feedbacksRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);

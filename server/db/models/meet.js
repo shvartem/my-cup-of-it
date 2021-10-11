@@ -36,7 +36,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
     },
     status: {
-      type: DataTypes.ENUM('completed', 'pending', 'cancelled'),
+      type: DataTypes.ENUM({
+        values: ['completed', 'pending', 'cancelled', 'accepted'],
+      }),
     },
     createdAt: {
       type: DataTypes.DATE,

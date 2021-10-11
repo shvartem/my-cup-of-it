@@ -1,19 +1,17 @@
 import React from 'react';
 import { Button } from 'antd';
-import { BtnsWrapper, ModalWrapper } from '../style';
+import { BtnsWrapper } from '../style';
 import { IEditButtons } from '../types';
-import ModalForm from '../../../../Modal';
+import EditUserProfileModal from './EditUserModal/EditUserModal';
 
 const EditProfileButtons: React.FC<IEditButtons> = ({
-  isMentor, isActive, changeRole, changeStatus, editProfile, formItems,
+  profileData, isMentor, isActive, changeRole, changeStatus, editProfile,
 }) => (
   <BtnsWrapper>
     <Button type="primary" onClick={changeRole}>
       {isMentor ? 'Перестать быть ментором' : 'Cтать ментором'}
     </Button>
-    <ModalWrapper>
-      <ModalForm title="Изменить профиль" formItems={formItems} submitHandler={editProfile} />
-    </ModalWrapper>
+    <EditUserProfileModal editProfile={editProfile} profileData={profileData} />
     <Button onClick={changeStatus}>
       {isActive ? 'Сменить статус на неактивный' : 'Сменить статус на активный'}
     </Button>
