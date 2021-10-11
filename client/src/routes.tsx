@@ -7,33 +7,40 @@ import Filters from './modules/Users/components/Filters';
 import { useAppSelector } from './hooks';
 import LoginAdminPage from './modules/AuthAdminPage/components/LoginAdminPage';
 import AdminProfile from './modules/AdminProfile';
+import Navbar from './modules/Navbar';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
 
   if (isAuthenticated || isAdmin) {
     return (
-      <Switch>
-        <Route path="/home">
-          <Home />
-        </Route>
+      <>
+        <Navbar isAuth={isAuthenticated} />
 
-        <Route path="/profile">
-          {isAdmin ? <AdminProfile /> : <Profile />}
-        </Route>
+        <Switch>
+          <Route path="/home">
+            <Home />
+          </Route>
 
-        <Route path="/users/:userId">
-          <Profile />
-        </Route>
+          <Route path="/profile">
+            {isAdmin ? <AdminProfile /> : <Profile />}
+          </Route>
 
-        <Route path="/users">
-          <Filters users={users} />
-        </Route>
+          <Route path="/users/:userId">
+            <Profile />
+          </Route>
 
-        <Redirect to="/home" />
-      </Switch>
+          <Route path="/users">
+            <Filters users={users} />
+          </Route>
+
+          <Redirect to="/home" />
+
+        </Switch>
+      </>
     );
   }
+  
   return (
     <Switch>
       <Route path="/login">

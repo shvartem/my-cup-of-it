@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Card, Button } from 'antd';
+import { Link } from 'react-router-dom';
 import { MyCard } from './types';
 import styles from './card.module.css';
 
@@ -39,7 +40,9 @@ const UserCard: React.FC<MyCard> = ({
       </div>
       <div className={styles.buttons}>
         <Button size="small" type="primary">Постучаться</Button>
-        <Button size="small" type="primary">Профиль</Button>
+        <Button size="small" type="primary">
+          <Link to={`users/${mentor.id}`}>Профиль</Link>
+        </Button>
       </div>
     </Card>
   </>

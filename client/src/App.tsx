@@ -1,11 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { Children, useEffect, useState } from 'react';
-import { url } from 'inspector';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import Navbar from './modules/Navbar';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
+import Spinner from './modules/common/Spinner';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,6 +26,7 @@ const App: React.FC = () => {
   useEffect(() => {
     if (isAuthenticated || isAdmin) {
       dispatch(actions.getAllUsersPending());
+      dispatch(actions.getAllCompaniesPending());
       dispatch(actions.getAllTechnologiesPending());
     }
   }, [dispatch, isAuthenticated, isAdmin]);
@@ -45,7 +45,7 @@ const App: React.FC = () => {
       <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
 
       {/* <UserCard mentor={userProps} /> */}
-
+          
       {routes}
     </>
   );

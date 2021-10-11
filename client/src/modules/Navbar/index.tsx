@@ -27,11 +27,11 @@ const Navbar: React.FC<INavbarProps> = ({ isAuth, isAdmin }) => {
       <Header>
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="Register">
-            <Link to="/register">Register</Link>
+            <Link to="/register">Регистрация</Link>
           </Menu.Item>
 
           <Menu.Item key="Login">
-            <Link to="/login">Login</Link>
+            <Link to="/login">Войти</Link>
           </Menu.Item>
         </Menu>
       </Header>
@@ -54,7 +54,8 @@ const Navbar: React.FC<INavbarProps> = ({ isAuth, isAdmin }) => {
         </Menu.Item>
 
         <Menu.Item key="Logout">
-          <Button type="link" onClick={logoutHandler}>Выйти</Button>
+
+          <Button type="link" onClick={logoutHandler} style={{ color: '#fff' }}>Выйти</Button>
         </Menu.Item>
       </Menu>
     </Header>
