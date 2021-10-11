@@ -56,7 +56,37 @@ export interface IRegisterUserAction {
   type: string,
   payload: IRegisterData,
 }
-export interface IEditUserAction {
+export interface IEditUserProfileAction {
   type: string,
-  payload: IProfile,
+  payload: IMyProfile,
+}
+
+export interface IEditProfileStatusAction {
+  type: string,
+  payload: IEditProfileStatusPayload
+}
+
+export interface IEditProfileStatusPayload {
+  id: string;
+  isActive: boolean
+}
+
+export interface IEditProfileRoleAction {
+  type: string,
+  payload: IEditProfileRolePayload
+}
+
+export interface IEditProfileRolePayload {
+  id: string;
+  isMentor: boolean
+}
+
+export interface IChangeMeetStatusAction {
+  type: string,
+  payload: IChangeMeetStatusPayload
+}
+
+export interface IChangeMeetStatusPayload {
+  id: string,
+  status: string
 }

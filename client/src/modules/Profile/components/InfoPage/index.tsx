@@ -1,27 +1,28 @@
 import React from 'react';
-import { Image, Card } from 'antd';
+import { Image, Card, Timeline } from 'antd';
+import { ITechnology } from '../../../../types/technologiesTypes';
 import EditProfileButtons from './components/EditProfileButtons';
 import { Container, CardWrapper, ImageWrapper } from './style';
 import CommunicateButtons from './components/CommunicateButtons';
 import { IInfoPageProps } from './types';
-import getModalItems from './modalItems';
 import { actions } from '../../../../redux/slices';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
   const dispatch = useAppDispatch();
-  const formItems = getModalItems(profileData);
-
+  const technologies = useAppSelector((state) => state.technologies.data);
+  const careerStart = profileData.careerStart.split('T')[0].split('-').reverse().join('.');
   function changeRole() {
-    dispatch(actions.editUserPending({ ...profileData, isMentor: !profileData.isMentor }));
+    dispatch(actions.toggleUserRolePending({ id: profileData.id, isMentor: !profileData.isMentor }));
   }
 
   function changeStatus() {
-    dispatch(actions.editUserPending({ ...profileData, isActive: !profileData.isActive }));
+    dispatch(actions.toggleUserStatusPending({ id: profileData.id, isActive: !profileData.isActive }));
   }
 
   function editProfile(values: any) {
-    console.log(values);
+    values.technologies = values.technologies.map((el: string) => technologies.find((elem: ITechnology) => elem.title === el)?.id);
+    dispatch(actions.editUserProfilePending({ ...profileData, ...values }));
   }
 
   return (
@@ -33,11 +34,11 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
         {
           isMe ? (
             <EditProfileButtons
+              profileData={profileData}
               isMentor={profileData.isMentor}
               isActive={profileData.isActive}
               changeRole={changeRole}
               changeStatus={changeStatus}
-              formItems={formItems}
               editProfile={editProfile}
             />
           ) : <CommunicateButtons />
@@ -45,19 +46,28 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
       </ImageWrapper>
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
-          <p>
-            {profileData.description}
-          </p>
-          <p>
-            Компания:
-            {' '}
-            {profileData.company}
-          </p>
-          <p>
-            Опыт работы:
-            {' '}
-            {profileData.careerStart}
-          </p>
+          <Timeline>
+            {(profileData.company === '' && profileData.careerStart === '' && !profileData.technologies.length && profileData.description === '')
+              && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
+            {profileData.company !== '' && (
+              <Timeline.Item>
+                {`Работаю в ${profileData.company}`}
+              </Timeline.Item>
+            )}
+            {profileData.careerStart !== '' && (
+              <Timeline.Item>
+                {`Начало работы: ${careerStart}`}
+              </Timeline.Item>
+            )}
+            {profileData.technologies.length && (
+              <Timeline.Item>{`Мой стек: ${profileData.technologies.map((el: ITechnology) => el.title).join(', ')}`}</Timeline.Item>
+            )}
+            {profileData.description !== '' && (
+              <Timeline.Item>
+                {profileData.description}
+              </Timeline.Item>
+            )}
+          </Timeline>
         </Card>
       </CardWrapper>
     </Container>

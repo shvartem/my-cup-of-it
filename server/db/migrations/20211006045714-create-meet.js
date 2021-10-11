@@ -28,7 +28,9 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       status: {
-        type: Sequelize.ENUM('completed', 'pending', 'cancelled'),
+        type: Sequelize.ENUM({
+          values: ['completed', 'pending', 'cancelled', 'accepted'],
+        }),
       },
       createdAt: {
         type: Sequelize.DATE,

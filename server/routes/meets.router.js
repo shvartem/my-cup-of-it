@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const { nanoid } = require('nanoid');
+
+const meetsController = require('../controllers/meets.controller');
 const { Meet, User, sequelize } = require('../db/models');
 
 router.post('/', async (req, res) => {
@@ -30,5 +32,7 @@ router.post('/', async (req, res) => {
     return res.status(500).send('Что-то пошло не так');
   }
 });
+
+router.put('/:meetId', meetsController.editMeets);
 
 module.exports = router;

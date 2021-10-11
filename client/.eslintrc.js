@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-return-assign': 0,
     'no-console': 'off',
     'no-param-reassign': 'off',
     'react/jsx-no-bind': 'off',

@@ -2,7 +2,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Users', [
       {
-        id: '2qVZQ5',
+        id: '206802',
         firstname: 'Martin',
         lastname: 'Scorsese',
         email: 'martin@amail.biz',
@@ -17,7 +17,7 @@ module.exports = {
         // updatedAt: new Date(),
       },
       {
-        id: 'ebDFCJ',
+        id: '537982',
         firstname: 'Артур',
         lastname: 'Пирожков',
         email: 'archie@mail.ru',
@@ -28,6 +28,30 @@ module.exports = {
         companyId: '2qVZQ5g23R',
         isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_KEvqvnEPoyufATZF3QinNk6oDCXMvVoVQg&usqp=CAU,',
+        // createdAt: new Date(),
+        // updatedAt: new Date(),
+      },
+      {
+        id: '145976',
+        firstname: 'Clementine',
+        lastname: 'Bauch',
+        email: 'Nathan@yesenia.net',
+        password: '$2a$10$0uOyE5mcB88GTuPglC.g6u79Otc/xuhxGpEF2LsSt6kj3rBlpXMHC',
+        description: 'Face to face bifurcated interface',
+        isMentor: false,
+        // createdAt: new Date(),
+        // updatedAt: new Date(),
+      },
+      {
+        id: '365742',
+        firstname: 'Patricia',
+        lastname: 'Lebsack',
+        email: 'Julianne.OConner@kory.org',
+        password: '$2a$10$NHNDDmmhz/FXIBvZ4uXVNeT19Hl6VB01hQNSnFwx./EptJ79DSDSa',
+        description: 'Multi-tiered zero tolerance productivity',
+        isMentor: true,
+        careerStart: '02.08.2014',
+        companyId: 'ebDFCJ45OF',
         // createdAt: new Date(),
         // updatedAt: new Date(),
       },

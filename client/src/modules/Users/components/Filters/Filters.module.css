@@ -1,0 +1,20 @@
+.conteinerFilters{
+ display: flex;
+ justify-content: center;
+ margin-top: 10px;
+ /* width: 90%; */
+}
+.conteinerSiorch{
+   /* width: 800px; */
+width: 20%;
+}
+.conteinerUserCand{
+  display: flex;
+  flex-direction:column;
+  width: 70%;
+}
+.conteinerUser{
+display: flex;
+flex-wrap: wrap;
+}
+
