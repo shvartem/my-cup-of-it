@@ -8,27 +8,31 @@ import { useAppDispatch } from '../../hooks';
 const { Header } = Layout;
 
 interface INavbarProps {
-  isAuth: boolean;
+  isAuth: boolean,
+  isAdmin: boolean,
 }
 
-const Navbar: React.FC<INavbarProps> = ({ isAuth }) => {
+const Navbar: React.FC<INavbarProps> = ({ isAuth, isAdmin }) => {
   const dispatch = useAppDispatch();
 
   function logoutHandler() {
-    dispatch(actions.logoutUserPending());
+    if (isAdmin) {
+      return dispatch(actions.logoutAdminPending());
+    }
+    return dispatch(actions.logoutUserPending());
   }
 
-  if (!isAuth) {
+  if (!isAuth && !isAdmin) {
     return (
       <Header>
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="Register">
             <Link to="/register">Register</Link>
           </Menu.Item>
+
           <Menu.Item key="Login">
             <Link to="/login">Login</Link>
           </Menu.Item>
-
         </Menu>
       </Header>
     );
@@ -40,14 +44,17 @@ const Navbar: React.FC<INavbarProps> = ({ isAuth }) => {
         <Menu.Item key="Home">
           <Link to="/home">Home</Link>
         </Menu.Item>
+
+        <Menu.Item key="Users">
+          <Link to="/users">Users</Link>
+        </Menu.Item>
+
         <Menu.Item key="Рrofile">
           <Link to="/profile">Профиль</Link>
         </Menu.Item>
+
         <Menu.Item key="Logout">
-          <Button type="link" onClick={logoutHandler}>Logout</Button>
-        </Menu.Item>
-        <Menu.Item key="Users">
-          <Link to="/users">Users</Link>
+          <Button type="link" onClick={logoutHandler}>Выйти</Button>
         </Menu.Item>
       </Menu>
     </Header>

@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Meet, { foreignKey: 'interviewerId' });
       this.hasMany(models.Meet, { foreignKey: 'mentorId' });
       this.belongsTo(models.Company, { foreignKey: 'companyId' });
+      this.hasMany(models.Feedback, { foreignKey: 'userId' });
     }
   }
   User.init({

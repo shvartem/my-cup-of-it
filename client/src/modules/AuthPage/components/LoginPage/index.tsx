@@ -27,7 +27,7 @@ const LoginPage: React.FC = () => {
   return (
     <Container>
       <Form
-        name="basic"
+        name="LoginForm"
         labelCol={{
           span: 8,
         }}
