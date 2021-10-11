@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  ILoginData, IMyProfile, IMyProfileState, IRegisterData, IEditProfileRolePayload, IEditProfileStatusPayload,
+  ILoginData, IMyProfile, IMyProfileState, IChangeMeetStatusPayload, IEditProfileRolePayload, IEditProfileStatusPayload,
 } from '../../types/usersTypes';
 
 const initialState: IMyProfileState = {
@@ -102,6 +102,26 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
     toggleUserStatusRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+
+    changeUserMeetStatusPending: (state: IMyProfileState, action: PayloadAction<IChangeMeetStatusPayload>) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    changeUserMeetStatusFullfilled: (state: IMyProfileState, action: PayloadAction<IChangeMeetStatusPayload>) => {
+      state.profile.meets = state.profile.meets.map((meet) => {
+        if (meet.id === action.payload.id) {
+          meet.status = action.payload.status;
+          return meet;
+        }
+        return meet;
+      });
+      state.error = null;
+      state.isLoading = false;
+    },
+    changeUserMeetStatusRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.isLoading = false;
     },

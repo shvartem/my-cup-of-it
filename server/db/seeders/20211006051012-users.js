@@ -9,6 +9,7 @@ module.exports = {
         password: '$2a$10$JrxOllv.pb7XF4NLE35CO.Zlt9/Fw9HZrQuErDnLCmnU0dqG/plZe',
         description: 'Multi-layered client-server neural-net',
         isMentor: false,
+        careerStart: '',
         // createdAt: new Date(),
         // updatedAt: new Date(),
       },

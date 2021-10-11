@@ -5,16 +5,24 @@ import {
   getData, postData, editData, patchData,
 } from '../tools';
 import {
-  IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserProfileAction, IProfile, IEditProfileStatusAction, IEditProfileRoleAction,
+  IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserProfileAction, IChangeMeetStatusAction, IEditProfileStatusAction, IEditProfileRoleAction, IChangeMeetStatusPayload,
 } from '../../types/usersTypes';
 
 function* editUserProfile({ payload }: IEditUserProfileAction): SagaIterator {
   try {
     const updatedUser = yield call(() => editData<IMyProfile>('/api/users', payload));
-    console.log({ updatedUser });
     yield put(actions.editUserProfileFullfilled(updatedUser));
   } catch (e) {
     yield put(actions.editUserProfileRejected(e as string));
+  }
+}
+
+function* editUserMeets({ payload }: IChangeMeetStatusAction): SagaIterator {
+  try {
+    yield call(() => editData<IChangeMeetStatusPayload>('/api/meets', payload));
+    yield put(actions.changeUserMeetStatusFullfilled({ id: payload.id, status: payload.status }));
+  } catch (e) {
+    yield put(actions.changeUserMeetStatusRejected(e as string));
   }
 }
 
@@ -81,4 +89,5 @@ export default function* userSaga() {
   yield takeEvery(`${actions.editUserProfilePending}`, editUserProfile);
   yield takeEvery(`${actions.toggleUserRolePending}`, toggleUserRole);
   yield takeEvery(`${actions.toggleUserStatusPending}`, toggleUserStatus);
+  yield takeEvery(`${actions.changeUserMeetStatusPending}`, editUserMeets);
 }

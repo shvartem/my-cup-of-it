@@ -47,6 +47,8 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
           <Timeline>
+            {(profileData.company === '' && profileData.careerStart === '' && !profileData.technologies.length && profileData.description === '')
+              && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
             {profileData.company !== '' && (
               <Timeline.Item>
                 {`Работаю в ${profileData.company}`}
@@ -57,10 +59,14 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
                 {`Начало работы: ${careerStart}`}
               </Timeline.Item>
             )}
-            <Timeline.Item>{`Мой стек: ${profileData.technologies.map((el: ITechnology) => el.title).join(', ')}`}</Timeline.Item>
-            <Timeline.Item>
-              {profileData.description}
-            </Timeline.Item>
+            {profileData.technologies.length && (
+              <Timeline.Item>{`Мой стек: ${profileData.technologies.map((el: ITechnology) => el.title).join(', ')}`}</Timeline.Item>
+            )}
+            {profileData.description !== '' && (
+              <Timeline.Item>
+                {profileData.description}
+              </Timeline.Item>
+            )}
           </Timeline>
         </Card>
       </CardWrapper>
