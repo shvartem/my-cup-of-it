@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Form, Input, Select, DatePicker,
 } from 'antd';
-
+import moment from 'moment';
 import { useAppSelector } from '../../../../../../hooks';
 import { IEditUserProfileForm } from '../../types';
 
@@ -14,12 +14,14 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
 
   const companyId = companies.find((company) => company.title === profileData.company)?.id;
   const technologiesTitles = profileData.technologies.map((tech) => tech.title);
-  const careerDate = profileData.careerStart ? profileData.careerStart.split('T')[0] : '2021-01-01';
 
   const children = [];
   for (let i = 0; i < technologies.length; i += 1) {
     children.push(<Option value={technologies[i].title} key={technologies[i].id}>{technologies[i].title}</Option>);
   }
+
+  console.log(profileData.careerStart);
+  console.log(moment(profileData.careerStart));
 
   return (
     <Form
@@ -69,7 +71,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
             label="Начало карьеры"
             name="careerStart"
           >
-            <DatePicker placeholder={careerDate} format="YYYY-DD-MM" />
+            <DatePicker defaultPickerValue={profileData.careerStart ? moment(profileData.careerStart) : moment()} format="YYYY-MM-DD" />
           </Form.Item>
           <Form.Item
             key="companyId"

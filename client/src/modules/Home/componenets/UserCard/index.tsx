@@ -20,14 +20,9 @@ const UserCard: React.FC<MyCard> = ({
       <Meta title={mentor.firstname} />
       <div className={styles.userDetails}>
         <div>
-          Работает:
+          Работает в:
           {' '}
           {mentor.company}
-        </div>
-        <div>
-          До этого работал:
-          {' '}
-          {/* {mentor.prevCompany} */}
         </div>
         <div>
           Опыт работы:

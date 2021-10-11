@@ -5,8 +5,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 80vh;
+  margin: 50px 0;
+  height: 100vh;
 `;
 
 export const ButtonsWrapper = styled.div`

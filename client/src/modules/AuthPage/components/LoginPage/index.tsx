@@ -1,12 +1,11 @@
 import React from 'react';
 
 import {
-  Button, Form, Input, Card,
+  Button, Form, Input, Card, Alert,
 } from 'antd';
-import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { actions } from '../../../../redux/slices';
 
 import { LoginSubmitType } from './types';
@@ -19,6 +18,7 @@ const initialLoginFormValues = {
 
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const error = useAppSelector((state) => state.user.error);
 
   const onSubmit: LoginSubmitType = (values) => {
     dispatch(actions.loginUserPending(values));
@@ -26,7 +26,15 @@ const LoginPage: React.FC = () => {
 
   return (
     <Container>
-
+      {error && (
+        <Alert
+          style={{ position: 'absolute', top: 80, right: 30 }}
+          banner
+          message={error}
+          type="error"
+          closable
+        />
+      )}
       <Card hoverable title="Войти" style={{ width: 500 }}>
         <Form
           name="loginForm"

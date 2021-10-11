@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import styles from './home.module.css';
-import Info from './componenets/Info';
+import Info from './componenets/IntroPage';
 import Feed from './componenets/Feed';
 
 const Home: React.FC = () => (
