@@ -1,25 +1,30 @@
 import React, { FC } from 'react';
-import { List } from 'antd';
+import { List, Modal, Input } from 'antd';
+import { ThemeConsumer } from 'styled-components';
 import UserCard from '../UserCard';
 import styles from './feed.module.css';
 import { useAppSelector } from '../../../../hooks';
-
-const userProps = {
-  name: 'Артур Пиражков',
-  url: 'https://thumbs.dreamstime.com/b/professional-programmer-thinking-how-to-design-developing-online-steal-system-code-language-hacking-identity-119739196.jpg',
-  experience: '3 years',
-  company: 'yandex',
-  prevCompany: 'google',
-};
+import { modalFunc, modalFuncHandle, shuffleArrayFunc } from './types';
+import KnockingModal from '../knockingModal';
+import shuffleArray from './tools';
 
 const Feed: React.FC = () => {
   const users = useAppSelector((state) => state.allUsers.data);
-  console.log(users);
-  const mentors = users.filter((user) => user.isMentor);
+
+  // const { TextArea } = Input;
+  const mentors = users.filter((user) => user.isMentor && user.isActive);
+  shuffleArray(mentors, 8);
+  const [mentorId, setMentorId] = React.useState('');
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  //  срабатывает на кнопку "постучаться"
+  const showModal: modalFunc = (id1) => {
+    setMentorId(id1);
+    setIsModalVisible(true);
+  };
 
   return (
     <>
-      {/* <UserCard mentor={userProps} /> */}
       <List
         grid={{
           gutter: 16,
@@ -33,9 +38,14 @@ const Feed: React.FC = () => {
         dataSource={mentors}
         renderItem={(mentor) => (
           <List.Item>
-            <UserCard mentor={mentor} />
+            <UserCard mentor={mentor} showModal={showModal} />
           </List.Item>
         )}
+      />
+      <KnockingModal
+        mentorId={mentorId}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
       />
     </>
   );
