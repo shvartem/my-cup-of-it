@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import Navbar from './modules/Navbar';
+import { Layout, Menu, Breadcrumb } from 'antd';
+import styled from 'styled-components';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
 import Spinner from './modules/common/Spinner';
+import Navbar from './modules/Navbar';
 
+const { Content } = Layout;
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.profile);
@@ -40,7 +43,12 @@ const App: React.FC = () => {
 
   return (
     <>
-      {routes}
+      <Navbar isAuth={isAuthenticated} isAdmin={false} />
+      <Layout className="layout">
+        <Content>
+          {routes}
+        </Content>
+      </Layout>
     </>
   );
 };

@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks';
 const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
   const dispatch = useAppDispatch();
   const technologies = useAppSelector((state) => state.technologies.data);
-  const careerStart = profileData.careerStart.split('T')[0].split('-').reverse().join('.');
+
   function changeRole() {
     dispatch(actions.toggleUserRolePending({ id: profileData.id, isMentor: !profileData.isMentor }));
   }
@@ -47,22 +47,22 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
           <Timeline>
-            {(profileData.company === '' && profileData.careerStart === '' && !profileData.technologies.length && profileData.description === '')
+            {(!profileData.company && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
               && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
-            {profileData.company !== '' && (
+            {profileData.company && (
               <Timeline.Item>
                 {`Работаю в ${profileData.company}`}
               </Timeline.Item>
             )}
-            {profileData.careerStart !== '' && (
+            {profileData.careerStart && (
               <Timeline.Item>
-                {`Начало работы: ${careerStart}`}
+                {`Начало работы: ${profileData.careerStart}`}
               </Timeline.Item>
             )}
             {profileData.technologies.length && (
               <Timeline.Item>{`Мой стек: ${profileData.technologies.map((el: ITechnology) => el.title).join(', ')}`}</Timeline.Item>
             )}
-            {profileData.description !== '' && (
+            {profileData.description && (
               <Timeline.Item>
                 {profileData.description}
               </Timeline.Item>

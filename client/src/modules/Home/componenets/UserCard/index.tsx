@@ -5,10 +5,6 @@ import { MyCard } from './types';
 import styles from './card.module.css';
 
 const { Meta } = Card;
-type x = () => number;
-// функция без арг, возвращ. число;
-
-const funct: x = () => 4;
 
 const UserCard: React.FC<MyCard> = ({
   mentor,
@@ -18,19 +14,14 @@ const UserCard: React.FC<MyCard> = ({
       hoverable
       size="small"
       style={{ width: 240, margin: '1rem' }}
-      cover={<img alt="example" src={mentor.email} />}
+      cover={<img alt="example" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />}
     >
       <Meta title={mentor.firstname} />
       <div className={styles.userDetails}>
         <div>
-          Работает:
+          Работает в:
           {' '}
           {mentor.company}
-        </div>
-        <div>
-          До этого работал:
-          {' '}
-          {/* {mentor.prevCompany} */}
         </div>
         <div>
           Опыт работы:
