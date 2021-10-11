@@ -1,78 +1,127 @@
-import React from 'react';
-import {
-  Layout, Menu, Breadcrumb, Select,
-} from 'antd';
-import { useSelector } from 'react-redux';
-import store, { StateInterface } from '../../../../redux/store';
+import React, { useEffect, useState } from 'react';
+import { Select } from 'antd';
+// import { skipPartiallyEmittedExpressions } from 'typescript';
+import { title } from 'process';
 import { IProfile } from '../../../../types/usersTypes';
-
-// import CardUser from '../CardUser';
+import UserCard from '../../../Home/componenets/UserCard';
 // import user from '../../../../redux/slices/user';
+import styles from './Filters.module.css';
 
 const { Option } = Select;
 
-const {
-  Header, Content, Footer, Sider,
-} = Layout;
+interface UserProps{
+  users: IProfile[];
 
-const { SubMenu } = Menu;
-
-interface userProps{
-  users: IProfile[]
 }
 
-const Filters: React.FC<userProps> = () => {
-  const users = useSelector((state: StateInterface) => state.allUsers.data);
-  console.log(users);
+const Filters: React.FC<UserProps> = ({ users }) => {
+  // const [companies, setCompanies] = useState<string[]>([]);
+  const [filteredUsers, setFilterUser] = useState(users);
+  const [filteredUsersPrev, setFilterUserPrev] = useState(users);
+  // const [filteredTypeUsers, setfilteredTypeUsers] = useState<string[]>();
+  const [filteredCompany, setfilteredCompany] = useState<string[]>();
+  const [filteredTeh, setfilteredTeh] = useState<string[]>();
+
+  // const filterByconpany = (user:IProfile) => {
+  //   if (companies.length === 0) return true;
+  //   // console.log(1111111111111111111111111, companies.includes(user.company || 'no company'));
+  //   return companies.includes(user.company || 'no company');
+  // };
+  // useEffect срабатывает при изменении массива companies
+  // useEffect(() => {
+  //   // записываю в filteredUsers для вывода фильтрую массив users
+  //   setFilterUser(users.filter(filterByconpany));
+  // }, [companies]);
+
   const company = Array.from(new Set(users.map((el) => {
-    if (el.company === null || el.company === '') { return 'no conmpany'; }
+    if (el.company === null || el.company === '') { return 'no company'; }
     return el.company;
   })));
   console.log(company);
 
-  function handleChange(value:string) {
+  const technologies = Array.from(new Set(users.map((f) => f.technologies.map((t) => t.title)).flat()));
+  console.log(2200000, technologies);
+
+  // function handleChange(value:string[]) {
+  //   if (value.length === 0) return setFilterUser(users);
+  //   console.log(users);
+  //   console.log(`selected ${value}`);
+  //   const newUser = filteredUsers.filter((user) => value.includes(user.company || 'no company'));
+  //   const newUser2 = newUser.filter((user) => user.technologies.some((t) => value.includes(t.title)));
+  //   // if (value.length === 0) return setFilterUser(newUser2);
+  //   console.log(111111, newUser);
+  //   console.log(222222, newUser2);
+  //   return setFilterUser(newUser2);
+  //   // if (value.length === 0) return setFilterUser(users);
+  // }
+
+  function handleChangetypeUser(value:string[]) {
+    if (value.length === 0) return setFilterUser(users);
+    if (value.includes('Студенты')) return setFilterUser(filteredUsers.filter((user) => user.isMentor === false));
+    if (value.includes('Менторы')) return setFilterUser(filteredUsers.filter((user) => user.isMentor === true));
+    return true;
+  }
+  function handleChangeCompanies(value:string[]) {
+    setfilteredCompany(value);
+    console.log('пред', filteredUsersPrev);
+    if (value.length === 0) return setFilterUser(users);
     console.log(`selected ${value}`);
+    const newUser = filteredUsersPrev.filter((user) => value.includes(user.company || 'no company'));
+    // setFilterUserPrev(newUser);
+    console.log('наст', newUser);
+    return setFilterUser(newUser);
+  }
+  function handleChangetechnologies(value:string[]) {
+    setfilteredTeh(value);
+    console.log('пред', filteredUsersPrev);
+
+    if (value.length === 0) return setFilterUser(users);
+    const newUser = filteredUsersPrev.filter((user) => user.technologies.some((t) => value.includes(t.title)));
+    console.log('наст', newUser);
+    // setFilterUserPrev(newUser);
+    return setFilterUser(newUser);
   }
   return (
-    <div>
-      Компании:
-      <Select mode="tags" style={{ width: '100%' }} onChange={handleChange} tokenSeparators={[',']}>
+  // <div className={styles.bodyFilser}>
+    <div className={styles.conteinerFilters}>
+      <div className={styles.conteinerSiorch}>
+        <div className={styles.search1}>
+          {' '}
+          <p> SEARCH</p>
+          {' '}
+        </div>
 
-        {/* {company.map((el) => <Option key={el} value={el}>{el}</Option>)} */}
-        {/* {users.map((f) => <Option key={f.company} value={f.firstname}>{f.company}</Option>)} */}
-      </Select>
-      Технологии:
-      <Select mode="tags" style={{ width: '100%' }} onChange={handleChange} tokenSeparators={[',']}>
+        Тип пользователя
+        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangetypeUser} tokenSeparators={[',']}>
+          <Option value="Студенты">Студенты</Option>
+          <Option value="Менторы">Менторы</Option>
+        </Select>
 
-        {users.map((f) => <Option key={f.firstname} value={f.firstname}>{f.company}</Option>)}
-      </Select>
-      Пользователи:
-      <Select mode="tags" style={{ width: '100%' }} onChange={handleChange} tokenSeparators={[',']}>
-        <Option value="Студенты">Студенты</Option>
-        <Option value="Менторы">Менторы</Option>
-      </Select>
-
+        Компании:
+        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangeCompanies} tokenSeparators={[',']}>
+          {company.map((el) => <Option key={el} value={el}>{el}</Option>)}
+        </Select>
+        {' '}
+        Технологии:
+        <Select mode="tags" style={{ width: '100%' }} onChange={handleChangetechnologies} tokenSeparators={[',']}>
+          {/* <div> */}
+          {technologies.map((el) => <Option key={el} value={el}>{el}</Option>)}
+          {/* </div> */}
+        </Select>
+      </div>
+      {/* <div> */}
+      <div className={styles.conteinerUserCand}>
+        <div className={styles.headerUserCard}>
+          {' '}
+          <p> Пользователи</p>
+          {' '}
+        </div>
+        <div className={styles.conteinerUser}>
+          {filteredUsers.map((user) => <UserCard mentor={user} />)}
+        </div>
+      </div>
     </div>
+  // </div>
   );
-
-  // <Layout style={{ minHeight: '100vh' }}>
-  //   <Sider collapsible>
-  //     <div className="logo" />
-  //     <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-  //       <SubMenu key="sub1" title="Filters">
-  //         {users.map((f) => <Menu.Item key={f.id}>{f.company}</Menu.Item>)}
-
-  //       </SubMenu>
-  //     </Menu>
-  //   </Sider>
-  //   <Layout className="site-layout">
-  //     <Header className="site-layout-background" style={{ padding: 0 }} />
-  //     <Content style={{ margin: '0 16px' }}>
-  //       {/* {users.map((user) => <CardUser key={user.id}>{user.firstname}</CardUser>)} */}
-  //       <CardUser users={users} />
-  //     </Content>
-  //     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
-  //   </Layout>
-  // </Layout>
 };
 export default Filters;
