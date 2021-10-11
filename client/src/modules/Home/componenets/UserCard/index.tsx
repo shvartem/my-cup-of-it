@@ -5,7 +5,6 @@ import { MyCard } from './types';
 import styles from './card.module.css';
 
 const { Meta } = Card;
-type x = () => number;
 
 const UserCard: React.FC<MyCard> = ({
   mentor, showModal,

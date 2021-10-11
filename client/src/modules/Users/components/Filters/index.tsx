@@ -10,7 +10,7 @@ import styles from './Filters.module.css';
 
 const { Option } = Select;
 
-interface UserProps{
+interface UserProps {
   users: IProfile[];
 
 }
@@ -36,26 +36,26 @@ const Filters: React.FC<UserProps> = ({ users }) => {
 
   const technologies = Array.from(new Set(filteredUsers.map((f) => f.technologies.map((t) => t.title)).flat()));
 
-  function handleChangetypeUser(value:string[]) {
+  function handleChangetypeUser(value: string[]) {
     setfilteredTypeUsers(value);
   }
-  function handleChangeCompanies(value:string[]) {
+  function handleChangeCompanies(value: string[]) {
     setfilteredCompany(value);
   }
-  function handleChangetechnologies(value:string[]) {
+  function handleChangetechnologies(value: string[]) {
     setfilteredTeh(value);
   }
 
-  const byCompanies = useCallback((user:IProfile) => {
+  const byCompanies = useCallback((user: IProfile) => {
     if (filteredCompany.length === 0) return true;
     return filteredCompany.includes(user.company || 'no company');
   }, [filteredCompany]);
-  const byType = useCallback((user:IProfile) => {
+  const byType = useCallback((user: IProfile) => {
     if (filteredTypeUsers.length === 0) return true;
     if (filteredTypeUsers.includes('Менторы') && user.isMentor) return true;
     return filteredTypeUsers.includes('Студенты') && !user.isMentor;
   }, [filteredTypeUsers]);
-  const byStack = useCallback((user:IProfile) => {
+  const byStack = useCallback((user: IProfile) => {
     if (filteredTeh.length === 0) return true;
     return user.technologies.some((t) => filteredTeh.includes(t.title));
   }, [filteredTeh]);
@@ -127,7 +127,7 @@ const Filters: React.FC<UserProps> = ({ users }) => {
           <p> USERS</p>
         </div>
         <div className={styles.conteinerUser}>
-          {filteredUsers.map((user) => <UserCard mentor={user} />)}
+          {filteredUsers.map((user) => <UserCard mentor={user} showModal={() => console.log(11)} />)}
         </div>
       </div>
     </div>
