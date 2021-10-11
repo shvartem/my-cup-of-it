@@ -44,9 +44,9 @@ export const InfoDivWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 16px;
-  height: 90vh;
+  height: 100vh;
 `;
 
 export const AdvicesWrapper = styled.div`
-  margin: 30px 0;
+  padding: 50px 0;
 `;
