@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 import UserCard from '../UserCard';
 import { useAppSelector } from '../../../../hooks';
-import Container from '../style';
 import Spinner from '../../../common/Spinner';
+
+const Container = styled.div`
+  width: 80%;
+  margin: 50px auto 30px;
+`;
 
 const CardsWrapper = styled.div`
   display: flex;

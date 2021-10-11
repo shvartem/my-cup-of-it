@@ -37,8 +37,8 @@ const Info: React.FC = () => {
       </IntroInfoWrapper>
       <InfoDivWrapper ref={infoDivRef}>
         <IntroInfo />
+        <Accordion />
       </InfoDivWrapper>
-      <Accordion />
 
     </IntroWrapper>
 

@@ -1,11 +1,11 @@
 #root {
   font-family: 'Roboto Mono',
-  monospace;
+    monospace;
 }
 
 .nav-link {
   font-size: 20px;
-  color: #001529;
+  color: #454658;
 }
 
 .nav-link--active i {
