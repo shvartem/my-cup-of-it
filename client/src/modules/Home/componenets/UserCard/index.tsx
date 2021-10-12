@@ -13,7 +13,7 @@ const UserCard: React.FC<MyCard> = ({
     <Card
       hoverable
       size="small"
-      style={{ width: 240, margin: '1rem' }}
+      style={{ width: 240, marginLeft: '1.5rem' }}
       cover={<img alt="example" src={mentor.userPhoto} />}
     >
       <Meta title={mentor.firstname} />
