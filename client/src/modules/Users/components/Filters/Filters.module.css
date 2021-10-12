@@ -26,3 +26,9 @@ flex-wrap: wrap;
     /* justify-content: space-between; */
 }
 
+.headerUserCard{
+  margin-left: 15px;
+}
+.headerSearch{
+  margin-bottom: 25px;
+}
