@@ -9,6 +9,7 @@ const userService = require('../services/user.service');
 const technologiesService = require('../services/technologies.service');
 
 async function registerUser(req, res) {
+  console.log({ file: req.file, body: req.body });
   const {
     firstname,
     lastname,
@@ -23,6 +24,8 @@ async function registerUser(req, res) {
     technologies,
   } = req.body;
 
+  const userPhoto = req.file?.path.replace(/^public/, '');
+  console.log({ userPhoto });
   let user;
   try {
     const duplicateUser = await db.User.findOne({ where: { email } });
@@ -38,6 +41,7 @@ async function registerUser(req, res) {
       lastname,
       email,
       password: hashPassword,
+      userPhoto,
       description,
       isMentor,
       isActive,
@@ -50,7 +54,7 @@ async function registerUser(req, res) {
     await technologiesService.addStackToUser(technologies, user.id);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
   const userData = await userService.getFullUserData(user);
 
@@ -72,7 +76,7 @@ async function loginUser(req, res) {
     });
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
   if (user) {
     const isSame = await bcrypt.compare(password, user.password);
@@ -86,7 +90,7 @@ async function loginUser(req, res) {
         return res.json(userData);
       } catch (e) {
         console.error(e.message);
-        return res.status(500).send('Что-то пошло не так');
+        return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
       }
     }
   }
@@ -108,7 +112,7 @@ async function getLoggedUser(req, res) {
     return res.json(userData);
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так..');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -116,7 +120,7 @@ async function logoutUser(req, res) {
   req.session.destroy((error) => {
     if (error) {
       console.log(error);
-      return res.status(500).send('Что-то пошло не так');
+      return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
     }
     return res
       .clearCookie('user_sid')

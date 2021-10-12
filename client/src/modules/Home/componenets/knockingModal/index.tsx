@@ -1,5 +1,5 @@
 import {
-  Modal, Input, DatePicker, Space, Button,
+  Modal, Input, DatePicker, Space, Button, Alert,
 } from 'antd';
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
@@ -13,6 +13,7 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
   const dispatch = useAppDispatch();
   const [comment, setComment] = React.useState('');
   const currentUser = useAppSelector((state) => state.user.profile);
+  const error = useAppSelector((state) => state.user.error);
   const [meetingDate, setDate] = useState(new Date());
   // срабатывает на кнопку ок в модалке
   const handleOk: modalFuncHandle = () => {
@@ -45,6 +46,14 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
   }
   return (
     <>
+      {error && (
+      <Alert
+        banner
+        message={error}
+        type="error"
+        closable
+      />
+      )}
       <Modal title="Личное сообщение ментору" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <TextArea rows={4} onChange={changeHandler} value={comment} />
         <Space direction="vertical">

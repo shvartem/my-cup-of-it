@@ -1,5 +1,7 @@
 import React from 'react';
-import { Image, Card, Timeline } from 'antd';
+import {
+  Image, Card, Timeline, Alert,
+} from 'antd';
 import { Link } from 'react-router-dom';
 import { ITechnology } from '../../../../types/technologiesTypes';
 import EditProfileButtons from './components/EditProfileButtons';
@@ -12,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks';
 const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
   const dispatch = useAppDispatch();
   const technologies = useAppSelector((state) => state.technologies.data);
-
+  const error = useAppSelector((state) => state.technologies.error);
   function changeRole() {
     dispatch(actions.toggleUserRolePending({ id: profileData.id, isMentor: !profileData.isMentor }));
   }
@@ -32,6 +34,22 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
 
   return (
     <Container>
+      {technologies.length === 0 && (
+      <Alert
+        banner
+        message="Стек технологий пуст"
+        type="info"
+        closable
+      />
+      )}
+      {error && (
+      <Alert
+        banner
+        message={error}
+        type="error"
+        closable
+      />
+      )}
       <ImageWrapper>
         <Image
           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"

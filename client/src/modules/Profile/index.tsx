@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs } from 'antd';
+import { Alert, Tabs } from 'antd';
 import { useParams } from 'react-router-dom';
 import InfoPage from './components/InfoPage';
 import Manager from './components/Manager';
@@ -13,7 +13,9 @@ const { TabPane } = Tabs;
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.profile);
+  const errorUser = useAppSelector((state) => state.user.error);
   const users = useAppSelector((state) => state.allUsers.data);
+  // const errorUsers = useAppSelector((state) => state.allUsers.error);
   const { userId }: { userId: string } = useParams();
   const isMe = Boolean(!userId);
 
@@ -39,6 +41,14 @@ const Profile: React.FC = () => {
 
   return (
     <Contaiter>
+      {errorUser && (
+      <Alert
+        banner
+        message={errorUser}
+        type="error"
+        closable
+      />
+      )}
       <Tabs type="card">
         <TabPane tab="Профиль" key="1">
           <InnerContainer>

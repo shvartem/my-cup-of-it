@@ -36,7 +36,7 @@ async function getAllUsers(req, res) {
   } catch (e) {
     console.error(e.message);
 
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -61,24 +61,37 @@ async function patchUserProfile(req, res) {
     throw new Error();
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
 async function editUserProfile(req, res) {
+  const { userId } = req.params;
   const {
     firstname, lastname, description, companyId, careerStart, technologies, position,
   } = req.body;
-  const { userId } = req.params;
+
   try {
-    const [result] = await db.User.update({
-      firstname,
-      lastname,
-      description,
-      companyId,
-      careerStart,
-      position,
-    }, { where: { id: userId } });
+    let result;
+    if (req.file) {
+      const userPhoto = req.body.file?.path.replace(/^public\//, '');
+      [result] = await db.User.update({
+        firstname,
+        lastname,
+        userPhoto,
+        description,
+        companyId,
+        careerStart,
+      }, { where: { id: userId } });
+    } else {
+      [result] = await db.User.update({
+        firstname,
+        lastname,
+        description,
+        companyId,
+        careerStart,
+      }, { where: { id: userId } });
+    }
 
     if (!result) throw new Error();
     const user = await db.User.findOne({ where: { id: userId }, raw: true });
@@ -98,7 +111,7 @@ async function editUserProfile(req, res) {
     return res.json(userData);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 

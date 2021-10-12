@@ -72,7 +72,7 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
 
-    registerUserPending: (state: IMyProfileState, action) => {
+    registerUserPending: (state: IMyProfileState, action: PayloadAction<FormData>) => {
       state.isLoading = true;
       state.error = null;
     },

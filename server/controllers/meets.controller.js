@@ -10,7 +10,7 @@ async function editMeets(req, res) {
     return res.sendStatus(201);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 

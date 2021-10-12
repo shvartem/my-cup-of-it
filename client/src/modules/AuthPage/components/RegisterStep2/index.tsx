@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  Form, Input, DatePicker, Button, Card, Select,
+  Form, Input, DatePicker, Button, Card, Select, Upload,
 } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import {
   OnChangeRegisterValuesType, RegisterSubmitType, IRegisterProps,
 } from '../../types';
@@ -12,20 +14,40 @@ import { ButtonsWrapper } from '../style';
 
 const { Option } = Select;
 
+const normFile = (e: any) => {
+  console.log('Upload:', e);
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+};
+
 const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterData, setFormStep }) => {
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(actions.getAllCompaniesPending());
-    dispatch(actions.getAllTechnologiesPending());
-  }, [dispatch]);
 
   const companies = useAppSelector((state) => state.companies.data);
   const technologies = useAppSelector((state) => state.technologies.data);
 
   const onSubmit: RegisterSubmitType = (values) => {
-    dispatch(actions.registerUserPending({ ...registerData, ...values }));
+    const formdata = new FormData();
+
+    Object.entries({ ...registerData, ...values }).forEach((value) => {
+      if (value[0] === 'userPhoto') formdata.append(`${value[0]}`, value[1][0].originFileObj);
+      else formdata.append(`${value[0]}`, value[1]);
+    });
+
+    // dispatch(actions.registerUserPending(formdata));
+
+    axios.post('/api/register', formdata, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
   };
+
+  const handleChangePhoto = (info: any) => {
+    console.log(info);
+  };
+
+  const handleUploadFile = (photo: any) => false;
 
   const onChangeRegisterFormValues: OnChangeRegisterValuesType = (changedValues, allValues) => {
     setRegisterData((prevState: any) => ({ ...prevState, ...allValues }));
@@ -40,6 +62,11 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
     children.push(<Option value={technologies[i].id} key={technologies[i].title}>{technologies[i].title}</Option>);
   }
 
+  useEffect(() => {
+    dispatch(actions.getAllCompaniesPending());
+    dispatch(actions.getAllTechnologiesPending());
+  }, [dispatch]);
+
   return (
     <Card hoverable title="Продолжение регистрации" style={{ width: 700 }}>
       <Form
@@ -48,7 +75,7 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
         labelCol={{
           span: registerData.isMentor ? 6 : 3,
         }}
-        initialValues={initialRegisterFormValues}
+        // initialValues={initialRegisterFormValues}
         onFinish={onSubmit}
         autoComplete="off"
       >
@@ -73,7 +100,7 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
               rules={[
                 {
                   required: true,
-                  message: 'Введите место работы',
+                  message: 'Выберите место работы',
                 },
               ]}
             >
@@ -128,6 +155,23 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
           ]}
         >
           <Input.TextArea showCount maxLength={140} />
+        </Form.Item>
+
+        <Form.Item
+          name="userPhoto"
+          label="Фото"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+        >
+          <Upload
+            name="photo"
+            action="/upload.do"
+            listType="picture"
+            beforeUpload={handleUploadFile}
+            maxCount={1}
+          >
+            <Button icon={<UploadOutlined />}>Загрузить</Button>
+          </Upload>
         </Form.Item>
 
         <Form.Item
