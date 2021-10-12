@@ -30,7 +30,7 @@ async function loginAdmin(req, res) {
 }
 
 async function getLoggedAdmin(req, res) {
-  if (!req.session.user) {
+  if (!req.session.user?.isAdmin) {
     return res.json({});
   }
   const { user } = req.session;

@@ -8,16 +8,21 @@ import { useAppSelector } from './hooks';
 import LoginAdminPage from './modules/AuthAdminPage/components/LoginAdminPage';
 import AdminProfile from './modules/AdminProfile';
 import Navbar from './modules/Navbar';
+import FeedbackPage from './modules/FeedbackPage';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
-
+  console.log({ isAuthenticated });
   if (isAuthenticated || isAdmin) {
     return (
       <>
         <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
 
         <Switch>
+          <Route path="/feedback">
+            <FeedbackPage />
+          </Route>
+
           <Route path="/home">
             <Home />
           </Route>

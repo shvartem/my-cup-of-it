@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import Navbar from './modules/Navbar';
+import { act } from 'react-dom/test-utils';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -15,7 +15,6 @@ const App: React.FC = () => {
 
   const isAuthenticated = Boolean(user?.id);
   const isAdmin = Boolean(currentAdmin?.id);
-  // const isAdmin = false;
 
   const routes = useRouter(isAuthenticated, isAdmin);
 

@@ -42,7 +42,7 @@ const Navbar: React.FC<INavbarProps> = ({ isAuth, isAdmin }) => {
     <Header>
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="Home">
-          <Link to="/home">Home</Link>
+          <Link to="/feedback">Home</Link>
         </Menu.Item>
 
         <Menu.Item key="Users">
