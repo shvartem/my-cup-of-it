@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Select } from 'antd';
-import { FilterOutlined } from '@ant-design/icons';
+import { Checkbox, Select } from 'antd';
+import { CloseCircleOutlined, CloseOutlined, FilterOutlined } from '@ant-design/icons';
 // import { skipPartiallyEmittedExpressions } from 'typescript';
 // import { title } from 'process';
 import { IProfile } from '../../../../types/usersTypes';
 import UserCard from '../../../Home/componenets/UserCard';
 // import user from '../../../../redux/slices/user';
 import styles from './Filters.module.css';
+// import user from '../../../../redux/slices/user';
 
 const { Option } = Select;
 
@@ -22,19 +23,20 @@ const Filters: React.FC<UserProps> = ({ users }) => {
   const [filteredTypeUsers, setfilteredTypeUsers] = useState<string[]>([]);
   const [filteredCompany, setfilteredCompany] = useState<string[]>([]);
   const [filteredTeh, setfilteredTeh] = useState<string[]>([]);
+  const [filteredIsActive, setFilteredIsActive] = useState(false);
 
-  const typeUser = Array.from(new Set(filteredUsers.map((el) => {
+  const typeUser = Array.from(new Set(users.map((el) => {
     if (el.isMentor === true) {
       return 'Менторы';
     }
     return 'Студенты';
   })));
-  const company = Array.from(new Set(filteredUsers.map((el) => {
+  const company = Array.from(new Set(users.map((el) => {
     if (el.company === null || el.company === '') { return 'no company'; }
     return el.company;
   })));
 
-  const technologies = Array.from(new Set(filteredUsers.map((f) => f.technologies.map((t) => t.title)).flat()));
+  const technologies = Array.from(new Set(users.map((f) => f.technologies.map((t) => t.title)).flat()));
 
   function handleChangetypeUser(value: string[]) {
     setfilteredTypeUsers(value);
@@ -44,6 +46,10 @@ const Filters: React.FC<UserProps> = ({ users }) => {
   }
   function handleChangetechnologies(value: string[]) {
     setfilteredTeh(value);
+  }
+  function onChengeCheckIsActive(e:any) {
+    setFilteredIsActive(e.target.checked);
+    console.log(filteredIsActive, e.target.checked);
   }
 
   const byCompanies = useCallback((user: IProfile) => {
@@ -59,11 +65,15 @@ const Filters: React.FC<UserProps> = ({ users }) => {
     if (filteredTeh.length === 0) return true;
     return user.technologies.some((t) => filteredTeh.includes(t.title));
   }, [filteredTeh]);
+  const byIsActive = useCallback((user: IProfile) => {
+    if (filteredIsActive === true) { return user.isActive === true; }
+    return user;
+  }, [filteredIsActive]);
 
   useEffect(() => {
-    const filtered = users.filter(byType).filter(byCompanies).filter(byStack);
+    const filtered = users.filter(byType).filter(byCompanies).filter(byStack).filter(byIsActive);
     setFilterUser(filtered);
-  }, [byType, byCompanies, users, byStack]);
+  }, [byType, byCompanies, users, byStack, byIsActive]);
 
   const filterClickUserType = () => {
     setfilteredTypeUsers([]);
@@ -78,25 +88,29 @@ const Filters: React.FC<UserProps> = ({ users }) => {
     setfilteredTypeUsers([]);
     setfilteredCompany([]);
     setfilteredTeh([]);
+    setFilteredIsActive(false);
   };
+
   return (
     <div className={styles.conteinerFilters}>
       <div className={styles.conteinerSiorch}>
         <div className={styles.searchBlock}>
-
           <div>
-            {filteredTypeUsers.length !== 0 || filteredCompany.length !== 0 || filteredTeh.length !== 0
-              ? <FilterOutlined style={{ fontSize: '20px', color: '#0dcaf0' }} onClick={filterClear} />
-              : <FilterOutlined style={{ fontSize: '16px' }} onClick={filterClear} />}
+            {filteredTypeUsers.length !== 0 || filteredCompany.length !== 0 || filteredTeh.length !== 0 || filteredIsActive === true
+              ? <CloseOutlined style={{ fontSize: '20px', color: '#0dcaf0' }} onClick={filterClear} />
+              : <CloseOutlined style={{ fontSize: '0px', color: '#f0f2f5' }} onClick={filterClear} />}
           </div>
-          <div>
+          <div className={styles.headerSearch}>
             SEARCH
           </div>
         </div>
+        <div className={styles.headerSearch}>
+          <Checkbox onChange={onChengeCheckIsActive} checked={filteredIsActive}>только активные</Checkbox>
+        </div>
         <div className={styles.filterBlock}>
-          <div className={styles.filterBlockHeader}>Тип пользователя</div>
+          <div className={styles.filterBlockHeader}>Тип пользователя:</div>
           <div className={styles.filterBlockSearch}>
-            {filteredTypeUsers.length === 0 ? <FilterOutlined onClick={filterClickUserType} /> : <FilterOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickUserType} />}
+            {filteredTypeUsers.length === 0 ? <CloseOutlined style={{ color: '#f0f2f5' }} onClick={filterClickUserType} /> : <CloseOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickUserType} />}
           </div>
         </div>
         <Select mode="tags" style={{ width: '100%' }} onChange={handleChangetypeUser} value={filteredTypeUsers} tokenSeparators={[',']}>
@@ -105,7 +119,7 @@ const Filters: React.FC<UserProps> = ({ users }) => {
         <div className={styles.filterBlock}>
           <div className={styles.filterBlockHeader}>Компании:</div>
           <div className={styles.filterBlockSearch}>
-            {filteredCompany.length === 0 ? <FilterOutlined onClick={filterClickCompany} /> : <FilterOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickCompany} />}
+            {filteredCompany.length === 0 ? <CloseOutlined style={{ color: '#f0f2f5' }} onClick={filterClickCompany} /> : <CloseOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickCompany} />}
           </div>
         </div>
         <Select mode="tags" style={{ width: '100%' }} onChange={handleChangeCompanies} value={filteredCompany} tokenSeparators={[',']}>
@@ -114,7 +128,7 @@ const Filters: React.FC<UserProps> = ({ users }) => {
         <div className={styles.filterBlock}>
           <div className={styles.filterBlockHeader}>Технологии:</div>
           <div className={styles.filterBlockSearch}>
-            {filteredTeh.length === 0 ? <FilterOutlined onClick={filterClickTeh} /> : <FilterOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickTeh} />}
+            {filteredTeh.length === 0 ? <CloseOutlined style={{ color: '#f0f2f5' }} onClick={filterClickTeh} /> : <CloseOutlined style={{ fontSize: '15px', color: '#0dcaf0' }} onClick={filterClickTeh} />}
             {/* <FilterOutlined onClick={filterClickTeh} /> */}
           </div>
         </div>
