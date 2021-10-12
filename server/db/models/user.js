@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Meet, { foreignKey: 'mentorId' });
       this.belongsTo(models.Company, { foreignKey: 'companyId' });
       this.hasMany(models.Feedback, { foreignKey: 'userId' });
+      this.hasMany(models.Social, { foreignKey: 'userId' });
     }
   }
   User.init({
@@ -51,6 +52,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '',
     },
     companyId: {
+      type: DataTypes.STRING,
+      defaultValue: '',
+    },
+    position: {
       type: DataTypes.STRING,
       defaultValue: '',
     },

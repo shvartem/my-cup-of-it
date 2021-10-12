@@ -1,5 +1,5 @@
 import {
-  Modal, Input, DatePicker, Space,
+  Modal, Input, DatePicker, Space, Button,
 } from 'antd';
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
@@ -34,7 +34,7 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
     setIsModalVisible(false);
   };
 
-  const changeHandler = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
@@ -50,9 +50,8 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
         <Space direction="vertical">
           <div style={{ display: 'flex' }}>
             <p style={{ marginRight: '1rem' }}>Предложите время встречи:</p>
-            <DatePicker placeholder="выберите дату" id="datePicker" onChange={onChange} />
+            <DatePicker placeholder="Выберите дату" id="datePicker" onChange={onChange} />
           </div>
-
         </Space>
       </Modal>
     </>

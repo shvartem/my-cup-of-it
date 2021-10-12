@@ -16,9 +16,11 @@ export const initialRegisterFormValues: IRegisterData = {
   isMentor: false,
   careerStart: '',
   company: '',
+  position: '',
   isActive: false,
   userPhoto: '',
   technologies: [],
+  socials: [],
 };
 
 const RegisterPage: React.FC = () => {

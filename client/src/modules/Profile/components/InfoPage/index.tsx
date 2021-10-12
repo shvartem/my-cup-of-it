@@ -26,6 +26,10 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
     dispatch(actions.editUserProfilePending({ ...profileData, ...values }));
   }
 
+  function editSocials(values: any) {
+    console.log(values);
+  }
+
   return (
     <Container>
       <ImageWrapper>
@@ -36,11 +40,10 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
           isMe ? (
             <EditProfileButtons
               profileData={profileData}
-              isMentor={profileData.isMentor}
-              isActive={profileData.isActive}
               changeRole={changeRole}
               changeStatus={changeStatus}
               editProfile={editProfile}
+              editSocials={editSocials}
             />
           ) : <CommunicateButtons />
         }
@@ -53,7 +56,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
               && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
             {profileData.company && (
               <Timeline.Item>
-                {`Работаю в ${profileData.company}`}
+                {`${profileData.position} в ${profileData.company}`}
               </Timeline.Item>
             )}
             {profileData.careerStart && (

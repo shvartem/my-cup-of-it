@@ -46,6 +46,10 @@ module.exports = {
           model: 'Companies',
         },
       },
+      position: {
+        type: Sequelize.STRING,
+        defaultValue: '',
+      },
       userPhoto: {
         type: Sequelize.STRING,
         defaultValue: '',

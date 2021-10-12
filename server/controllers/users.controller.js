@@ -2,6 +2,7 @@ const db = require('../db/models');
 const { sequelize } = require('../db/models');
 const technologiesService = require('../services/technologies.service');
 const userService = require('../services/user.service');
+const socialsService = require('../services/socials.service');
 
 async function getAllUsers(req, res) {
   try {
@@ -26,8 +27,8 @@ async function getAllUsers(req, res) {
 
     const mappedUsersPromises = users.map(async (user) => {
       const userTechnologies = await technologiesService.findTecnnologiesByUserId(user.id);
-
-      return { ...user, technologies: userTechnologies };
+      const userSocials = await socialsService.findSocialByUserId(user.id);
+      return { ...user, technologies: userTechnologies, socials: userSocials };
     });
     const mappedUsers = await Promise.all(mappedUsersPromises);
 
@@ -66,7 +67,7 @@ async function patchUserProfile(req, res) {
 
 async function editUserProfile(req, res) {
   const {
-    firstname, lastname, description, companyId, careerStart, technologies,
+    firstname, lastname, description, companyId, careerStart, technologies, position,
   } = req.body;
   const { userId } = req.params;
   try {
@@ -76,6 +77,7 @@ async function editUserProfile(req, res) {
       description,
       companyId,
       careerStart,
+      position,
     }, { where: { id: userId } });
 
     if (!result) throw new Error();
@@ -85,6 +87,7 @@ async function editUserProfile(req, res) {
       id: userId,
       companyId: user.companyId,
     };
+
     try {
       await technologiesService.clearUserStack(userId);
       await technologiesService.addStackToUser(technologies, userId);

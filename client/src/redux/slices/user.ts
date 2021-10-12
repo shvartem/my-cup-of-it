@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  IMeet, IRegisterData, ILoginData, IMyProfile, IMyProfileState, IChangeMeetStatusPayload,
+  IMeet, IMyProfile, IMyProfileState, IChangeMeetStatusPayload,
   IEditProfileRolePayload, IEditProfileStatusPayload,
 } from '../../types/usersTypes';
 
@@ -15,9 +15,11 @@ const initialState: IMyProfileState = {
     isActive: false,
     careerStart: '',
     company: '',
+    position: '',
     userPhoto: '',
     technologies: [],
     meets: [],
+    socials: [],
   },
   isLoading: false,
   error: null,
