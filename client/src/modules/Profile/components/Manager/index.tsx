@@ -13,7 +13,7 @@ function getMeetsByStatus(status: string, meets: IMeet[] | false) {
   return (meets && meets.length) ? meets.filter((meet: IMeet) => meet.status === status) : false;
 }
 
-const Manager: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }) => {
+const Manager: React.FC<IManagerProps> = ({ isMentor, meets, changeMeetsStatus }) => {
   const pendingMeets = getMeetsByStatus('pending', meets);
   const cancelledMeets = getMeetsByStatus('cancelled', meets);
   const completedMeets = getMeetsByStatus('completed', meets);
@@ -22,16 +22,16 @@ const Manager: React.FC<IManagerProps> = ({ meets, changeMeetsStatus }) => {
   return (
     <Tabs defaultActiveKey="1">
       <TabPane tab="Предстоящие встречи" key="1">
-        <FeatureMeets meets={acceptedMeets} changeMeetsStatus={changeMeetsStatus} />
+        <FeatureMeets meets={acceptedMeets} changeMeetsStatus={changeMeetsStatus} isMentor={isMentor} />
       </TabPane>
       <TabPane tab="Прошедшие встречи" key="2">
-        <PastMeets meets={completedMeets} changeMeetsStatus={changeMeetsStatus} />
+        <PastMeets meets={completedMeets} changeMeetsStatus={changeMeetsStatus} isMentor={isMentor} />
       </TabPane>
       <TabPane tab="Предложения" key="3">
-        <SuggestionsTab meets={pendingMeets} changeMeetsStatus={changeMeetsStatus} />
+        <SuggestionsTab meets={pendingMeets} changeMeetsStatus={changeMeetsStatus} isMentor={isMentor} />
       </TabPane>
       <TabPane tab="Отмененные" key="4">
-        <CancelledMeetsTab meets={cancelledMeets} changeMeetsStatus={changeMeetsStatus} />
+        <CancelledMeetsTab meets={cancelledMeets} changeMeetsStatus={changeMeetsStatus} isMentor={isMentor} />
       </TabPane>
     </Tabs>
   );

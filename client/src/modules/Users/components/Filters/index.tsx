@@ -8,6 +8,7 @@ import UserCard from '../../../Home/componenets/UserCard';
 // import user from '../../../../redux/slices/user';
 import styles from './Filters.module.css';
 import { useAppSelector } from '../../../../hooks';
+import FeedForModal from '../../../common/feedForModal';
 // import user from '../../../../redux/slices/user';
 
 const { Option } = Select;

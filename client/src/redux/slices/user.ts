@@ -143,6 +143,20 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+
+    changeUserSocialsPending: (state: IMyProfileState, action: PayloadAction<IEditProfileStatusPayload>) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    changeUserSocialsFullfilled: (state: IMyProfileState) => {
+      state.profile.isActive = !state.profile.isActive;
+      state.error = null;
+      state.isLoading = false;
+    },
+    changeUserSocialsRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
   },
 });
 

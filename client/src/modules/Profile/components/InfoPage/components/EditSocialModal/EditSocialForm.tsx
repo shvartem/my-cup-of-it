@@ -6,7 +6,11 @@ import {
 import { IEditSocialsForm } from '../../types';
 
 const EditSocialForm: React.FC<IEditSocialsForm> = ({ editSocials, socials, form }) => {
-  const socialTitles = ['Telegram', 'WhatsApp', 'LinkedIn'];
+  const socialTitles = [
+    { socialTitle: 'Telegram', defaultUrl: 't.me/username' },
+    { socialTitle: 'WhatsApp', defaultUrl: 'wa.me/79876543210' },
+    { socialTitle: 'LinkedIn', defaultUrl: 'linkedin.com/in/username' },
+  ];
   return (
     <Form
       form={form}
@@ -26,19 +30,21 @@ const EditSocialForm: React.FC<IEditSocialsForm> = ({ editSocials, socials, form
       {!socials.length
         && socialTitles.map((el) => (
           <Form.Item
-            key={el}
-            label={el}
-            name={el}
+            key={el.socialTitle}
+            label={el.socialTitle}
+            name={el.socialTitle}
+            initialValue={el.defaultUrl}
           >
-            <Input addonBefore="https://" defaultValue="mysite" />
+            <Input addonBefore="https://" defaultValue={el.defaultUrl} />
           </Form.Item>
         ))}
-      {socials.length
+      {!!socials.length
         && socials.map((el) => (
           <Form.Item
             key={el.socialTitle}
             label={el.socialTitle}
             name={el.socialTitle}
+            initialValue={el.url}
           >
             <Input addonBefore="https://" defaultValue="mysite" />
           </Form.Item>

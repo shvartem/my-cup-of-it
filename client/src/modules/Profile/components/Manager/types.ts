@@ -1,6 +1,7 @@
 import { IMeet } from '../../../../types/usersTypes';
 
 interface IManagerProps {
+  isMentor: boolean
   meets: IMeet[] | false
   changeMeetsStatus: (status: string, id: string) => void
 }

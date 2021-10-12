@@ -7,6 +7,7 @@ export interface IMeetButton {
 }
 
 export interface IMeetCard {
+  isMentor: boolean
   buttons: ReactElement<IMeetButton>[] | []
   meetData: IMeet
 }

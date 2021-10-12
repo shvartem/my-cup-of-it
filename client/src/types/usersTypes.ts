@@ -93,3 +93,13 @@ export interface IChangeMeetStatusPayload {
   id: string,
   status: string
 }
+
+export interface IEditUserSocialsAction {
+  type: string,
+  payload: IChangeMeetStatusPayload
+}
+
+export interface IEditUserSocialsPayload {
+  id: string,
+  status: string
+}

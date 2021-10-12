@@ -26,7 +26,6 @@ const Profile: React.FC = () => {
   else user = users.find((userData) => userData.id === userId);
 
   function changeMeetsStatus(status: string, id: string) {
-    console.log(status, id);
     dispatch(actions.changeUserMeetStatusPending({ status, id }));
   }
 
@@ -57,7 +56,7 @@ const Profile: React.FC = () => {
           </InnerContainer>
         </TabPane>
         <TabPane tab="Менеджер встреч" key="2">
-          <Manager meets={isCurrentUser(user) && user.meets} changeMeetsStatus={changeMeetsStatus} />
+          <Manager isMentor={user?.isMentor || false} meets={isCurrentUser(user) && user.meets} changeMeetsStatus={changeMeetsStatus} />
         </TabPane>
       </Tabs>
     </Contaiter>
