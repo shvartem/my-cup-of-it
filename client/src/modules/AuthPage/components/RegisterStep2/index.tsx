@@ -78,12 +78,24 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
             >
               <Select>
                 {companies.map((company) => (
-                  <Select.Option value={company.id}>{company.title}</Select.Option>
+                  <Select.Option key={company.title} value={company.id}>{company.title}</Select.Option>
                 ))}
               </Select>
             </Form.Item>
           </>
         )}
+        <Form.Item
+          label="Должность"
+          name="position"
+          rules={[
+            {
+              required: true,
+              message: 'Введите занимаемую вами позицию',
+            },
+          ]}
+        >
+          <Input placeholder="Старший разработчик" />
+        </Form.Item>
         <Form.Item
           label="О себе"
           name="description"
@@ -94,7 +106,7 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
             },
           ]}
         >
-          <Input.TextArea />
+          <Input.TextArea showCount maxLength={140} />
         </Form.Item>
         <Form.Item
           label="Технологии"

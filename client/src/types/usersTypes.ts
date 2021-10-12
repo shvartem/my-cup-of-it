@@ -1,4 +1,5 @@
 import { ITechnology } from './technologiesTypes';
+import ISocial from './socialsTypes';
 
 export interface IMeet {
   id: string,
@@ -19,8 +20,10 @@ export interface IProfile {
   isActive: boolean,
   careerStart: string,
   company: string,
+  position: string;
   userPhoto: string,
   technologies: ITechnology[],
+  socials: ISocial[]
 }
 
 export interface IMyProfile extends IProfile {

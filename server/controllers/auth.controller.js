@@ -19,6 +19,7 @@ async function registerUser(req, res) {
     isActive,
     careerStart = '',
     companyId = null,
+    position,
     technologies,
   } = req.body;
 
@@ -42,6 +43,7 @@ async function registerUser(req, res) {
       isActive,
       careerStart,
       companyId,
+      position,
     });
     user = dataValues;
 

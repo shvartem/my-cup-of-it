@@ -55,15 +55,6 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
       >
         <Input />
       </Form.Item>
-      {/* <Form.Item
-        key="email"
-        label="Email"
-        name="email"
-        initialValue={profileData.email}
-      >
-        <Input />
-      </Form.Item> */}
-
       {profileData.isMentor && (
         <>
           <Form.Item
@@ -85,6 +76,13 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
               ))}
             </Select>
           </Form.Item>
+          <Form.Item
+            label="Должность"
+            name="position"
+            initialValue={profileData.position}
+          >
+            <Input placeholder="Старший разработчик" />
+          </Form.Item>
         </>
       )}
 
@@ -94,7 +92,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
         name="description"
         initialValue={profileData.description}
       >
-        <Input.TextArea />
+        <Input.TextArea showCount maxLength={140} />
       </Form.Item>
       <Form.Item
         key="technologies"
