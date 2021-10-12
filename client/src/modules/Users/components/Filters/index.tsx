@@ -7,6 +7,7 @@ import { IProfile } from '../../../../types/usersTypes';
 import UserCard from '../../../Home/componenets/UserCard';
 // import user from '../../../../redux/slices/user';
 import styles from './Filters.module.css';
+import FeedForModal from '../../../common/feedForModal';
 // import user from '../../../../redux/slices/user';
 
 const { Option } = Select;
@@ -141,7 +142,7 @@ const Filters: React.FC<UserProps> = ({ users }) => {
           <p> USERS</p>
         </div>
         <div className={styles.conteinerUser}>
-          {filteredUsers.map((user) => <UserCard mentor={user} showModal={() => console.log(11)} />)}
+          <FeedForModal mentors={filteredUsers} />
         </div>
       </div>
     </div>
