@@ -1,12 +1,15 @@
 import { Switch, Redirect, Route } from 'react-router-dom';
+import { useAppSelector } from './hooks';
+
 import Home from './modules/Home';
-import LoginPage from './modules/AuthPage/components/LoginPage';
+import LoginAdminPage from './modules/AuthAdminPage/components/LoginAdminPage';
 import RegisterPage from './modules/AuthPage/components/RegisterPage';
+import LoginPage from './modules/AuthPage/components/LoginPage';
+import AdminProfile from './modules/AdminProfile';
 import Profile from './modules/Profile';
 import Filters from './modules/Users/components/Filters';
-import { useAppSelector } from './hooks';
-import LoginAdminPage from './modules/AuthAdminPage/components/LoginAdminPage';
-import AdminProfile from './modules/AdminProfile';
+import FeedbackPage from './modules/FeedbackPage';
+
 import { Container } from './modules/common/style';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
