@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 
 import FeedbackCardAction from '../FeedbackCardAction';
@@ -12,10 +13,17 @@ const FeedbackCard: React.FC<IFeedbackItemProps> = (props) => {
   return (
     <Card
       type="inner"
-      title="Сделайте обратную связь"
-      extra={<FeedbackCardAction feedback={feedback} onComplete={onComplete} onAccept={onAccept} onReject={onReject} />}
+      title={<Link to={`/feedbacks/${feedback.id}`}>{feedback.title}</Link>}
+      extra={(
+        <FeedbackCardAction
+          feedback={feedback}
+          onComplete={onComplete}
+          onAccept={onAccept}
+          onReject={onReject}
+        />
+)}
     >
-      Inner Card content
+      {feedback.description}
     </Card>
   );
 };

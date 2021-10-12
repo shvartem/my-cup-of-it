@@ -32,6 +32,7 @@ async function getAllFeedbacks(req, res) {
 async function createFeedback(req, res) {
   if (!req.session.user) return res.status(401).send('Вы не авторизованы');
   try {
+    console.log({ ...req.body, userId: req.session.user.id });
     const feedback = await db.Feedback.create({ ...req.body, userId: req.session.user.id });
 
     return res.status(201).json(feedback);
@@ -43,13 +44,14 @@ async function createFeedback(req, res) {
 }
 
 async function changeFeedbackStatus(req, res) {
-  if (!req.session.user || !req.session.user?.isAdmin) return res.status(401).send('У вас недостаточно полномочий');
-  const { id, status } = req.body;
+  if (!req.session.user?.isAdmin) return res.status(401).send('У вас недостаточно полномочий');
+  const { feedbackId } = req.params;
+  const { status } = req.body;
 
   try {
     await db.Feedback.update(
       { status },
-      { where: { id } },
+      { where: { id: feedbackId } },
     );
 
     return res.status(200).send('Статус успешно обновлён');

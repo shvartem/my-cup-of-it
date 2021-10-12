@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFeedback, IFeedbackState } from '../../types/feedbacksTypes';
+import {
+  IChangeFeedbackStatusData, IFeedback, IFeedbackData, IFeedbackState,
+} from '../../types/feedbacksTypes';
 
 const initialState: IFeedbackState = {
   data: [],
@@ -23,6 +25,38 @@ const feedbacksSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
+    addNewFeedbackPending: (state: IFeedbackState, action: PayloadAction<IFeedbackData>) => {
+      state.isLoading = true;
+    },
+    addNewFeedbackFulfilled: (state:IFeedbackState, action:PayloadAction<IFeedback>) => {
+      state.data.push(action.payload);
+      state.isLoading = false;
+      state.error = null;
+    },
+    addNewFeedbackRejected: (state: IFeedbackState, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    changeFeedbackStatusPending: (state: IFeedbackState, action: PayloadAction<IFeedback>) => {
+      state.isLoading = true;
+    },
+    changeFeedbackStatusFulfilled: (state:IFeedbackState, action:PayloadAction<IChangeFeedbackStatusData>) => {
+      console.log(action);
+      state.data = state.data.map((feedback) => {
+        if (feedback.id !== action.payload.id) return feedback;
+
+        return { ...feedback, status: action.payload.status };
+      });
+      state.isLoading = false;
+      state.error = null;
+    },
+    changeFeedbackStatusRejected: (state: IFeedbackState, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
   },
 });
 

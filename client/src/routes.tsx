@@ -11,11 +11,15 @@ import { Container } from './modules/common/style';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
-
+  console.log({ isAuthenticated });
   if (isAuthenticated || isAdmin) {
     return (
       <>
         <Switch>
+          <Route path="/feedback">
+            <FeedbackPage />
+          </Route>
+
           <Route path="/home">
             <Home />
           </Route>

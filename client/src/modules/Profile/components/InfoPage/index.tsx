@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Card, Timeline } from 'antd';
+import { Link } from 'react-router-dom';
 import { ITechnology } from '../../../../types/technologiesTypes';
 import EditProfileButtons from './components/EditProfileButtons';
 import { Container, CardWrapper, ImageWrapper } from './style';
@@ -47,6 +48,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
           <Timeline>
+
             {(!profileData.company && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
               && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
             {profileData.company && (

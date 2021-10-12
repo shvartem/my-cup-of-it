@@ -5,26 +5,38 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { actions } from '../../../../redux/slices';
 import FeedbackList from '../FeedbackList';
 import { IFeedback } from '../../../../types/feedbacksTypes';
+import { FeedbackButtonClickType } from '../FeedbackCard/types';
 
 const { TabPane } = Tabs;
 
 const FeedbackManager: React.FC = () => {
   const dispatch = useAppDispatch();
   const feedbacks = useAppSelector((state) => state.feedbacks.data);
-  console.log({ feedbacks });
 
   const getFeedbacks = (status:string): IFeedback[] => feedbacks.filter(
     (feedback: IFeedback): boolean => feedback.status === status,
   );
 
   const pendingFeedbacks = getFeedbacks('pending');
-  const acceptFeedbacks = getFeedbacks('accept');
-  const completeFeedbacks = getFeedbacks('complete');
-  const rejectFeedbacks = getFeedbacks('reject');
+  const acceptedFeedbacks = getFeedbacks('accept');
+  const completedFeedbacks = getFeedbacks('complete');
+  const rejectedFeedbacks = getFeedbacks('reject');
 
   function callback(key: string) {
     console.log(key);
   }
+
+  const handleCompleteFeedback: FeedbackButtonClickType = (feedback) => {
+    dispatch(actions.changeFeedbackStatusPending({ ...feedback, status: 'complete' }));
+  };
+
+  const handleAcceptFeedback: FeedbackButtonClickType = (feedback) => {
+    dispatch(actions.changeFeedbackStatusPending({ ...feedback, status: 'accept' }));
+  };
+
+  const handleRejectFeedback: FeedbackButtonClickType = (feedback) => {
+    dispatch(actions.changeFeedbackStatusPending({ ...feedback, status: 'reject' }));
+  };
 
   useEffect(() => {
     dispatch(actions.getAllFeedbacksPending());
@@ -33,22 +45,47 @@ const FeedbackManager: React.FC = () => {
   return (
     <Tabs onChange={callback} type="line">
       <TabPane tab="Все" key="all">
-        <FeedbackList feedbacks={feedbacks} />
+        <FeedbackList
+          feedbacks={feedbacks}
+          onAcceptFeedback={handleAcceptFeedback}
+          onCompleteFeedback={handleCompleteFeedback}
+          onRejectFeedback={handleRejectFeedback}
+        />
       </TabPane>
       <TabPane tab="Ожидающие" key="pending">
-        <FeedbackList feedbacks={pendingFeedbacks} />
+        <FeedbackList
+          feedbacks={pendingFeedbacks}
+          onAcceptFeedback={handleAcceptFeedback}
+          onCompleteFeedback={handleCompleteFeedback}
+          onRejectFeedback={handleRejectFeedback}
+        />
       </TabPane>
 
       <TabPane tab="В работе" key="accept">
-        <FeedbackList feedbacks={acceptFeedbacks} />
+        <FeedbackList
+          feedbacks={acceptedFeedbacks}
+          onAcceptFeedback={handleAcceptFeedback}
+          onCompleteFeedback={handleCompleteFeedback}
+          onRejectFeedback={handleRejectFeedback}
+        />
       </TabPane>
 
       <TabPane tab="Исполненные" key="complete">
-        <FeedbackList feedbacks={completeFeedbacks} />
+        <FeedbackList
+          feedbacks={completedFeedbacks}
+          onAcceptFeedback={handleAcceptFeedback}
+          onCompleteFeedback={handleCompleteFeedback}
+          onRejectFeedback={handleRejectFeedback}
+        />
       </TabPane>
 
       <TabPane tab="Отклоненные" key="reject">
-        <FeedbackList feedbacks={rejectFeedbacks} />
+        <FeedbackList
+          feedbacks={rejectedFeedbacks}
+          onAcceptFeedback={handleAcceptFeedback}
+          onCompleteFeedback={handleCompleteFeedback}
+          onRejectFeedback={handleRejectFeedback}
+        />
       </TabPane>
     </Tabs>
   );
