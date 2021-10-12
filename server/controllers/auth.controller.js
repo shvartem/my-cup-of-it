@@ -9,6 +9,7 @@ const userService = require('../services/user.service');
 const technologiesService = require('../services/technologies.service');
 
 async function registerUser(req, res) {
+  console.log({ file: req.file, body: req.body });
   const {
     firstname,
     lastname,
@@ -23,6 +24,8 @@ async function registerUser(req, res) {
     technologies,
   } = req.body;
 
+  const userPhoto = req.file?.path.replace(/^public/, '');
+  console.log({ userPhoto });
   let user;
   try {
     const duplicateUser = await db.User.findOne({ where: { email } });
@@ -38,6 +41,7 @@ async function registerUser(req, res) {
       lastname,
       email,
       password: hashPassword,
+      userPhoto,
       description,
       isMentor,
       isActive,

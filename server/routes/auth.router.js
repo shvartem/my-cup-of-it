@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth.controller');
+const uploadPhoto = require('../middlewares/uploadFile.middleware');
 
-router.post('/register', authController.registerUser);
+router.post('/register', uploadPhoto.single('userPhoto'), authController.registerUser);
 
 router.post('/login', authController.loginUser);
 

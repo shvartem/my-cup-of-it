@@ -20,8 +20,8 @@ export interface IProfile {
   isActive: boolean,
   careerStart: string,
   company: string,
+  userPhoto: any,
   position: string;
-  userPhoto: string,
   technologies: ITechnology[],
   socials: ISocial[]
 }
@@ -57,7 +57,7 @@ export interface ILoginUserAction {
 }
 export interface IRegisterUserAction {
   type: string,
-  payload: IRegisterData,
+  payload: FormData,
 }
 export interface IEditUserProfileAction {
   type: string,
