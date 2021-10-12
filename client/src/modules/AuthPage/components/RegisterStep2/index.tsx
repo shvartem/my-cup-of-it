@@ -36,11 +36,11 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
       else formdata.append(`${value[0]}`, value[1]);
     });
 
-    // dispatch(actions.registerUserPending(formdata));
+    dispatch(actions.registerUserPending(formdata));
 
-    axios.post('/api/register', formdata, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    // axios.post('/api/register', formdata, {
+    //   headers: { 'Content-Type': 'multipart/form-data' },
+    // });
   };
 
   const handleChangePhoto = (info: any) => {

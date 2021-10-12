@@ -2,7 +2,7 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import { actions } from '../slices';
 import {
-  getData, postData, editData, patchData,
+  getData, postData, editData, patchData, editUser,
 } from '../tools';
 import {
   IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserProfileAction, IChangeMeetStatusAction, IEditProfileStatusAction, IEditProfileRoleAction, IChangeMeetStatusPayload,
@@ -21,7 +21,7 @@ function* writeUserMeeting({ payload }: IWriteMeetingAction): SagaIterator {
 
 function* editUserProfile({ payload }: IEditUserProfileAction): SagaIterator {
   try {
-    const updatedUser = yield call(() => editData<IMyProfile>('/api/users', payload));
+    const updatedUser = yield call(() => editUser<IMyProfile>('/api/users', payload));
     yield put(actions.editUserProfileFullfilled(updatedUser));
   } catch (e) {
     yield put(actions.editUserProfileRejected(e as string));

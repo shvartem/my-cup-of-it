@@ -19,6 +19,15 @@ export const editData = async <T>(url: string, body: any): Promise<T> => {
   }
 };
 
+export const editUser = async <T>(url: string, { formData, userId }: any): Promise<T> => {
+  try {
+    const { data } = await axios.put(`${url}/${userId}`, formData);
+    return data;
+  } catch (e: any) {
+    throw e.response.data;
+  }
+};
+
 export const patchData = async <T>(url: string, body: any): Promise<T> => {
   try {
     const { data } = await axios.patch(`${url}/${body.id}`, body);

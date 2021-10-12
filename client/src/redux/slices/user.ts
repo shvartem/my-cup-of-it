@@ -82,7 +82,7 @@ const userSlice = createSlice({
       state.error = null;
     },
 
-    editUserProfilePending: (state: IMyProfileState, action: PayloadAction<string>) => {
+    editUserProfilePending: (state: IMyProfileState, action: PayloadAction<{ formData: FormData, userId: string }>) => {
       state.isLoading = true;
       state.error = null;
     },
