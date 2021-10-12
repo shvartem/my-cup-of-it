@@ -1,0 +1,13 @@
+#root {
+  font-family: 'Roboto Mono',
+    monospace;
+}
+
+.nav-link {
+  font-size: 20px;
+  color: #454658;
+}
+
+.nav-link--active i {
+  color: #7095a8;
+}

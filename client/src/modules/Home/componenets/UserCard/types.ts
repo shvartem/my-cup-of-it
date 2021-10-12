@@ -1,5 +1,6 @@
 import { IProfile } from '../../../../types/usersTypes';
 
-export type MyCard = {
-  mentor: IProfile;
+export interface MyCard {
+  mentor: IProfile
+  showModal: (id1: string) => void;
 }

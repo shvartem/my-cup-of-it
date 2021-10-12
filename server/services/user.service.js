@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const meetsService = require('./meets.service');
 const companyService = require('./company.service');
 const technologiesService = require('./technologies.service');

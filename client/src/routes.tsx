@@ -7,8 +7,7 @@ import Filters from './modules/Users/components/Filters';
 import { useAppSelector } from './hooks';
 import LoginAdminPage from './modules/AuthAdminPage/components/LoginAdminPage';
 import AdminProfile from './modules/AdminProfile';
-import Navbar from './modules/Navbar';
-import FeedbackPage from './modules/FeedbackPage';
+import { Container } from './modules/common/style';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
@@ -16,8 +15,6 @@ const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   if (isAuthenticated || isAdmin) {
     return (
       <>
-        <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
-
         <Switch>
           <Route path="/feedback">
             <FeedbackPage />
@@ -28,19 +25,24 @@ const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
           </Route>
 
           <Route path="/profile">
-            {isAdmin ? <AdminProfile /> : <Profile />}
+            <Container>
+              {isAdmin ? <AdminProfile /> : <Profile />}
+            </Container>
           </Route>
 
           <Route path="/users/:userId">
-            <Profile />
+            <Container>
+              <Profile />
+            </Container>
           </Route>
 
           <Route path="/users">
-            <Filters users={users} />
+            <Container>
+              <Filters users={users} />
+            </Container>
           </Route>
 
           <Redirect to="/home" />
-
         </Switch>
       </>
     );

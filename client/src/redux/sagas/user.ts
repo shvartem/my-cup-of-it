@@ -7,6 +7,17 @@ import {
 import {
   IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserProfileAction, IChangeMeetStatusAction, IEditProfileStatusAction, IEditProfileRoleAction, IChangeMeetStatusPayload,
 } from '../../types/usersTypes';
+import { IMeetBody, IWriteMeetingAction } from '../../types/meetingTypes';
+
+function* writeUserMeeting({ payload }: IWriteMeetingAction): SagaIterator {
+  try {
+    console.log(payload);
+    const newMeeting = yield call(() => postData<IMeetBody>('/api/meets', payload));
+    yield put(actions.writeUserMeetingFulfilled(newMeeting));
+  } catch (e) {
+    yield put(actions.writeUserMeetingRejected(e as string));
+  }
+}
 
 function* editUserProfile({ payload }: IEditUserProfileAction): SagaIterator {
   try {
@@ -47,7 +58,7 @@ function* toggleUserRole({ payload }: IEditProfileRoleAction): SagaIterator {
 function* loginUser({ payload }: ILoginUserAction): SagaIterator {
   try {
     const loggedUser = yield call(() => postData<IMyProfile>('/api/login', payload));
-    yield put(actions.loginUserFullfilled(loggedUser as IMyProfile));
+    yield put(actions.loginUserFulfilled(loggedUser as IMyProfile));
   } catch (e) {
     yield put(actions.loginUserRejected(e as string));
   }
@@ -65,7 +76,7 @@ function* logoutUser(): SagaIterator {
 function* registerUser({ payload }: IRegisterUserAction): SagaIterator {
   try {
     const newUser = yield call(() => postData<IMyProfile>('/api/register', payload));
-    yield put(actions.loginUserFullfilled(newUser as IMyProfile));
+    yield put(actions.loginUserFulfilled(newUser as IMyProfile));
   } catch (e) {
     console.log(e);
     yield put(actions.loginUserRejected(e as string));
@@ -75,13 +86,14 @@ function* registerUser({ payload }: IRegisterUserAction): SagaIterator {
 function* loginInitialUser(): SagaIterator {
   try {
     const loggedUser = yield call(() => getData<IMyProfile>('/api/me'));
-    yield put(actions.loginUserFullfilled(loggedUser as IMyProfile));
+    yield put(actions.loginUserFulfilled(loggedUser as IMyProfile));
   } catch (e) {
     yield put(actions.loginUserRejected(e as string));
   }
 }
 
 export default function* userSaga() {
+  yield takeEvery(`${actions.writeUserMeetingPending}`, writeUserMeeting);
   yield takeEvery(`${actions.loginUserPending}`, loginUser);
   yield takeEvery(`${actions.logoutUserPending}`, logoutUser);
   yield takeEvery(`${actions.registerUserPending}`, registerUser);
