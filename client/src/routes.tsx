@@ -11,6 +11,7 @@ import Filters from './modules/Users/components/Filters';
 import FeedbackPage from './modules/FeedbackPage';
 
 import { Container } from './modules/common/style';
+import Navbar from './modules/Navbar';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
@@ -18,6 +19,7 @@ const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   if (isAuthenticated || isAdmin) {
     return (
       <>
+        <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
         <Switch>
           <Route path="/feedback">
             <FeedbackPage />

@@ -7,7 +7,7 @@ async function getAllTechnologies(req, res) {
     return res.status(200).json(technologies);
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так...');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -20,7 +20,7 @@ async function createNewTechnology(req, res) {
     return res.status(201).json(newTechnology);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -37,7 +37,7 @@ async function editTechnology(req, res) {
     return res.json(technology);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -51,7 +51,7 @@ async function deleteTechnology(req, res) {
     return res.status(200).send('Успешное удаление');
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 

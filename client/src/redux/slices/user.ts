@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  IMeet, IRegisterData, ILoginData, IMyProfile, IMyProfileState, IChangeMeetStatusPayload,
+  IMeet, IMyProfile, IMyProfileState, IChangeMeetStatusPayload,
   IEditProfileRolePayload, IEditProfileStatusPayload,
 } from '../../types/usersTypes';
 
@@ -15,9 +15,11 @@ const initialState: IMyProfileState = {
     isActive: false,
     careerStart: '',
     company: '',
+    position: '',
     userPhoto: '',
     technologies: [],
     meets: [],
+    socials: [],
   },
   isLoading: false,
   error: null,
@@ -138,6 +140,20 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
     changeUserMeetStatusRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+
+    changeUserSocialsPending: (state: IMyProfileState, action: PayloadAction<IEditProfileStatusPayload>) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    changeUserSocialsFullfilled: (state: IMyProfileState) => {
+      state.profile.isActive = !state.profile.isActive;
+      state.error = null;
+      state.isLoading = false;
+    },
+    changeUserSocialsRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
       state.error = action.payload;
       state.isLoading = false;
     },

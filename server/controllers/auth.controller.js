@@ -20,6 +20,7 @@ async function registerUser(req, res) {
     isActive,
     careerStart = '',
     companyId = null,
+    position,
     technologies,
   } = req.body;
 
@@ -46,13 +47,14 @@ async function registerUser(req, res) {
       isActive,
       careerStart,
       companyId,
+      position,
     });
     user = dataValues;
 
     await technologiesService.addStackToUser(technologies, user.id);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
   const userData = await userService.getFullUserData(user);
 
@@ -74,7 +76,7 @@ async function loginUser(req, res) {
     });
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
   if (user) {
     const isSame = await bcrypt.compare(password, user.password);
@@ -88,7 +90,7 @@ async function loginUser(req, res) {
         return res.json(userData);
       } catch (e) {
         console.error(e.message);
-        return res.status(500).send('Что-то пошло не так');
+        return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
       }
     }
   }
@@ -110,7 +112,7 @@ async function getLoggedUser(req, res) {
     return res.json(userData);
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так..');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -118,7 +120,7 @@ async function logoutUser(req, res) {
   req.session.destroy((error) => {
     if (error) {
       console.log(error);
-      return res.status(500).send('Что-то пошло не так');
+      return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
     }
     return res
       .clearCookie('user_sid')

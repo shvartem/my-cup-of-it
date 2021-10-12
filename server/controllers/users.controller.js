@@ -2,6 +2,7 @@ const db = require('../db/models');
 const { sequelize } = require('../db/models');
 const technologiesService = require('../services/technologies.service');
 const userService = require('../services/user.service');
+const socialsService = require('../services/socials.service');
 
 async function getAllUsers(req, res) {
   try {
@@ -26,8 +27,8 @@ async function getAllUsers(req, res) {
 
     const mappedUsersPromises = users.map(async (user) => {
       const userTechnologies = await technologiesService.findTecnnologiesByUserId(user.id);
-
-      return { ...user, technologies: userTechnologies };
+      const userSocials = await socialsService.findSocialByUserId(user.id);
+      return { ...user, technologies: userTechnologies, socials: userSocials };
     });
     const mappedUsers = await Promise.all(mappedUsersPromises);
 
@@ -35,7 +36,7 @@ async function getAllUsers(req, res) {
   } catch (e) {
     console.error(e.message);
 
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -60,14 +61,14 @@ async function patchUserProfile(req, res) {
     throw new Error();
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
 async function editUserProfile(req, res) {
   const { userId } = req.params;
   const {
-    firstname, lastname, description, companyId, careerStart, technologies,
+    firstname, lastname, description, companyId, careerStart, technologies, position,
   } = req.body;
 
   try {
@@ -99,6 +100,7 @@ async function editUserProfile(req, res) {
       id: userId,
       companyId: user.companyId,
     };
+
     try {
       await technologiesService.clearUserStack(userId);
       await technologiesService.addStackToUser(technologies, userId);
@@ -109,7 +111,7 @@ async function editUserProfile(req, res) {
     return res.json(userData);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 

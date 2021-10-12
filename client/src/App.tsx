@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import styled from 'styled-components';
+import { Alert, Layout } from 'antd';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
 import Spinner from './modules/common/Spinner';
-import Navbar from './modules/Navbar';
 
 const { Content } = Layout;
 const App: React.FC = () => {
@@ -15,6 +13,8 @@ const App: React.FC = () => {
   const currentAdmin = useAppSelector((state) => state.admin.profile);
 
   const isLoading = useAppSelector((state) => state.user.isLoading);
+
+  const error = useAppSelector((state) => state.user.error);
 
   const isAuthenticated = Boolean(user?.id);
   const isAdmin = Boolean(currentAdmin?.id);
@@ -42,7 +42,14 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Navbar isAuth={isAuthenticated} isAdmin={false} />
+      {error && (
+      <Alert
+        banner
+        message={error}
+        type="error"
+        closable
+      />
+      )}
       <Layout className="layout">
         <Content>
           {routes}

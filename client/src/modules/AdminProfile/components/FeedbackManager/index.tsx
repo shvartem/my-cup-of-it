@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Tabs } from 'antd';
+import { Alert, Tabs } from 'antd';
 
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { actions } from '../../../../redux/slices';
@@ -12,7 +12,7 @@ const { TabPane } = Tabs;
 const FeedbackManager: React.FC = () => {
   const dispatch = useAppDispatch();
   const feedbacks = useAppSelector((state) => state.feedbacks.data);
-
+  const error = useAppSelector((state) => state.feedbacks.error);
   const getFeedbacks = (status:string): IFeedback[] => feedbacks.filter(
     (feedback: IFeedback): boolean => feedback.status === status,
   );
@@ -43,51 +43,69 @@ const FeedbackManager: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <Tabs onChange={callback} type="line">
-      <TabPane tab="Все" key="all">
-        <FeedbackList
-          feedbacks={feedbacks}
-          onAcceptFeedback={handleAcceptFeedback}
-          onCompleteFeedback={handleCompleteFeedback}
-          onRejectFeedback={handleRejectFeedback}
-        />
-      </TabPane>
-      <TabPane tab="Ожидающие" key="pending">
-        <FeedbackList
-          feedbacks={pendingFeedbacks}
-          onAcceptFeedback={handleAcceptFeedback}
-          onCompleteFeedback={handleCompleteFeedback}
-          onRejectFeedback={handleRejectFeedback}
-        />
-      </TabPane>
+    <>
+      {feedbacks.length === 0 && (
+      <Alert
+        banner
+        message="Пока нет ни одной встречи"
+        type="info"
+        closable
+      />
+      )}
+      {error && (
+      <Alert
+        banner
+        message={error}
+        type="error"
+        closable
+      />
+      )}
+      <Tabs onChange={callback} type="line">
+        <TabPane tab="Все" key="all">
+          <FeedbackList
+            feedbacks={feedbacks}
+            onAcceptFeedback={handleAcceptFeedback}
+            onCompleteFeedback={handleCompleteFeedback}
+            onRejectFeedback={handleRejectFeedback}
+          />
+        </TabPane>
+        <TabPane tab="Ожидающие" key="pending">
+          <FeedbackList
+            feedbacks={pendingFeedbacks}
+            onAcceptFeedback={handleAcceptFeedback}
+            onCompleteFeedback={handleCompleteFeedback}
+            onRejectFeedback={handleRejectFeedback}
+          />
+        </TabPane>
 
-      <TabPane tab="В работе" key="accept">
-        <FeedbackList
-          feedbacks={acceptedFeedbacks}
-          onAcceptFeedback={handleAcceptFeedback}
-          onCompleteFeedback={handleCompleteFeedback}
-          onRejectFeedback={handleRejectFeedback}
-        />
-      </TabPane>
+        <TabPane tab="В работе" key="accept">
+          <FeedbackList
+            feedbacks={acceptedFeedbacks}
+            onAcceptFeedback={handleAcceptFeedback}
+            onCompleteFeedback={handleCompleteFeedback}
+            onRejectFeedback={handleRejectFeedback}
+          />
+        </TabPane>
 
-      <TabPane tab="Исполненные" key="complete">
-        <FeedbackList
-          feedbacks={completedFeedbacks}
-          onAcceptFeedback={handleAcceptFeedback}
-          onCompleteFeedback={handleCompleteFeedback}
-          onRejectFeedback={handleRejectFeedback}
-        />
-      </TabPane>
+        <TabPane tab="Исполненные" key="complete">
+          <FeedbackList
+            feedbacks={completedFeedbacks}
+            onAcceptFeedback={handleAcceptFeedback}
+            onCompleteFeedback={handleCompleteFeedback}
+            onRejectFeedback={handleRejectFeedback}
+          />
+        </TabPane>
 
-      <TabPane tab="Отклоненные" key="reject">
-        <FeedbackList
-          feedbacks={rejectedFeedbacks}
-          onAcceptFeedback={handleAcceptFeedback}
-          onCompleteFeedback={handleCompleteFeedback}
-          onRejectFeedback={handleRejectFeedback}
-        />
-      </TabPane>
-    </Tabs>
+        <TabPane tab="Отклоненные" key="reject">
+          <FeedbackList
+            feedbacks={rejectedFeedbacks}
+            onAcceptFeedback={handleAcceptFeedback}
+            onCompleteFeedback={handleCompleteFeedback}
+            onRejectFeedback={handleRejectFeedback}
+          />
+        </TabPane>
+      </Tabs>
+    </>
   );
 };
 
