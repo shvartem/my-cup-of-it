@@ -31,6 +31,7 @@ const app = express();
 app.use(session(sessionConfig));
 
 app.use(logger('dev'));
+app.use(express.static('public'));
 app.use(express.json());
 
 app.use('/api', authRouter);

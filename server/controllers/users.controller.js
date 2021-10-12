@@ -65,18 +65,32 @@ async function patchUserProfile(req, res) {
 }
 
 async function editUserProfile(req, res) {
+  const { userId } = req.params;
   const {
     firstname, lastname, description, companyId, careerStart, technologies,
   } = req.body;
-  const { userId } = req.params;
+
   try {
-    const [result] = await db.User.update({
-      firstname,
-      lastname,
-      description,
-      companyId,
-      careerStart,
-    }, { where: { id: userId } });
+    let result;
+    if (req.file) {
+      const userPhoto = req.body.file?.path.replace(/^public\//, '');
+      [result] = await db.User.update({
+        firstname,
+        lastname,
+        userPhoto,
+        description,
+        companyId,
+        careerStart,
+      }, { where: { id: userId } });
+    } else {
+      [result] = await db.User.update({
+        firstname,
+        lastname,
+        description,
+        companyId,
+        careerStart,
+      }, { where: { id: userId } });
+    }
 
     if (!result) throw new Error();
     const user = await db.User.findOne({ where: { id: userId }, raw: true });
