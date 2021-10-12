@@ -39,13 +39,14 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
   for (let i = 0; i < technologies.length; i += 1) {
     children.push(<Option value={technologies[i].id} key={technologies[i].title}>{technologies[i].title}</Option>);
   }
+
   return (
-    <Card hoverable title="Продолжение регистрации" style={{ width: 500 }}>
+    <Card hoverable title="Продолжение регистрации" style={{ width: 700 }}>
       <Form
         onValuesChange={onChangeRegisterFormValues}
         name="registerForm2"
         labelCol={{
-          span: 7,
+          span: registerData.isMentor ? 6 : 3,
         }}
         initialValues={initialRegisterFormValues}
         onFinish={onSubmit}
@@ -82,50 +83,53 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
                 ))}
               </Select>
             </Form.Item>
+
+            <Form.Item
+              label="Должность"
+              name="position"
+              rules={[
+                {
+                  required: true,
+                  message: 'Введите занимаемую вами позицию',
+                },
+              ]}
+            >
+              <Input placeholder="Старший разработчик" />
+            </Form.Item>
+
+            <Form.Item
+              label="Технологии"
+              name="technologies"
+              rules={[
+                {
+                  required: true,
+                  message: 'Выберите используемые вами технологии',
+                },
+              ]}
+            >
+              <Select
+                mode="multiple"
+                placeholder="Please select"
+                style={{ width: '100%' }}
+              >
+                {children}
+              </Select>
+            </Form.Item>
           </>
         )}
-        <Form.Item
-          label="Должность"
-          name="position"
-          rules={[
-            {
-              required: true,
-              message: 'Введите занимаемую вами позицию',
-            },
-          ]}
-        >
-          <Input placeholder="Старший разработчик" />
-        </Form.Item>
+
         <Form.Item
           label="О себе"
           name="description"
           rules={[
             {
-              required: true,
               message: 'Введите информацию о себе',
             },
           ]}
         >
           <Input.TextArea showCount maxLength={140} />
         </Form.Item>
-        <Form.Item
-          label="Технологии"
-          name="technologies"
-          rules={[
-            {
-              required: true,
-              message: 'Выберите используемые вами технологии',
-            },
-          ]}
-        >
-          <Select
-            mode="multiple"
-            placeholder="Please select"
-            style={{ width: '100%' }}
-          >
-            {children}
-          </Select>
-        </Form.Item>
+
         <Form.Item
           wrapperCol={{
             offset: 4,

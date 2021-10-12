@@ -25,7 +25,7 @@ const RegisterStepOne: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
   }, [registerData.isMentor, setRegisterData]);
 
   return (
-    <Card hoverable title="Регистрация" style={{ width: 500 }}>
+    <Card hoverable title="Регистрация" style={{ width: 600 }}>
       <Form
         onValuesChange={onChangeRegisterFormValues}
         name="registerForm1"
