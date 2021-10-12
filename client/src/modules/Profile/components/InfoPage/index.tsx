@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector((state) => state.user.profile);
   const technologies = useAppSelector((state) => state.technologies.data);
   const error = useAppSelector((state) => state.technologies.error);
   function changeRole() {
@@ -25,7 +26,13 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
 
   function editProfile(values: any) {
     values.technologies = values.technologies.map((el: string) => technologies.find((elem: ITechnology) => elem.title === el)?.id);
-    dispatch(actions.editUserProfilePending({ ...profileData, ...values }));
+
+    const formData = new FormData();
+    Object.entries(values).forEach((value: [string, any]) => {
+      if (value[0] === 'userPhoto' && value[1]) formData.append(`${value[0]}`, value[1][0].originFileObj);
+      else formData.append(`${value[0]}`, value[1]);
+    });
+    dispatch(actions.editUserProfilePending({ formData, userId: currentUser.id }));
   }
 
   function editSocials(values: any) {

@@ -1,12 +1,21 @@
 import React from 'react';
 import {
-  Form, Input, Select, DatePicker,
+  Form, Input, Select, DatePicker, Upload, Button,
 } from 'antd';
 import moment from 'moment';
+import { UploadOutlined } from '@ant-design/icons';
 import { useAppSelector } from '../../../../../../hooks';
 import { IEditUserProfileForm } from '../../types';
 
 const { Option } = Select;
+
+const normFile = (e: any) => {
+  console.log('Upload:', e);
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+};
 
 const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, profileData, form }) => {
   const companies = useAppSelector((state) => state.companies.data);
@@ -19,6 +28,8 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
   for (let i = 0; i < technologies.length; i += 1) {
     children.push(<Option value={technologies[i].title} key={technologies[i].id}>{technologies[i].title}</Option>);
   }
+
+  const handleUploadFile = (photo: any) => false;
 
   console.log(profileData.careerStart);
   console.log(moment(profileData.careerStart));
@@ -108,6 +119,23 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
         >
           {children}
         </Select>
+      </Form.Item>
+
+      <Form.Item
+        name="userPhoto"
+        label="Фото"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+      >
+        <Upload
+          name="photo"
+          action="/upload.do"
+          listType="picture"
+          beforeUpload={handleUploadFile}
+          maxCount={1}
+        >
+          <Button icon={<UploadOutlined />}>Загрузить</Button>
+        </Upload>
       </Form.Item>
     </Form>
   );
