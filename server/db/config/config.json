@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "ilkhom",
-    "password": "me1980",
-    "database": "my_cup_of_it",
+    "password": "1111",
+    "database": "mycupit",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
