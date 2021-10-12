@@ -3,7 +3,7 @@ module.exports = {
     await queryInterface.bulkInsert('Meets', [
       {
         id: 'bCko3HJhVm',
-        interviewerId: '206802',
+        interviewerId: '145976',
         mentorId: '365742',
         date: '04.10.2021 15:00',
         comment: 'завалимся в бар',
@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         id: 'b73c401b5c',
-        interviewerId: '206802',
+        interviewerId: '145976',
         mentorId: '365742',
         date: '12-10-2021 19:00',
         comment: 'покатаемся на метро',
@@ -43,7 +43,7 @@ module.exports = {
       },
       {
         id: 'b73c401b53',
-        interviewerId: '206802',
+        interviewerId: '145976',
         mentorId: '365742',
         date: '12-10-2021 19:00',
         comment: 'покатаемся на метро',
