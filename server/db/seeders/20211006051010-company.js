@@ -17,8 +17,58 @@ module.exports = {
 
       },
       {
-        id: 'Ma45Yp9oK9',
-        title: 'Yandex',
+        id: 'Ma45Yp9o',
+        title: 'Amazon',
+
+      },
+      {
+        id: 'Ma45YpK9',
+        title: 'Yhoo',
+
+      },
+      {
+        id: 'Ma45sd-oK',
+        title: 'X5',
+
+      },
+      {
+        id: 'Ma4123d-oK',
+        title: 'Ростех',
+
+      },
+      {
+        id: '898нгрsd',
+        title: 'Ланит',
+
+      },
+      {
+        id: 'sda-asd98h',
+        title: 'OCS Distribution',
+
+      },
+      {
+        id: 'eRtg-pso0',
+        title: 'Dell',
+
+      },
+      {
+        id: 'eRtgso0',
+        title: 'IBM',
+
+      },
+      {
+        id: 'eRtgsds0sdk',
+        title: 'Cisco Systems',
+
+      },
+      {
+        id: 'esfa-sd50',
+        title: 'Accenture',
+
+      },
+      {
+        id: 'eR-dkk9k',
+        title: 'Oracle',
 
       },
     ], {});
