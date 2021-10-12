@@ -9,7 +9,7 @@ async function getAllCompanies(req, res) {
     return res.json(companies);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -22,7 +22,7 @@ async function createNewCompany(req, res) {
     return res.status(201).json(newCompany);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -39,7 +39,7 @@ async function editCompany(req, res) {
     return res.json(company);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -53,7 +53,7 @@ async function deleteCompany(req, res) {
     return res.status(200).send('Успешное удаление');
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 

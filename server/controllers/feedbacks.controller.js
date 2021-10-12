@@ -25,7 +25,7 @@ async function getAllFeedbacks(req, res) {
   } catch (e) {
     console.error(e.message);
 
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -39,7 +39,7 @@ async function createFeedback(req, res) {
   } catch (e) {
     console.error(e.message);
 
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -58,7 +58,7 @@ async function changeFeedbackStatus(req, res) {
   } catch (e) {
     console.error(e.message);
 
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 

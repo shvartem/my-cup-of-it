@@ -36,7 +36,7 @@ async function getAllUsers(req, res) {
   } catch (e) {
     console.error(e.message);
 
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -61,7 +61,7 @@ async function patchUserProfile(req, res) {
     throw new Error();
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 
@@ -98,7 +98,7 @@ async function editUserProfile(req, res) {
     return res.json(userData);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
   }
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { Layout } from 'antd';
+import { Alert, Layout } from 'antd';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
@@ -13,6 +13,8 @@ const App: React.FC = () => {
   const currentAdmin = useAppSelector((state) => state.admin.profile);
 
   const isLoading = useAppSelector((state) => state.user.isLoading);
+
+  const error = useAppSelector((state) => state.user.error);
 
   const isAuthenticated = Boolean(user?.id);
   const isAdmin = Boolean(currentAdmin?.id);
@@ -40,6 +42,14 @@ const App: React.FC = () => {
 
   return (
     <>
+      {error && (
+      <Alert
+        banner
+        message={error}
+        type="error"
+        closable
+      />
+      )}
       <Layout className="layout">
         <Content>
           {routes}
