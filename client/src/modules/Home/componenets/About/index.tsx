@@ -1,47 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import FeedbackModal from './FeedbackModal/FeedbackModal';
-
-const Container = styled.div`
-  height: 40vh;
-  background-color: #fff;
-  display: flex;
-`;
-
-const Logo = styled.div`
-  width: 50%;
-  font-family: 'Lora', serif;
-  font-weight: 700;
-  font-size: 55px;
-  color: #fff;
-`;
-
-const LogoWrapper = styled.div`
-  background-color: #2b2c3e;
-  width: 35%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ContactsContainer = styled.div`
-  height: 100%;
-  padding: 20px 100px;
-`;
-
-const ContactsTitle = styled.div`
-  font-weight: 700;
-  font-size: 30px;
-`;
-
-const ContactsInfo = styled.div`
-  margin: 20px 0;
-  font-size:18px;
-`;
+import {
+  Container, Logo, LogoWrapper, ContactsContainer, ContactsTitle, ContactsInfo,
+} from './styles';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 const About: React.FC = () => {
-  console.log(11);
+  const currentAdmin = useAppSelector((state) => state.admin.profile);
+  const isAdmin = Boolean(currentAdmin?.id);
+
+  console.log(isAdmin);
   return (
     <Container>
       <LogoWrapper>
@@ -55,7 +23,8 @@ const About: React.FC = () => {
           </p>
           <a href="mailto:ask@htmlbook.ru">mailto:ask@htmlbook.ru</a>
         </ContactsInfo>
-        <FeedbackModal />
+        {!isAdmin
+          && <FeedbackModal />}
       </ContactsContainer>
     </Container>
   );
