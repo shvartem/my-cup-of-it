@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const db = require('../db/models');
 
 async function findUserMeets(user) {
@@ -12,6 +13,7 @@ async function findUserMeets(user) {
         'comment',
         'date',
         'status',
+        [db.sequelize.literal(`"${configMeets.targetTable}"."id"`), 'userId'],
         [db.sequelize.literal(`"${configMeets.targetTable}"."firstname"`), 'firstname'],
         [db.sequelize.literal(`"${configMeets.targetTable}"."lastname"`), 'lastname'],
       ],
@@ -21,10 +23,30 @@ async function findUserMeets(user) {
       },
       include: { model: db.User, as: configMeets.targetTable, attributes: [] },
     });
+    console.log(userMeets);
     return userMeets;
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
-module.exports = { findUserMeets };
+async function findUpcomingMeets(interviewerId, mentorId) {
+  let upcomingMeets;
+  try {
+    upcomingMeets = await db.Meet.findAll({
+      where: {
+        interviewerId,
+        mentorId,
+        status: {
+          [Op.or]: ['pending', 'accepted'],
+        },
+      },
+      raw: true,
+    });
+    return upcomingMeets;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+
+module.exports = { findUserMeets, findUpcomingMeets };

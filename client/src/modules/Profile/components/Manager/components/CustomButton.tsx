@@ -1,9 +1,26 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Popconfirm, message } from 'antd';
 import { IMeetButton } from './types';
 
-const CustomButton: React.FC<IMeetButton> = ({ clickHandler, buttonText }) => (
+export const CustomButton: React.FC<IMeetButton> = ({ clickHandler, buttonText }) => (
   <Button onClick={clickHandler} style={{ margin: '0 10px' }}>{buttonText}</Button>
 );
 
-export default CustomButton;
+export const CustomCancelButton: React.FC<IMeetButton> = ({ clickHandler, buttonText }) => {
+  function confirm() {
+    message.success('Встреча отменена');
+    clickHandler();
+  }
+
+  return (
+    <Popconfirm
+      placement="rightTop"
+      title="Вы уверены что хотите отменить встречу? Это действие невозможно отменить"
+      onConfirm={confirm}
+      okText="Да"
+      cancelText="Нет"
+    >
+      <Button style={{ margin: '0 10px' }}>{buttonText}</Button>
+    </Popconfirm>
+  );
+};

@@ -2,7 +2,7 @@ import React from 'react';
 import { List } from 'antd';
 import IManagerProps from '../types';
 import MeetCard from './MeetCardTab';
-import CustomButton from './CustomButton';
+import { CustomButton, CustomCancelButton } from './CustomButton';
 import { IMeet } from '../../../../../types/usersTypes';
 
 const FeatureMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor }) => (
@@ -15,7 +15,7 @@ const FeatureMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMen
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 10,
+          pageSize: 2,
         }}
         dataSource={meets}
         renderItem={(meet) => (
@@ -24,7 +24,7 @@ const FeatureMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMen
               key={meet.id}
               buttons={isMentor ? [
                 <CustomButton buttonText="Встреча состоялась" key="1" clickHandler={() => changeMeetsStatus('completed', meet.id)} />,
-                <CustomButton buttonText="Отменить встречу" key="2" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />,
+                <CustomCancelButton buttonText="Отменить встречу" key="2" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />,
               ]
                 : [<CustomButton buttonText="Отменить встречу" key="2" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />]}
               meetData={meet}
