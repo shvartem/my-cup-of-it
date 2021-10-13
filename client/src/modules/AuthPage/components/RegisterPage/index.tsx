@@ -39,7 +39,7 @@ const RegisterPage: React.FC = () => {
         />
         // <div style={{ color: 'red', fontSize: '20px' }}>{error}</div>
       )} */}
-      
+
       <ShowFormContainer isOpen={formStep === 1}>
         <RegisterStepOne registerData={registerData} setRegisterData={setRegisterData} setFormStep={setFormStep} />
       </ShowFormContainer>
