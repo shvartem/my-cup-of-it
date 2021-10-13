@@ -96,10 +96,10 @@ export interface IChangeMeetStatusPayload {
 
 export interface IEditUserSocialsAction {
   type: string,
-  payload: IChangeMeetStatusPayload
+  payload: IEditUserSocialsPayload
 }
 
 export interface IEditUserSocialsPayload {
   id: string,
-  status: string
+  socials: { [key: string]: string }[]
 }
