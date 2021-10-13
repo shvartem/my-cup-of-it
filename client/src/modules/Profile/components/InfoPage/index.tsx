@@ -11,6 +11,7 @@ import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import KnockingModal from '../../../Home/componenets/knockingModal';
 import ISocial from '../../../../types/socialsTypes';
+import { getExperience } from '../../../common/getExperience';
 
 interface ISocialClasses {
   [key: string]: string
@@ -26,7 +27,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.profile);
   const technologies = useAppSelector((state) => state.technologies.data);
-  const error = useAppSelector((state) => state.technologies.error);
+
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const socialItems = profileData.socials.map((el: any) => Object.entries(el)[0]);
@@ -73,22 +74,6 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
 
   return (
     <Container>
-      {technologies.length === 0 && (
-        <Alert
-          banner
-          message="Стек технологий пуст"
-          type="info"
-          closable
-        />
-      )}
-      {error && (
-        <Alert
-          banner
-          message={error}
-          type="error"
-          closable
-        />
-      )}
       <ImageWrapper>
         <Image
           width="100%"
@@ -104,7 +89,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
               editSocials={editSocials}
               disableChangeRole={disableChangeRole}
             />
-          ) : (profileData.isMentor && <CommunicateButtons isActive={profileData.isActive} onKnock={setIsModalVisible} />)
+          ) : (profileData.isMentor && !currentUser.isMentor && <CommunicateButtons isActive={profileData.isActive} onKnock={setIsModalVisible} />)
         }
       </ImageWrapper>
       <CardWrapper>
@@ -119,7 +104,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
             )}
             {profileData.careerStart && (
               <Timeline.Item>
-                {`Начало работы: ${profileData.careerStart}`}
+                {`Опыт работы: ${getExperience(profileData.careerStart)}`}
               </Timeline.Item>
             )}
             {profileData.technologies.length && (

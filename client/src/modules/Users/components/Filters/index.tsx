@@ -26,7 +26,6 @@ const Filters: React.FC<UserProps> = ({ users }) => {
   const [filteredCompany, setfilteredCompany] = useState<string[]>([]);
   const [filteredTeh, setfilteredTeh] = useState<string[]>([]);
   const [filteredIsActive, setFilteredIsActive] = useState(false);
-  const error = useAppSelector((state) => state.allUsers.error);
   const typeUser = Array.from(new Set(users.map((el) => {
     if (el.isMentor === true) {
       return 'Менторы';
@@ -49,7 +48,7 @@ const Filters: React.FC<UserProps> = ({ users }) => {
   function handleChangetechnologies(value: string[]) {
     setfilteredTeh(value);
   }
-  function onChengeCheckIsActive(e:any) {
+  function onChengeCheckIsActive(e: any) {
     setFilteredIsActive(e.target.checked);
     console.log(filteredIsActive, e.target.checked);
   }
@@ -96,20 +95,12 @@ const Filters: React.FC<UserProps> = ({ users }) => {
   return (
     <>
       {filteredUsers.length === 0 && (
-      <Alert
-        banner
-        message="Нет ни одного пользователя"
-        type="info"
-        closable
-      />
-      )}
-      {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
+        <Alert
+          banner
+          message="Нет ни одного пользователя"
+          type="info"
+          closable
+        />
       )}
       <div className={styles.conteinerFilters}>
 

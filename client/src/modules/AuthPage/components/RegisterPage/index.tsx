@@ -24,7 +24,6 @@ export const initialRegisterFormValues: IRegisterData = {
 };
 
 const RegisterPage: React.FC = () => {
-  const error = useAppSelector((state) => state.user.error);
   const [registerData, setRegisterData] = useState(initialRegisterFormValues);
   const [formStep, setFormStep] = useState(1);
 
@@ -40,6 +39,7 @@ const RegisterPage: React.FC = () => {
         />
         // <div style={{ color: 'red', fontSize: '20px' }}>{error}</div>
       )} */}
+      
       <ShowFormContainer isOpen={formStep === 1}>
         <RegisterStepOne registerData={registerData} setRegisterData={setRegisterData} setFormStep={setFormStep} />
       </ShowFormContainer>

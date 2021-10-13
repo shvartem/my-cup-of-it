@@ -43,13 +43,17 @@ const App: React.FC = () => {
   return (
     <>
       {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
+        <Alert
+          style={{
+            width: 350, position: 'absolute', right: 15, top: 15,
+          }}
+          banner
+          message={error}
+          type="error"
+          closable
+        />
       )}
+
       <Layout className="layout">
         <Content>
           {routes}

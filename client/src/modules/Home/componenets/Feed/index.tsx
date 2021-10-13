@@ -18,10 +18,11 @@ const CardsWrapper = styled.div`
   justify-content: center;
   flex-wrap: wrap;
 `;
+
 const Feed: React.FC = () => {
   const history = useHistory();
   const users = useAppSelector((state) => state.allUsers.data);
-  const error = useAppSelector((state) => state.allUsers.error);
+
   const activeMentors = users.filter((user) => user.isMentor && user.isActive);
   const randomMentors = shuffleArray(activeMentors, 8);
 
@@ -34,25 +35,9 @@ const Feed: React.FC = () => {
       <Spinner />
     );
   }
+
   return (
     <Container>
-      {users.length === 0 && (
-      <Alert
-        banner
-        message="Пока нет ни одного ментора"
-        type="info"
-        closable
-      />
-      )}
-      {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
-      )}
-
       <h1>Часть наших профecсионалов</h1>
 
       <FeedForModal mentors={randomMentors} />

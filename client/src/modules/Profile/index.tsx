@@ -13,7 +13,6 @@ const { TabPane } = Tabs;
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.profile);
-  const errorUser = useAppSelector((state) => state.user.error);
   const users = useAppSelector((state) => state.allUsers.data);
   const { userId }: { userId: string } = useParams();
   const isMe = Boolean(!userId);
@@ -25,7 +24,8 @@ const Profile: React.FC = () => {
   else user = users.find((userData) => userData.id === userId);
 
   // нельзя поменять роль, если есть предстоящие встречи
-  const disableChangeRole = Boolean(currentUser.meets.filter((meet) => meet.status === 'accepted').length);
+  const disableChangeRole = Boolean(currentUser.meets.filter((meet) => meet.status === 'accepted' || meet.status === 'pending').length);
+  console.log(currentUser.meets);
 
   function changeMeetsStatus(status: string, id: string) {
     dispatch(actions.changeUserMeetStatusPending({ status, id }));
@@ -43,14 +43,6 @@ const Profile: React.FC = () => {
 
   return (
     <Contaiter>
-      {errorUser && (
-      <Alert
-        banner
-        message={errorUser}
-        type="error"
-        closable
-      />
-      )}
       <Tabs type="card">
         <TabPane tab="Профиль" key="1">
           <InnerContainer>

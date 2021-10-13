@@ -31,7 +31,7 @@ const FeedForModal: React.FC<FeedProps> = ({ mentors }) => {
     <>
       <CardsWrapper>
         {mentors.map((mentor) => (
-          <UserCard mentor={mentor} showModal={showModal} />
+          <UserCard key={mentor.id} mentor={mentor} showModal={showModal} />
         ))}
       </CardsWrapper>
       <KnockingModal
