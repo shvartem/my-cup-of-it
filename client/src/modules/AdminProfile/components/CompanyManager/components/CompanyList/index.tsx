@@ -8,7 +8,6 @@ import EditButton from './components/EditButton';
 
 const CompanyList: React.FC = () => {
   const companies = useAppSelector((state) => state.companies.data);
-  const error = useAppSelector((state) => state.companies.error);
   if (!companies.length) {
     return (
       <Empty description="Компаний пока нет" />
@@ -17,22 +16,6 @@ const CompanyList: React.FC = () => {
 
   return (
     <>
-      {companies.length === 0 && (
-      <Alert
-        banner
-        message="Пока нет ни одной компании"
-        type="info"
-        closable
-      />
-      )}
-      {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
-      )}
       <List
         itemLayout="horizontal"
         dataSource={companies}

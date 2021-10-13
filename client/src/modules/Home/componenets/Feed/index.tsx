@@ -22,10 +22,9 @@ const CardsWrapper = styled.div`
   justify-content: center;
   flex-wrap: wrap;
 `;
+
 const Feed: React.FC = () => {
   const users = useAppSelector((state) => state.allUsers.data);
-  const error = useAppSelector((state) => state.allUsers.error);
-  // const { TextArea } = Input;
   const mentors = users.filter((user) => user.isMentor && user.isActive);
   shuffleArray(mentors, 8);
 
@@ -34,29 +33,17 @@ const Feed: React.FC = () => {
       <Spinner />
     );
   }
+
+  if (!mentors.length) {
+    return (
+      <div />
+    );
+  }
+
   return (
     <Container>
-      {users.length === 0 && (
-      <Alert
-        banner
-        message="Пока нет ни одного ментора"
-        type="info"
-        closable
-      />
-      )}
-      {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
-      )}
-
       <h1>Часть наших профecсионалов</h1>
-
       <FeedForModal mentors={mentors} />
-
       <div style={{ textAlign: 'center', margin: '15px 0' }}>
         <Button>Посмотреть еще</Button>
       </div>

@@ -12,8 +12,7 @@ const { TabPane } = Tabs;
 const FeedbackManager: React.FC = () => {
   const dispatch = useAppDispatch();
   const feedbacks = useAppSelector((state) => state.feedbacks.data);
-  const error = useAppSelector((state) => state.feedbacks.error);
-  const getFeedbacks = (status:string): IFeedback[] => feedbacks.filter(
+  const getFeedbacks = (status: string): IFeedback[] => feedbacks.filter(
     (feedback: IFeedback): boolean => feedback.status === status,
   );
 
@@ -44,22 +43,6 @@ const FeedbackManager: React.FC = () => {
 
   return (
     <>
-      {feedbacks.length === 0 && (
-      <Alert
-        banner
-        message="Пока нет ни одной встречи"
-        type="info"
-        closable
-      />
-      )}
-      {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
-      )}
       <Tabs onChange={callback} type="line">
         <TabPane tab="Все" key="all">
           <FeedbackList

@@ -8,31 +8,8 @@ import EditButton from './components/EditButton';
 
 const TechnologyList: React.FC = () => {
   const technologies = useAppSelector((state) => state.technologies.data);
-  const error = useAppSelector((state) => state.technologies.error);
-  // if (!technologies.length) {
-  //   return (
-  //     <Empty description="Тенгологий пока нет" />
-  //   );
-  // }
-
   return (
     <>
-      {technologies.length === 0 && (
-      <Alert
-        banner
-        message="Стек технологий пуст"
-        type="info"
-        closable
-      />
-      )}
-      {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
-      )}
       <List
         itemLayout="horizontal"
         dataSource={technologies}

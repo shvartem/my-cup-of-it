@@ -13,7 +13,6 @@ const { TabPane } = Tabs;
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.profile);
-  const errorUser = useAppSelector((state) => state.user.error);
   const users = useAppSelector((state) => state.allUsers.data);
   const { userId }: { userId: string } = useParams();
   const isMe = Boolean(!userId);
@@ -43,14 +42,6 @@ const Profile: React.FC = () => {
 
   return (
     <Contaiter>
-      {errorUser && (
-      <Alert
-        banner
-        message={errorUser}
-        type="error"
-        closable
-      />
-      )}
       <Tabs type="card">
         <TabPane tab="Профиль" key="1">
           <InnerContainer>

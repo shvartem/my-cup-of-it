@@ -18,7 +18,6 @@ const initialLoginFormValues = {
 
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const error = useAppSelector((state) => state.user.error);
 
   const onSubmit: LoginSubmitType = (values) => {
     dispatch(actions.loginUserPending(values));
@@ -26,16 +25,6 @@ const LoginPage: React.FC = () => {
 
   return (
     <Container>
-      {error && (
-      <Alert
-        // style={{ position: 'absolute', top: 80, right: 30 }}
-        banner
-        message={error}
-        type="error"
-        closable
-      />
-      // <div style={{ color: 'red', fontSize: '20px' }}>{error}</div>
-      )}
       <Card hoverable title="Войти" style={{ width: 500 }}>
         <Form
           name="loginForm"
