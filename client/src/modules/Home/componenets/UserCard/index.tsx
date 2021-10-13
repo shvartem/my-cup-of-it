@@ -6,6 +6,7 @@ import { MyCard } from './types';
 import styles from './card.module.css';
 import { getExperience } from '../../../common/getExperience';
 import { useAppSelector } from '../../../../hooks';
+import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
 
 const { Meta } = Card;
 
@@ -28,7 +29,7 @@ const UserCard: React.FC<MyCard> = ({
                 maxHeight: '250px',
                 objectFit: 'cover',
               }}
-              src={mentor.userPhoto ? mentor.userPhoto : 'https://www.meme-arsenal.com/memes/31dde0ea5ae52dee67a47dde40a58e4a.jpg'}
+              src={mentor.userPhoto ? mentor.userPhoto : defaultUserPhotoUrl}
             />
           )}
         >

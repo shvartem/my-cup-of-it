@@ -3,8 +3,7 @@ import { List } from 'antd';
 
 import MeetCard from './MeetCardTab';
 import IManagerProps from '../types';
-import { IMeet } from '../../../../../types/usersTypes';
-import CustomButton from './CustomButton';
+import { CustomButton, CustomCancelButton } from './CustomButton';
 
 const SuggestionsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor }) => (
   <>
@@ -25,8 +24,8 @@ const SuggestionsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isM
               key={meet.id}
               buttons={isMentor ? [
                 <CustomButton key="1" buttonText="Принять встречу" clickHandler={() => changeMeetsStatus('accepted', meet.id)} />,
-                <CustomButton key="2" buttonText="Отклонить встречу" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />,
-              ] : [<CustomButton key="1" buttonText="Отменить встречу" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />]}
+                <CustomCancelButton key="2" buttonText="Отклонить встречу" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />,
+              ] : [<CustomCancelButton key="1" buttonText="Отменить встречу" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />]}
               meetData={meet}
               isMentor={isMentor}
             />

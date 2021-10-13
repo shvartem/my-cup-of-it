@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "elbrus",
-    "password": "elbrus",
-    "database": "mycupit",
+    "username": "elbrus_practice",
+    "password": 7236,
+    "database": "my_cup_of_it",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
