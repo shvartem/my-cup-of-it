@@ -27,7 +27,7 @@ async function getAllUsers(req, res) {
 
     const mappedUsersPromises = users.map(async (user) => {
       const userTechnologies = await technologiesService.findTecnnologiesByUserId(user.id);
-      const userSocials = await socialsService.findSocialByUserId(user.id);
+      const userSocials = await socialsService.findSocialsByUserId(user.id);
       return { ...user, technologies: userTechnologies, socials: userSocials };
     });
     const mappedUsers = await Promise.all(mappedUsersPromises);

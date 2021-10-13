@@ -11,3 +11,9 @@
 .nav-link--active i {
   color: #7095a8;
 }
+
+.social-icon {
+  font-size: 30px;
+  color: #454658;
+  padding: 15px 5px;
+}

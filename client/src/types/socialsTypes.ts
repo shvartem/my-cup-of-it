@@ -1,7 +1,5 @@
 interface ISocial {
-  userId: string
-  url: string
-  socialTitle: string
+  [key: string]: string
 }
 
 export default ISocial;

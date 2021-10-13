@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   IMeet, IMyProfile, IMyProfileState, IChangeMeetStatusPayload,
-  IEditProfileRolePayload, IEditProfileStatusPayload,
+  IEditProfileRolePayload, IEditProfileStatusPayload, IEditUserSocialsPayload,
 } from '../../types/usersTypes';
+import ISocial from '../../types/socialsTypes';
 
 const initialState: IMyProfileState = {
   profile: {
@@ -144,12 +145,26 @@ const userSlice = createSlice({
       state.isLoading = false;
     },
 
-    changeUserSocialsPending: (state: IMyProfileState, action: PayloadAction<IEditProfileStatusPayload>) => {
+    addUserSocialsPending: (state: IMyProfileState, action: PayloadAction<IEditUserSocialsPayload>) => {
       state.isLoading = true;
       state.error = null;
     },
-    changeUserSocialsFullfilled: (state: IMyProfileState) => {
-      state.profile.isActive = !state.profile.isActive;
+    addUserSocialsFullfilled: (state: IMyProfileState, action: PayloadAction<ISocial[]>) => {
+      state.profile.socials = action.payload;
+      state.error = null;
+      state.isLoading = false;
+    },
+    addUserSocialsRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+
+    changeUserSocialsPending: (state: IMyProfileState, action: PayloadAction<IEditUserSocialsPayload>) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    changeUserSocialsFullfilled: (state: IMyProfileState, action: PayloadAction<ISocial[]>) => {
+      state.profile.socials = action.payload;
       state.error = null;
       state.isLoading = false;
     },

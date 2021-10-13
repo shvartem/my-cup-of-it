@@ -12,6 +12,7 @@ const technologiesRouter = require('./routes/technologies.router');
 const adminsRouter = require('./routes/admins.router');
 const feedbacksRouter = require('./routes/feedbacks.router');
 const meetsRouter = require('./routes/meets.router');
+const socialsRouter = require('./routes/social.router');
 
 const PORT = process.env.PORT ?? 5000;
 
@@ -41,6 +42,7 @@ app.use('/api/companies', companiesRouter);
 app.use('/api/technologies', technologiesRouter);
 app.use('/api/top-secret-route', adminsRouter);
 app.use('/api/feedbacks', feedbacksRouter);
+app.use('/api/socials', socialsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);

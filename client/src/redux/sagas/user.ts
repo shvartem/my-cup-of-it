@@ -6,8 +6,10 @@ import {
 } from '../tools';
 import {
   IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserProfileAction, IChangeMeetStatusAction, IEditProfileStatusAction, IEditProfileRoleAction, IChangeMeetStatusPayload,
+  IEditUserSocialsAction, IEditUserSocialsPayload,
 } from '../../types/usersTypes';
 import { IMeetBody, IWriteMeetingAction } from '../../types/meetingTypes';
+import ISocial from '../../types/socialsTypes';
 
 function* writeUserMeeting({ payload }: IWriteMeetingAction): SagaIterator {
   try {
@@ -92,6 +94,26 @@ function* loginInitialUser(): SagaIterator {
   }
 }
 
+function* editUserSocials({ payload }: IEditUserSocialsAction): SagaIterator {
+  try {
+    const allSocials = yield call(() => editData<IEditUserSocialsPayload>('/api/socials', payload));
+    console.log('IN EDIT SOC', { allSocials });
+    yield put(actions.changeUserSocialsFullfilled(allSocials as ISocial[]));
+  } catch (e) {
+    yield put(actions.changeUserSocialsRejected(e as string));
+  }
+}
+
+function* addUserSocials({ payload }: IEditUserSocialsAction): SagaIterator {
+  try {
+    const allSocials = yield call(() => postData<IEditUserSocialsPayload>('/api/socials', payload));
+    console.log('IN ADD SOC', { allSocials });
+    yield put(actions.addUserSocialsFullfilled(allSocials as ISocial[]));
+  } catch (e) {
+    yield put(actions.addUserSocialsRejected(e as string));
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(`${actions.writeUserMeetingPending}`, writeUserMeeting);
   yield takeEvery(`${actions.loginUserPending}`, loginUser);
@@ -102,4 +124,7 @@ export default function* userSaga() {
   yield takeEvery(`${actions.toggleUserRolePending}`, toggleUserRole);
   yield takeEvery(`${actions.toggleUserStatusPending}`, toggleUserStatus);
   yield takeEvery(`${actions.changeUserMeetStatusPending}`, editUserMeets);
+
+  yield takeEvery(`${actions.addUserSocialsPending}`, addUserSocials);
+  yield takeEvery(`${actions.changeUserSocialsPending}`, editUserSocials);
 }

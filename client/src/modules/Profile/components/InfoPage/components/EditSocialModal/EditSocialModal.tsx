@@ -23,11 +23,11 @@ const EditSocialModal: React.FC<IEditSocials> = ({ editSocials, socials }) => {
   return (
     <>
       <Button onClick={showModal} style={{ width: '100%' }}>
-        Редактировать контакты
+        {socials.length ? 'Редактировать контакты' : 'Добавить контакты'}
       </Button>
 
       <Modal
-        title="Редактирование контактов"
+        title={socials.length ? 'Редактирование контактов' : 'Добавление контактов'}
         visible={isModalVisible}
         okText="Отправить"
         cancelText=" Отменить"

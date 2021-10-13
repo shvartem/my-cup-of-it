@@ -1,25 +1,35 @@
 import React from 'react';
 import {
-  Form, Input, Select,
+  Form, Input,
 } from 'antd';
 
 import { IEditSocialsForm } from '../../types';
 
 const EditSocialForm: React.FC<IEditSocialsForm> = ({ editSocials, socials, form }) => {
-  const socialTitles = [
-    { socialTitle: 'Telegram', defaultUrl: 't.me/username' },
-    { socialTitle: 'WhatsApp', defaultUrl: 'wa.me/79876543210' },
-    { socialTitle: 'LinkedIn', defaultUrl: 'linkedin.com/in/username' },
-  ];
+  const socialTitles = {
+    Telegram: 'https://t.me/',
+    WhatsApp: 'https://wa.me/',
+    LinkedIn: 'https://linkedin.com/in/',
+  };
+
+  const objectFromSocials: any = {};
+
+  socials.forEach((el) => {
+    const [[key, value]] = Object.entries(el);
+    objectFromSocials[key] = value;
+  });
+
+  const socialItems = { ...socialTitles, ...objectFromSocials };
+
   return (
     <Form
       form={form}
       name="edit-user"
       labelCol={{
-        span: 7,
+        span: 4,
       }}
       wrapperCol={{
-        span: 16,
+        span: 20,
       }}
       initialValues={{
         remember: true,
@@ -27,28 +37,34 @@ const EditSocialForm: React.FC<IEditSocialsForm> = ({ editSocials, socials, form
       onFinish={editSocials}
       autoComplete="off"
     >
-      {!socials.length
-        && socialTitles.map((el) => (
-          <Form.Item
-            key={el.socialTitle}
-            label={el.socialTitle}
-            name={el.socialTitle}
-            initialValue={el.defaultUrl}
-          >
-            <Input addonBefore="https://" defaultValue={el.defaultUrl} />
-          </Form.Item>
-        ))}
-      {!!socials.length
-        && socials.map((el) => (
-          <Form.Item
-            key={el.socialTitle}
-            label={el.socialTitle}
-            name={el.socialTitle}
-            initialValue={el.url}
-          >
-            <Input addonBefore="https://" defaultValue="mysite" />
-          </Form.Item>
-        ))}
+
+      <Form.Item
+        key="1"
+        label="Telegram"
+        name="Telegram"
+        initialValue={`${socialItems.Telegram.split('/')[socialItems.Telegram.split('/').length - 1]}`}
+      >
+        <Input addonBefore="https://t.me/" />
+      </Form.Item>
+
+      <Form.Item
+        key="2"
+        label="WhatsApp"
+        name="WhatsApp"
+        initialValue={`${socialItems.WhatsApp.split('/')[socialItems.WhatsApp.split('/').length - 1]}`}
+      >
+        <Input addonBefore="https://wa.me/" />
+      </Form.Item>
+
+      <Form.Item
+        key="3"
+        label="LinkedIn"
+        name="LinkedIn"
+        initialValue={`${socialItems.LinkedIn.split('/')[socialItems.LinkedIn.split('/').length - 1]}`}
+      >
+        <Input addonBefore="https://linkedin.com/in/" />
+      </Form.Item>
+
     </Form>
   );
 };
