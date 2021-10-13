@@ -151,8 +151,11 @@ const Filters: React.FC<UserProps> = ({ users }) => {
           <div className={styles.headerUserCard}>
             <p> USERS</p>
           </div>
+
+          <FeedForModal mentors={filteredUsers} />
+
           <div className={styles.conteinerUser}>
-            {filteredUsers.map((user) => <UserCard key={user.id} mentor={user} showModal={() => console.log(11)} />)}
+            {/* {filteredUsers.map((user) => <UserCard key={user.id} mentor={user} showModal={() => console.log(11)} />)} */}
           </div>
         </div>
       </div>

@@ -1,17 +1,21 @@
 .conteinerFilters{
  display: flex;
- justify-content: center;
+ justify-content: space-between;
  margin-top: 10px;
  /* width: 90%; */
 }
 .conteinerSiorch{
    /* width: 800px; */
+    margin-right: 1rem;
+    min-width: 200px;
 width: 20%;
+    max-width: 250px;
+
 }
 .conteinerUserCand{
   display: flex;
   flex-direction:column;
-  width: 70%;
+  width: 100%;
 }
 .conteinerUser{
 display: flex;
@@ -27,7 +31,7 @@ flex-wrap: wrap;
 }
 
 .headerUserCard{
-  margin-left: 15px;
+  margin-left: 4rem;
 }
 .headerSearch{
   margin-bottom: 25px;

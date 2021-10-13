@@ -3,7 +3,6 @@ import { Tabs } from 'antd';
 
 import FeedbackManager from './components/FeedbackManager';
 import { Container, InnerContainer } from './style';
-import AddCompanyForm from './components/CompanyManager/components/AddCompanyForm';
 import CompanyManager from './components/CompanyManager';
 import TechnologyManager from './components/TechnologyManager';
 
