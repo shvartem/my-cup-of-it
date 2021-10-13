@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         id: 'Ma45YpK9',
-        title: 'Yhoo',
+        title: 'Yahoo',
 
       },
       {
@@ -69,6 +69,11 @@ module.exports = {
       {
         id: 'eR-dkk9k',
         title: 'Oracle',
+
+      },
+      {
+        id: 'eR-dkk9',
+        title: 'Elbrus',
 
       },
     ], {});
