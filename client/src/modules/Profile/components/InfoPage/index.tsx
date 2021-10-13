@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Image, Card, Timeline, Alert,
 } from 'antd';
-import { Link } from 'react-router-dom';
 import { ITechnology } from '../../../../types/technologiesTypes';
 import EditProfileButtons from './components/EditProfileButtons';
 import { Container, CardWrapper, ImageWrapper } from './style';
@@ -10,12 +9,15 @@ import CommunicateButtons from './components/CommunicateButtons';
 import { IInfoPageProps } from './types';
 import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import KnockingModal from '../../../Home/componenets/knockingModal';
 
 const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRole }) => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.profile);
   const technologies = useAppSelector((state) => state.technologies.data);
   const error = useAppSelector((state) => state.technologies.error);
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+
   function changeRole() {
     dispatch(actions.toggleUserRolePending({ id: profileData.id, isMentor: !profileData.isMentor }));
   }
@@ -59,7 +61,8 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
       )}
       <ImageWrapper>
         <Image
-          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+          width="100%"
+          src={profileData.userPhoto}
         />
         {
           isMe ? (
@@ -71,7 +74,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
               editSocials={editSocials}
               disableChangeRole={disableChangeRole}
             />
-          ) : (profileData.isMentor && <CommunicateButtons />)
+          ) : (profileData.isMentor && <CommunicateButtons isActive={profileData.isActive} onKnock={setIsModalVisible} />)
         }
       </ImageWrapper>
       <CardWrapper>
@@ -100,6 +103,11 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
           </Timeline>
         </Card>
       </CardWrapper>
+      <KnockingModal
+        mentorId={profileData.id}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </Container>
   );
 };

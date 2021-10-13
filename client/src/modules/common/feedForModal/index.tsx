@@ -13,7 +13,7 @@ const FeedForModal: React.FC<FeedProps> = ({ mentors }) => {
 // `;
 
   const CardsWrapper = styled.div`
-  margin: 5rem;
+  //margin: 1rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -29,27 +29,11 @@ const FeedForModal: React.FC<FeedProps> = ({ mentors }) => {
 
   return (
     <>
-      <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 6,
-          xxl: 3,
-        }}
-        dataSource={mentors}
-        renderItem={(mentor) => (
-
-          <List.Item>
-            <CardsWrapper>
-              <UserCard mentor={mentor} showModal={showModal} />
-            </CardsWrapper>
-          </List.Item>
-
-        )}
-      />
+      <CardsWrapper>
+        {mentors.map((mentor) => (
+          <UserCard mentor={mentor} showModal={showModal} />
+        ))}
+      </CardsWrapper>
       <KnockingModal
         mentorId={mentorId}
         isModalVisible={isModalVisible}

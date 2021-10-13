@@ -1,9 +1,9 @@
 import ISocial from '../../../../types/socialsTypes';
-import { IProfile } from '../../../../types/usersTypes';
+import { IMyProfile, IProfile } from '../../../../types/usersTypes';
 
 export interface IInfoPageProps {
   isMe: boolean,
-  profileData: any,
+  profileData?: any,
   disableChangeRole?: boolean,
 }
 
