@@ -24,7 +24,8 @@ const Profile: React.FC = () => {
   else user = users.find((userData) => userData.id === userId);
 
   // нельзя поменять роль, если есть предстоящие встречи
-  const disableChangeRole = Boolean(currentUser.meets.filter((meet) => meet.status === 'accepted').length);
+  const disableChangeRole = Boolean(currentUser.meets.filter((meet) => meet.status === 'accepted' || meet.status === 'pending').length);
+  console.log(currentUser.meets);
 
   function changeMeetsStatus(status: string, id: string) {
     dispatch(actions.changeUserMeetStatusPending({ status, id }));
