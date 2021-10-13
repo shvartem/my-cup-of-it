@@ -15,7 +15,6 @@ const Profile: React.FC = () => {
   const currentUser = useAppSelector((state) => state.user.profile);
   const errorUser = useAppSelector((state) => state.user.error);
   const users = useAppSelector((state) => state.allUsers.data);
-  // const errorUsers = useAppSelector((state) => state.allUsers.error);
   const { userId }: { userId: string } = useParams();
   const isMe = Boolean(!userId);
 

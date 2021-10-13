@@ -14,7 +14,7 @@ async function getFullUserData(user) {
     meets = await meetsService.findUserMeets(user);
     company = await companyService.findCompanyById(user.companyId);
     technologies = await technologiesService.findTecnnologiesByUserId(user.id);
-    socials = await socialsService.findSocialByUserId(user.id);
+    socials = await socialsService.findSocialsByUserId(user.id);
   } catch (e) {
     console.log(e);
   }

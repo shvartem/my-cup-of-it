@@ -10,6 +10,17 @@ import { IInfoPageProps } from './types';
 import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import KnockingModal from '../../../Home/componenets/knockingModal';
+import ISocial from '../../../../types/socialsTypes';
+
+interface ISocialClasses {
+  [key: string]: string
+}
+
+const socialClasses: ISocialClasses = {
+  Telegram: 'fab fa-telegram social-icon',
+  WhatsApp: 'fab fa-whatsapp social-icon',
+  LinkedIn: 'fab fa-linkedin-in social-icon',
+};
 
 const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRole }) => {
   const dispatch = useAppDispatch();
@@ -17,6 +28,8 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
   const technologies = useAppSelector((state) => state.technologies.data);
   const error = useAppSelector((state) => state.technologies.error);
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+
+  const socialItems = profileData.socials.map((el: any) => Object.entries(el)[0]);
 
   function changeRole() {
     dispatch(actions.toggleUserRolePending({ id: profileData.id, isMentor: !profileData.isMentor }));
@@ -38,26 +51,43 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
   }
 
   function editSocials(values: any) {
-    console.log(values);
+    values = Object.entries(values).map((el) => {
+      const [socialTitle, url] = el;
+      if (url === '') return [socialTitle, ''];
+      if (socialTitle === 'Telegram') el = [socialTitle, `https://t.me/${url}`];
+      if (socialTitle === 'WhatsApp') el = [socialTitle, `https://wa.me/${url}`];
+      if (socialTitle === 'LinkedIn') el = [socialTitle, `https://linkedin.com/in/${url}`];
+      return el;
+    });
+
+    values = Object.fromEntries(values);
+
+    if (!profileData.socials.length) {
+      console.log('in add', { values });
+      dispatch(actions.addUserSocialsPending({ id: profileData.id, socials: values }));
+      return;
+    }
+    console.log('in edit', { values });
+    dispatch(actions.changeUserSocialsPending({ id: profileData.id, socials: values }));
   }
 
   return (
     <Container>
       {technologies.length === 0 && (
-      <Alert
-        banner
-        message="Стек технологий пуст"
-        type="info"
-        closable
-      />
+        <Alert
+          banner
+          message="Стек технологий пуст"
+          type="info"
+          closable
+        />
       )}
       {error && (
-      <Alert
-        banner
-        message={error}
-        type="error"
-        closable
-      />
+        <Alert
+          banner
+          message={error}
+          type="error"
+          closable
+        />
       )}
       <ImageWrapper>
         <Image
@@ -98,6 +128,21 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
             {profileData.description && (
               <Timeline.Item>
                 {profileData.description}
+              </Timeline.Item>
+            )}
+            {profileData.socials.length && (
+              <Timeline.Item>
+                <div>
+                  <p style={{ margin: '0 10px 0 0' }}>Контакты:</p>
+                  {socialItems.map((el: [string, string]) => {
+                    const [socialTitle, url] = el;
+                    return (
+                      <a href={url} target="_blank" rel="noreferrer">
+                        <i key={socialTitle} className={socialClasses[socialTitle]} />
+                      </a>
+                    );
+                  })}
+                </div>
               </Timeline.Item>
             )}
           </Timeline>
