@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "elbrus",
-    "password": "elbrus",
+    "username": "human",
+    "password": "human",
     "database": "mycupit",
 
     "host": "127.0.0.1",

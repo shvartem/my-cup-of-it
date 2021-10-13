@@ -32,7 +32,7 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
     const formdata = new FormData();
 
     Object.entries({ ...registerData, ...values }).forEach((value) => {
-      if (value[0] === 'userPhoto') formdata.append(`${value[0]}`, value[1][0].originFileObj);
+      if (value[1] && value[0] === 'userPhoto') formdata.append(`${value[0]}`, value[1][0].originFileObj);
       else formdata.append(`${value[0]}`, value[1]);
     });
 

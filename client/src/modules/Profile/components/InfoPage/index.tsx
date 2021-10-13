@@ -11,7 +11,7 @@ import { IInfoPageProps } from './types';
 import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
-const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
+const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRole }) => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.profile);
   const technologies = useAppSelector((state) => state.technologies.data);
@@ -69,14 +69,14 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData }) => {
               changeStatus={changeStatus}
               editProfile={editProfile}
               editSocials={editSocials}
+              disableChangeRole={disableChangeRole}
             />
-          ) : <CommunicateButtons />
+          ) : (profileData.isMentor && <CommunicateButtons />)
         }
       </ImageWrapper>
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
           <Timeline>
-
             {(!profileData.company && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
               && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
             {profileData.company && (

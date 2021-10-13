@@ -6,16 +6,22 @@ import EditUserProfileModal from './EditUserModal/EditUserModal';
 import EditSocialModal from './EditSocialModal/EditSocialModal';
 
 const EditProfileButtons: React.FC<IEditButtons> = ({
-  profileData, changeRole, changeStatus, editProfile, editSocials,
+  profileData, changeRole, changeStatus, editProfile, editSocials, disableChangeRole,
 }) => (
   <BtnsWrapper>
-    <Button type="primary" onClick={changeRole}>
+    <Button
+      type="primary"
+      onClick={changeRole}
+      disabled={disableChangeRole}
+    >
       {profileData.isMentor ? 'Перестать быть ментором' : 'Cтать ментором'}
     </Button>
     <EditUserProfileModal editProfile={editProfile} profileData={profileData} />
-    <Button onClick={changeStatus}>
-      {profileData.isMentor ? 'Сменить статус на неактивный' : 'Сменить статус на активный'}
-    </Button>
+    {profileData.isMentor && (
+      <Button onClick={changeStatus}>
+        {profileData.isActive ? 'Сменить статус на неактивный' : 'Сменить статус на активный'}
+      </Button>
+    )}
     <EditSocialModal socials={profileData.socials} editSocials={editSocials} />
   </BtnsWrapper>
 );
