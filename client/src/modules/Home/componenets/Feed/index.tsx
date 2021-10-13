@@ -1,14 +1,10 @@
-import React, { FC } from 'react';
-import styled, { ThemeConsumer } from 'styled-components';
-import {
-  Button, List, Modal, Input, Alert,
-} from 'antd';
-import UserCard from '../UserCard';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button, Alert } from 'antd';
 import { useAppSelector } from '../../../../hooks';
 import Spinner from '../../../common/Spinner';
 
-import { modalFunc, modalFuncHandle, shuffleArrayFunc } from './types';
-import KnockingModal from '../knockingModal';
 import shuffleArray from './tools';
 import FeedForModal from '../../../common/feedForModal';
 
@@ -23,11 +19,15 @@ const CardsWrapper = styled.div`
   flex-wrap: wrap;
 `;
 const Feed: React.FC = () => {
+  const history = useHistory();
   const users = useAppSelector((state) => state.allUsers.data);
   const error = useAppSelector((state) => state.allUsers.error);
-  // const { TextArea } = Input;
-  const mentors = users.filter((user) => user.isMentor && user.isActive);
-  shuffleArray(mentors, 8);
+  const activeMentors = users.filter((user) => user.isMentor && user.isActive);
+  const randomMentors = shuffleArray(activeMentors, 8);
+
+  const handleButtonClick = () => {
+    history.push('/users');
+  };
 
   if (!users.length) {
     return (
@@ -55,10 +55,11 @@ const Feed: React.FC = () => {
 
       <h1>Часть наших профecсионалов</h1>
 
-      <FeedForModal mentors={mentors} />
+      <FeedForModal mentors={randomMentors} />
 
       <div style={{ textAlign: 'center', margin: '15px 0' }}>
-        <Button>Посмотреть еще</Button>
+
+        <Button onClick={handleButtonClick}>Посмотреть еще</Button>
       </div>
     </Container>
   );

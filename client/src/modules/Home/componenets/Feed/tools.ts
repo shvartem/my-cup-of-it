@@ -1,4 +1,4 @@
-import { modalFunc, modalFuncHandle, shuffleArrayFunc } from './types';
+import { shuffleArrayFunc } from './types';
 
 const shuffleArray: shuffleArrayFunc = (array, n) => {
   for (let i = array.length - 1; i > 0; i -= 1) {
@@ -7,7 +7,7 @@ const shuffleArray: shuffleArrayFunc = (array, n) => {
     array[i] = array[j];
     array[j] = temp;
   }
-  array.slice(0, n);
+  return array.slice(0, n);
 };
 
 export default shuffleArray;
