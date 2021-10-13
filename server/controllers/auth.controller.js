@@ -4,12 +4,12 @@ const bcrypt = require('bcrypt');
 
 const nanoid = customAlphabet('1234567890', 6);
 
+const dayjs = require('dayjs');
 const db = require('../db/models');
 const userService = require('../services/user.service');
 const technologiesService = require('../services/technologies.service');
 
 async function registerUser(req, res) {
-  console.log({ file: req.file, body: req.body });
   const {
     firstname,
     lastname,
@@ -24,8 +24,10 @@ async function registerUser(req, res) {
     technologies,
   } = req.body;
 
+  const parsedCareerStart = dayjs(careerStart).format('DD.MM.YYYY');
+
   const userPhoto = req.file?.path.replace(/^public/, '');
-  console.log({ userPhoto });
+
   let user;
   try {
     const duplicateUser = await db.User.findOne({ where: { email } });
@@ -45,7 +47,7 @@ async function registerUser(req, res) {
       description,
       isMentor,
       isActive,
-      careerStart,
+      careerStart: parsedCareerStart,
       companyId,
       position,
     });
