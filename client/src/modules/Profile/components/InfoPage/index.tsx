@@ -11,6 +11,8 @@ import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import KnockingModal from '../../../Home/componenets/knockingModal';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
+import ISocial from '../../../../types/socialsTypes';
+import { getExperience } from '../../../common/getExperience';
 
 interface ISocialClasses {
   [key: string]: string
@@ -106,7 +108,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
             )}
             {profileData.careerStart && (
               <Timeline.Item>
-                {`Начало работы: ${profileData.careerStart}`}
+                {`Опыт работы: ${getExperience(profileData.careerStart)}`}
               </Timeline.Item>
             )}
             {profileData.technologies.length && (

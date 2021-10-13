@@ -112,7 +112,7 @@ const Filters: React.FC<UserProps> = ({ users }) => {
                 : <CloseOutlined style={{ fontSize: '0px', color: '#f0f2f5' }} onClick={filterClear} />}
             </div>
             <div className={styles.headerSearch}>
-              SEARCH
+              ПОИСК
             </div>
           </div>
           <div className={styles.headerSearch}>
@@ -149,12 +149,11 @@ const Filters: React.FC<UserProps> = ({ users }) => {
         </div>
         <div className={styles.conteinerUserCand}>
           <div className={styles.headerUserCard}>
-            <p> USERS</p>
+            <p> ПОЛЬЗОВАТЕЛИ</p>
           </div>
 
-          <FeedForModal mentors={filteredUsers} />
-
           <div className={styles.conteinerUser}>
+            <FeedForModal mentors={filteredUsers} />
             {/* {filteredUsers.map((user) => <UserCard key={user.id} mentor={user} showModal={() => console.log(11)} />)} */}
           </div>
         </div>

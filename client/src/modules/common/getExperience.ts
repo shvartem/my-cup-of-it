@@ -3,9 +3,9 @@ import moment from 'moment';
 export type GetExperienceType = (careerStart: string) => void
 
 export const getExperience:GetExperienceType = (careerStart) => {
-  console.log(careerStart);
   const start = moment(careerStart, 'DD.MM.YYYY');
   const experience = start.toNow(true).split(' ');
+
   if (experience[0].match(/[1]$/)) {
     if (experience[1].match(/month$/)) return `${experience[0]} месяц`;
     return `${experience[0]} год`;
