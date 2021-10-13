@@ -7,7 +7,6 @@ const MeetCard: React.FC<IMeetCard> = ({ buttons, meetData, isMentor }) => (
     type="inner"
     title={`С ${meetData.firstname} ${meetData.lastname}`}
     extra={buttons}
-    style={{ margin: '30px 0' }}
   >
     <p>
       Дата:
