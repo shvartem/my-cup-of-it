@@ -3,6 +3,7 @@ import {
   Form, Input, DatePicker, Button, Card, Select, Upload,
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import {
   OnChangeRegisterValuesType, RegisterSubmitType, IRegisterProps,
 } from '../../types';

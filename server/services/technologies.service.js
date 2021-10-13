@@ -26,8 +26,9 @@ async function findTecnnologiesByUserId(userId) {
 }
 
 async function addStackToUser(technologies, userId) {
+  const technologiesArr = technologies.split(',');
   try {
-    for await (const tech of technologies) {
+    for await (const tech of technologiesArr) {
       await db.Stack.create({ id: nanoid(8), userId, technologyId: tech });
     }
   } catch (e) {
