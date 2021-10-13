@@ -8,7 +8,6 @@ import LoginPage from './modules/AuthPage/components/LoginPage';
 import AdminProfile from './modules/AdminProfile';
 import Profile from './modules/Profile';
 import Filters from './modules/Users/components/Filters';
-import FeedbackPage from './modules/FeedbackPage';
 
 import { Container } from './modules/common/style';
 import Navbar from './modules/Navbar';
@@ -21,9 +20,6 @@ const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
       <>
         <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
         <Switch>
-          <Route path="/feedback">
-            <FeedbackPage />
-          </Route>
 
           <Route path="/home">
             <Home />
