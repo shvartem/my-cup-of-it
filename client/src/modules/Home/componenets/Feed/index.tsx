@@ -22,7 +22,7 @@ const CardsWrapper = styled.div`
 const Feed: React.FC = () => {
   const history = useHistory();
   const users = useAppSelector((state) => state.allUsers.data);
-  
+
   const activeMentors = users.filter((user) => user.isMentor && user.isActive);
   const randomMentors = shuffleArray(activeMentors, 8);
 
@@ -33,12 +33,6 @@ const Feed: React.FC = () => {
   if (!users.length) {
     return (
       <Spinner />
-    );
-  }
-
-  if (!mentors.length) {
-    return (
-      <div />
     );
   }
 
