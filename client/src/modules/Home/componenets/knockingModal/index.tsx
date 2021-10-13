@@ -23,6 +23,7 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
       status: 'pending',
       comment,
     };
+
     dispatch(actions.writeUserMeetingPending({ payload: body }));
     setComment('');
     setIsModalVisible(false);

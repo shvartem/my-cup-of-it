@@ -16,7 +16,7 @@ const UserCard: React.FC<MyCard> = ({
       <Card
         hoverable
         size="small"
-        style={{ width: 240, marginLeft: '1.5rem', margin: '1rem' }}
+        style={{ width: 240, margin: '1rem' }}
         cover={(
           <img
             alt="example"
