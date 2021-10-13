@@ -2,6 +2,7 @@ import {
   Modal, Input, DatePicker, Space, Button, Alert,
 } from 'antd';
 import React, { useState } from 'react';
+import moment from 'moment';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { IMeetBody } from '../../../../types/meetingTypes';
 import { modalFuncHandle } from '../Feed/types';
@@ -38,6 +39,10 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
     setComment(e.target.value);
   };
 
+  function disabledDate(current: any) {
+    return current && current < moment();
+  }
+
   function onChange(date: any) {
     if (date) {
       setDate(date._d);
@@ -50,7 +55,7 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
         <Space direction="vertical">
           <div style={{ display: 'flex' }}>
             <p style={{ marginRight: '1rem' }}>Предложите время встречи:</p>
-            <DatePicker placeholder="Выберите дату" id="datePicker" onChange={onChange} />
+            <DatePicker placeholder="Выберите дату" id="datePicker" onChange={onChange} disabledDate={disabledDate} />
           </div>
         </Space>
       </Modal>

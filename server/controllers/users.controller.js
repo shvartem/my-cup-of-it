@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const db = require('../db/models');
 const { sequelize } = require('../db/models');
 const technologiesService = require('../services/technologies.service');
@@ -5,6 +6,7 @@ const userService = require('../services/user.service');
 const socialsService = require('../services/socials.service');
 
 async function getAllUsers(req, res) {
+  const loggedUserId = req.session.user.id ?? '';
   try {
     const users = await db.User.findAll({
       attributes: [
@@ -14,6 +16,7 @@ async function getAllUsers(req, res) {
         'password',
         'description',
         'isMentor', 'isActive',
+        'position',
         'careerStart',
         'userPhoto',
         [sequelize.literal('"Company"."title"'), 'company'],
@@ -23,6 +26,7 @@ async function getAllUsers(req, res) {
         model: db.Company,
         attributes: [],
       },
+      where: { id: { [Op.ne]: loggedUserId } },
     });
 
     const mappedUsersPromises = users.map(async (user) => {
