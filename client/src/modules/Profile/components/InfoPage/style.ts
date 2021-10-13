@@ -8,6 +8,9 @@ export const Container = styled.div`
 
 export const ImageWrapper = styled.div`
   width: 30%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 export const CardWrapper = styled.div`

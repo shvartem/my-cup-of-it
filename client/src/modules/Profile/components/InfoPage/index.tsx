@@ -10,6 +10,7 @@ import { IInfoPageProps } from './types';
 import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import KnockingModal from '../../../Home/componenets/knockingModal';
+import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
 import ISocial from '../../../../types/socialsTypes';
 import { getExperience } from '../../../common/getExperience';
 
@@ -76,8 +77,11 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
     <Container>
       <ImageWrapper>
         <Image
-          width="100%"
-          src={profileData.userPhoto}
+          preview={false}
+          style={{
+            objectFit: 'cover', width: '100%', height: 350, marginBottom: 20,
+          }}
+          src={profileData.userPhoto ? profileData.userPhoto : defaultUserPhotoUrl}
         />
         {
           isMe ? (
@@ -97,7 +101,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
           <Timeline>
             {(!profileData.company && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
               && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
-            {profileData.company && (
+            {(profileData.company && profileData.position) && (
               <Timeline.Item>
                 {`${profileData.position} в ${profileData.company}`}
               </Timeline.Item>

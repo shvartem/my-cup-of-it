@@ -2,8 +2,6 @@ import React from 'react';
 import { List } from 'antd';
 import IManagerProps from '../types';
 import MeetCard from './MeetCardTab';
-import CustomButton from './CustomButton';
-import { IMeet } from '../../../../../types/usersTypes';
 
 const CancelledMeetsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor }) => (
   <>
@@ -15,16 +13,14 @@ const CancelledMeetsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, 
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 10,
+          pageSize: 2,
         }}
         dataSource={meets}
         renderItem={(meet) => (
           <List.Item key={meet.id}>
             <MeetCard
               key={meet.id}
-              buttons={isMentor ? [
-                <CustomButton key="1" buttonText="Принять встречу" clickHandler={() => changeMeetsStatus('accepted', meet.id)} />,
-              ] : []}
+              buttons={[]}
               meetData={meet}
               isMentor={isMentor}
             />

@@ -45,7 +45,7 @@ const App: React.FC = () => {
       {error && (
         <Alert
           style={{
-            width: 350, position: 'absolute', right: 15, top: 15,
+            width: 350, position: 'absolute', right: 15, top: 15, zIndex: 10,
           }}
           banner
           message={error}
