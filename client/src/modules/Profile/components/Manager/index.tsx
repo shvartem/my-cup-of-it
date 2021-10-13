@@ -20,7 +20,7 @@ const Manager: React.FC<IManagerProps> = ({ isMentor, meets, changeMeetsStatus }
   const acceptedMeets = getMeetsByStatus('accepted', meets);
 
   return (
-    <Tabs defaultActiveKey="1">
+    <Tabs>
       <TabPane tab="Предстоящие встречи" key="1">
         <FeatureMeets meets={acceptedMeets} changeMeetsStatus={changeMeetsStatus} isMentor={isMentor} />
       </TabPane>
