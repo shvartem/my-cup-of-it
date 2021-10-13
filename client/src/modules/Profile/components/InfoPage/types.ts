@@ -2,16 +2,18 @@ import ISocial from '../../../../types/socialsTypes';
 import { IProfile } from '../../../../types/usersTypes';
 
 export interface IInfoPageProps {
-  isMe: boolean;
-  profileData: any;
+  isMe: boolean,
+  profileData: any,
+  disableChangeRole?: boolean,
 }
 
 export interface IEditButtons {
-  profileData: IProfile;
-  changeRole: () => void;
-  changeStatus: () => void;
-  editProfile: (values: IProfile) => void
-  editSocials: (values: ISocial[]) => void
+  profileData: IProfile,
+  changeRole: () => void,
+  changeStatus: () => void,
+  editProfile: (values: IProfile) => void,
+  editSocials: (values: ISocial[]) => void,
+  disableChangeRole?: boolean,
 }
 
 export interface IEditUserProfile {

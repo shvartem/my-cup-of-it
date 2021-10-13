@@ -25,6 +25,9 @@ const Profile: React.FC = () => {
   if (isMe) user = currentUser;
   else user = users.find((userData) => userData.id === userId);
 
+  // нельзя поменять роль, если есть предстоящие встречи
+  const disableChangeRole = Boolean(currentUser.meets.filter((meet) => meet.status === 'accepted').length);
+
   function changeMeetsStatus(status: string, id: string) {
     dispatch(actions.changeUserMeetStatusPending({ status, id }));
   }
@@ -52,7 +55,7 @@ const Profile: React.FC = () => {
       <Tabs type="card">
         <TabPane tab="Профиль" key="1">
           <InnerContainer>
-            <InfoPage isMe={isMe} profileData={user} />
+            <InfoPage isMe={isMe} profileData={user} disableChangeRole={disableChangeRole} />
           </InnerContainer>
         </TabPane>
         <TabPane tab="Менеджер встреч" key="2">
