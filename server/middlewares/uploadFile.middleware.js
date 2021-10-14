@@ -3,7 +3,7 @@ const dayjs = require('dayjs');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, './public/images');
+    cb(null, '../client/public/images');
   },
   filename(req, file, cb) {
     const date = dayjs().format('DDMMYYYY_HHmmss_SSS');
