@@ -6,8 +6,7 @@ export const getExperience: GetExperienceType = (careerStart) => {
   const start = moment(careerStart, 'DD.MM.YYYY');
   const experience = start.toNow(true).split(' ');
 
-  console.log(experience);
-  if (experience[1].match(/days$/)) return 'меньше месяца';
+  if (experience[1].match(/days$/) || experience[1].match(/hours$/)) return 'меньше месяца';
 
   if (experience[0].match(/1[2-4]$/)) {
     if (experience[1].match(/month$/)) return `${experience[0]} месяцев`;

@@ -149,6 +149,7 @@ module.exports = {
         password: '$2a$10$qqvPnw2UXYdCDXdOTcElN.DOg0N.O55uaDJjYGF2v8hWskrL9U4F.',
         description: 'Face to face bifurcated interface',
         isMentor: false,
+        isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJCTlLL7h7H3LpxCnyVpyg8EoDvbNHkFqrrw&usqp=CAU',
 
       },
@@ -160,6 +161,7 @@ module.exports = {
         password: '$2a$10$qqvPnw2UXYdCDXdOTcElN.DOg0N.O55uaDJjYGF2v8hWskrL9U4F.',
         description: 'Face to face bifurcated interface',
         isMentor: false,
+        isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCqaDf_PZap4h22_uQ4c9qDC__sb61AIXX4g&usqp=CAU',
 
       },
@@ -171,6 +173,7 @@ module.exports = {
         password: '$2a$10$qqvPnw2UXYdCDXdOTcElN.DOg0N.O55uaDJjYGF2v8hWskrL9U4F.',
         description: 'Face to face bifurcated interface',
         isMentor: false,
+        isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7yLxef5eB183N5pPA27eipYx8WeKf9layyA&usqp=CAU',
 
       },
@@ -182,6 +185,7 @@ module.exports = {
         password: '$2a$10$qqvPnw2UXYdCDXdOTcElN.DOg0N.O55uaDJjYGF2v8hWskrL9U4F.',
         description: 'Face to face bifurcated interface',
         isMentor: false,
+        isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRki1P_x5Fad4u8XCzdEdsycXyCcwYTCZ9N8A&usqp=CAU',
 
       },
@@ -193,6 +197,7 @@ module.exports = {
         password: '$2a$10$qqvPnw2UXYdCDXdOTcElN.DOg0N.O55uaDJjYGF2v8hWskrL9U4F.',
         description: 'Face to face bifurcated interface',
         isMentor: false,
+        isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaDAe985RZeJTGPUL4KJp7OYn-NewEQtfHvA&usqp=CAU',
 
       },
@@ -204,6 +209,7 @@ module.exports = {
         password: '$2a$10$qqvPnw2UXYdCDXdOTcElN.DOg0N.O55uaDJjYGF2v8hWskrL9U4F.',
         description: 'Face to face bifurcated interface',
         isMentor: false,
+        isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_XmUZZ4l_ArL9IJDUpHaXGQ-T0bLs_gfmng&usqp=CAU',
 
       },
@@ -215,6 +221,7 @@ module.exports = {
         password: '$2a$10$qqvPnw2UXYdCDXdOTcElN.DOg0N.O55uaDJjYGF2v8hWskrL9U4F.',
         description: 'Face to face bifurcated interface',
         isMentor: false,
+        isActive: true,
         userPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRABDC8UoE8RUEduze0q5vb4DvvPTSytT7eBQ&usqp=CAU',
 
       },

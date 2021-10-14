@@ -96,14 +96,14 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
           <Timeline>
-            {(!profileData.company && profileData.position && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
+            {(!profileData.company && !profileData.position && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
               && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
-            {(profileData.company && profileData.position) && (
+            {((profileData.company || profileData.position) && profileData.isMentor) && (
               <Timeline.Item>
-                {`${profileData.position} в ${profileData.company}`}
+                {`${profileData.position ? profileData.position : 'Работаю'} в ${profileData.company}`}
               </Timeline.Item>
             )}
-            {(profileData.careerStart) && (
+            {(profileData.careerStart && profileData.isMentor) && (
               <Timeline.Item>
                 {`Опыт работы: ${getExperience(profileData.careerStart)}`}
               </Timeline.Item>

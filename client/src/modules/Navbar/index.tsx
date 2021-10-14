@@ -15,11 +15,10 @@ const MenuItemWrapper = styled.div`
 `;
 
 interface INavbarProps {
-  isAuth: boolean,
   isAdmin: boolean,
 }
 
-const Navbar: React.FC<INavbarProps> = ({ isAuth, isAdmin }) => {
+const Navbar: React.FC<INavbarProps> = ({ isAdmin }) => {
   const dispatch = useAppDispatch();
 
   function logoutHandler() {

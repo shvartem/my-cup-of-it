@@ -7,7 +7,7 @@ const userService = require('../services/user.service');
 const socialsService = require('../services/socials.service');
 
 async function getAllUsers(req, res) {
-  const loggedUserId = req.session.user.id ?? '';
+  const loggedUserId = req.session.user.id.toString() ?? '';
   try {
     const users = await db.User.findAll({
       attributes: [
@@ -39,7 +39,7 @@ async function getAllUsers(req, res) {
 
     return res.status(200).json(mappedUsers);
   } catch (e) {
-    console.error(e.message);
+    console.error(e);
 
     return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }

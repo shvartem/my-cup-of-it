@@ -10,6 +10,7 @@ const userService = require('../services/user.service');
 const technologiesService = require('../services/technologies.service');
 
 async function registerUser(req, res) {
+  console.log(req.body);
   const {
     firstname,
     lastname,
@@ -17,14 +18,14 @@ async function registerUser(req, res) {
     password,
     description,
     isMentor,
-    isActive,
+    isActive = true,
     careerStart = '',
     companyId = null,
     position,
-    technologies,
+    technologies = [],
   } = req.body;
 
-  const parsedCareerStart = dayjs(careerStart).format('DD.MM.YYYY');
+  const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD.MM.YYYY') : '';
 
   const userPhoto = req.file?.path.replace(/^public/, '');
 
@@ -91,7 +92,7 @@ async function loginUser(req, res) {
         const userData = await userService.getFullUserData(user);
         return res.json(userData);
       } catch (e) {
-        console.error(e.message);
+        console.error(e);
         return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
       }
     }
