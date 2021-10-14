@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { rawListeners } from 'process';
 import {
   IMeet, IMyProfile, IMyProfileState, IChangeMeetStatusPayload,
-  IEditProfileRolePayload, IEditProfileStatusPayload, IEditUserSocialsPayload,
+  IEditProfileRolePayload, IEditProfileStatusPayload, IEditUserSocialsPayload, IChangeMeetDatePayload,
 } from '../../types/usersTypes';
 import ISocial from '../../types/socialsTypes';
 
@@ -172,6 +173,30 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
+
+    changeMeetDatePending: (state: IMyProfileState, action: PayloadAction<IChangeMeetDatePayload>) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    changeMeetDateFullfilled: (state: IMyProfileState, action: PayloadAction<IChangeMeetDatePayload>) => {
+      state.profile.meets = state.profile.meets.map((meet) => {
+        if (meet.id === action.payload.id) {
+          console.log('встреча изменена');
+          meet.date = (action.payload.date) ? action.payload.date : meet.date;
+          meet.comment = (action.payload.comment) ? action.payload.comment : meet.comment;
+          return meet;
+        }
+        console.log('встреча НЕ изменена');
+        return meet;
+      });
+      state.error = null;
+      state.isLoading = false;
+    },
+    changeMeetDateRejected: (state: IMyProfileState, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+
   },
 });
 

@@ -80,7 +80,6 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
         labelCol={{
           span: registerData.isMentor ? 6 : 3,
         }}
-        // initialValues={initialRegisterFormValues}
         onFinish={onSubmit}
         autoComplete="off"
       >

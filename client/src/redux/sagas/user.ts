@@ -6,7 +6,7 @@ import {
 } from '../tools';
 import {
   IRegisterUserAction, ILoginUserAction, IMyProfile, IEditUserProfileAction, IChangeMeetStatusAction, IEditProfileStatusAction, IEditProfileRoleAction, IChangeMeetStatusPayload,
-  IEditUserSocialsAction, IEditUserSocialsPayload,
+  IEditUserSocialsAction, IEditUserSocialsPayload, IChangeMeetDateAction, IChangeMeetDatePayload,
 } from '../../types/usersTypes';
 import { IMeetBody, IWriteMeetingAction } from '../../types/meetingTypes';
 import ISocial from '../../types/socialsTypes';
@@ -32,7 +32,7 @@ function* editUserProfile({ payload }: IEditUserProfileAction): SagaIterator {
 
 function* editUserMeets({ payload }: IChangeMeetStatusAction): SagaIterator {
   try {
-    yield call(() => editData<IChangeMeetStatusPayload>('/api/meets', payload));
+    yield call(() => patchData<IChangeMeetStatusPayload>('/api/meets', payload));
     yield put(actions.changeUserMeetStatusFullfilled({ id: payload.id, status: payload.status }));
   } catch (e) {
     yield put(actions.changeUserMeetStatusRejected(e as string));
@@ -114,6 +114,16 @@ function* addUserSocials({ payload }: IEditUserSocialsAction): SagaIterator {
   }
 }
 
+function* editMeetDate({ payload }: IChangeMeetDateAction): SagaIterator {
+  try {
+    yield call(() => editData<IChangeMeetDatePayload>('/api/meets', payload));
+    yield put(actions.changeUserMeetStatusFullfilled({ id: payload.id, status: 'accepted' }));
+    yield put(actions.changeMeetDateFullfilled(payload));
+  } catch (e) {
+    yield put(actions.changeMeetDateRejected(e as string));
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(`${actions.writeUserMeetingPending}`, writeUserMeeting);
   yield takeEvery(`${actions.loginUserPending}`, loginUser);
@@ -127,4 +137,6 @@ export default function* userSaga() {
 
   yield takeEvery(`${actions.addUserSocialsPending}`, addUserSocials);
   yield takeEvery(`${actions.changeUserSocialsPending}`, editUserSocials);
+
+  yield takeEvery(`${actions.changeMeetDatePending}`, editMeetDate);
 }

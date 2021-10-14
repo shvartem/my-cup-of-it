@@ -32,7 +32,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
   const handleUploadFile = (photo: any) => false;
 
   function disabledDate(current: any) {
-    return current && current < moment();
+    return current && current > moment();
   }
 
   return (
@@ -74,7 +74,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
             label="Начало карьеры"
             name="careerStart"
           >
-            <DatePicker defaultPickerValue={profileData.careerStart ? moment(profileData.careerStart) : moment()} format="YYYY-MM-DD" disabledDate={disabledDate} />
+            <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} />
           </Form.Item>
           <Form.Item
             key="companyId"

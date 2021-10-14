@@ -9,7 +9,7 @@ import CommunicateButtons from './components/CommunicateButtons';
 import { IInfoPageProps } from './types';
 import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import KnockingModal from '../../../Home/componenets/knockingModal';
+import KnockingModal from '../../../Home/componenets/KnockingModal';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
 import { getExperience } from '../../../common/getExperience';
 

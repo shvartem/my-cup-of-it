@@ -11,3 +11,14 @@ export interface IMeetCard {
   buttons: ReactElement<IMeetButton>[] | []
   meetData: IMeet
 }
+
+export interface ICalendar {
+  meets: IMeet[] | false
+}
+
+export interface IEditMeetDateModalProps {
+  meet: any
+  isModalVisible: boolean
+  setIsModalVisible: (value: boolean) => void
+  changeMeetsDate: (date: string, id: string) => void
+}

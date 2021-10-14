@@ -1,5 +1,6 @@
-import React from 'react';
-import { Alert, Tabs } from 'antd';
+/* eslint-disable no-restricted-syntax */
+import React, { useState } from 'react';
+import { Tabs } from 'antd';
 import { useParams } from 'react-router-dom';
 import InfoPage from './components/InfoPage';
 import Manager from './components/Manager';
@@ -25,10 +26,30 @@ const Profile: React.FC = () => {
 
   // нельзя поменять роль, если есть предстоящие встречи
   const disableChangeRole = Boolean(currentUser.meets.filter((meet) => meet.status === 'accepted' || meet.status === 'pending').length);
-  console.log(currentUser.meets);
 
   function changeMeetsStatus(status: string, id: string) {
     dispatch(actions.changeUserMeetStatusPending({ status, id }));
+  }
+
+  function changeMeetsDate(meet: any, values: any) {
+    const { date, time, comment } = values;
+    const selectedDate = date ? date.toISOString().split('T')[0] : null;
+    const selectedTime = time ? time.toISOString().split('T')[1] : null;
+    const meetingDate = (selectedDate && selectedTime) ? `${selectedDate}T${selectedTime}` : null;
+    values.date = meetingDate;
+
+    for (const key in values) {
+      if (!values[key]) {
+        delete values[key];
+      }
+    }
+    const data = { id: meet.id, ...values };
+
+    if (Object.keys(values).length) {
+      dispatch(actions.changeMeetDatePending(data));
+      return;
+    }
+    dispatch(actions.changeUserMeetStatusPending({ status: 'accepted', id: meet.id }));
   }
 
   if (!isMe) {
@@ -50,7 +71,12 @@ const Profile: React.FC = () => {
           </InnerContainer>
         </TabPane>
         <TabPane tab="Менеджер встреч" key="2">
-          <Manager isMentor={user?.isMentor || false} meets={isCurrentUser(user) && user.meets} changeMeetsStatus={changeMeetsStatus} />
+          <Manager
+            isMentor={user?.isMentor || false}
+            meets={isCurrentUser(user) && user.meets}
+            changeMeetsStatus={changeMeetsStatus}
+            changeMeetsDate={changeMeetsDate}
+          />
         </TabPane>
       </Tabs>
     </Contaiter>
