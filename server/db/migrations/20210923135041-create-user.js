@@ -34,7 +34,7 @@ module.exports = {
       },
       isActive: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
       },
       careerStart: {
         type: Sequelize.STRING,

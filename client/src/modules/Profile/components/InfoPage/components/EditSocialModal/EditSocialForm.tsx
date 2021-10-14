@@ -44,7 +44,7 @@ const EditSocialForm: React.FC<IEditSocialsForm> = ({ editSocials, socials, form
         name="Telegram"
         initialValue={`${socialItems.Telegram.split('/')[socialItems.Telegram.split('/').length - 1]}`}
       >
-        <Input addonBefore="https://t.me/" />
+        <Input addonBefore="https://t.me/" placeholder="username" />
       </Form.Item>
 
       <Form.Item
@@ -53,7 +53,7 @@ const EditSocialForm: React.FC<IEditSocialsForm> = ({ editSocials, socials, form
         name="WhatsApp"
         initialValue={`${socialItems.WhatsApp.split('/')[socialItems.WhatsApp.split('/').length - 1]}`}
       >
-        <Input addonBefore="https://wa.me/" />
+        <Input addonBefore="https://wa.me/" placeholder="79876543210" />
       </Form.Item>
 
       <Form.Item
@@ -62,7 +62,7 @@ const EditSocialForm: React.FC<IEditSocialsForm> = ({ editSocials, socials, form
         name="LinkedIn"
         initialValue={`${socialItems.LinkedIn.split('/')[socialItems.LinkedIn.split('/').length - 1]}`}
       >
-        <Input addonBefore="https://linkedin.com/in/" />
+        <Input addonBefore="https://linkedin.com/in/" placeholder="username" />
       </Form.Item>
 
     </Form>
