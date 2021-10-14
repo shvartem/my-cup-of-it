@@ -95,13 +95,10 @@ const UserCard: React.FC<MyCard> = ({
                   e.preventDefault();
                   showModal(mentor.id);
                 }}
-                disabled={!mentor.isActive}
+                disabled={!mentor.isActive || !currentUser.isActive}
               >
                 Постучаться
               </Button>
-              // <Button size="small" type="primary" disabled={!mentor.isActive}>
-              //   <Link to={`users/${mentor.id}`}>Профиль</Link>
-              // </Button>
             )}
           </div>
         </Card>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Alert } from 'antd';
 import RegisterStepOne from '../RegisterStep1';
 import RegisterStepTwo from '../RegisterStep2';
 import { IRegisterData } from '../../../../types/usersTypes';
 import { Container, ShowFormContainer } from '../style';
-import { useAppSelector } from '../../../../hooks';
+
+export { useAppSelector } from '../../../../hooks';
 
 export const initialRegisterFormValues: IRegisterData = {
   id: '',
@@ -17,7 +17,7 @@ export const initialRegisterFormValues: IRegisterData = {
   careerStart: '',
   company: '',
   position: '',
-  isActive: false,
+  isActive: true,
   userPhoto: '',
   technologies: [],
   socials: [],
@@ -26,19 +26,8 @@ export const initialRegisterFormValues: IRegisterData = {
 const RegisterPage: React.FC = () => {
   const [registerData, setRegisterData] = useState(initialRegisterFormValues);
   const [formStep, setFormStep] = useState(1);
-
   return (
     <Container>
-      {/* {error && (
-        <Alert
-          // style={{ position: 'absolute', top: 80, right: 30 }}
-          banner
-          message={error}
-          type="error"
-          closable
-        />
-        // <div style={{ color: 'red', fontSize: '20px' }}>{error}</div>
-      )} */}
 
       <ShowFormContainer isOpen={formStep === 1}>
         <RegisterStepOne registerData={registerData} setRegisterData={setRegisterData} setFormStep={setFormStep} />

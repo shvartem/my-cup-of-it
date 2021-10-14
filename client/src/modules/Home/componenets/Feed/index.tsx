@@ -1,26 +1,21 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Alert } from 'antd';
 import { useAppSelector } from '../../../../hooks';
 import Spinner from '../../../common/Spinner';
-
 import shuffleArray from './tools';
 import FeedForModal from '../../../common/feedForModal';
 
 const Container = styled.div`
   width: 80%;
-  margin: 50px auto 30px;
-`;
-
-const CardsWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  margin: 50px auto;
+  text-align: center;
 `;
 
 const Feed: React.FC = () => {
   const history = useHistory();
+  const isAuth = !!useAppSelector((state) => state.user.profile).id;
   const users = useAppSelector((state) => state.allUsers.data);
   const isLoading = useAppSelector((state) => state.allUsers.isLoading);
   const singleUserIsLoading = useAppSelector((state) => state.user.isLoading);
@@ -32,9 +27,12 @@ const Feed: React.FC = () => {
     history.push('/users');
   };
 
-  if (!users.length || isLoading || singleUserIsLoading) {
+  if (!users.length && !isAuth) {
     return (
-      <Spinner />
+      <Container>
+        <p>Зарегистрируйтесь чтобы получить доступ к профилям наших пользователей</p>
+        <Link to="/register">Перейти к регистрации</Link>
+      </Container>
     );
   }
 

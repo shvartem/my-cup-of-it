@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+const dayjs = require('dayjs');
 const db = require('../db/models');
 const { sequelize } = require('../db/models');
 const technologiesService = require('../services/technologies.service');
@@ -5,6 +7,7 @@ const userService = require('../services/user.service');
 const socialsService = require('../services/socials.service');
 
 async function getAllUsers(req, res) {
+  const loggedUserId = req.session.user.id.toString() ?? '';
   try {
     const users = await db.User.findAll({
       attributes: [
@@ -14,6 +17,7 @@ async function getAllUsers(req, res) {
         'email',
         'description',
         'isMentor', 'isActive',
+        'position',
         'careerStart',
         'userPhoto',
         [sequelize.literal('"Company"."title"'), 'company'],
@@ -23,6 +27,7 @@ async function getAllUsers(req, res) {
         model: db.Company,
         attributes: [],
       },
+      where: { id: { [Op.ne]: loggedUserId } },
     });
 
     const mappedUsersPromises = users.map(async (user) => {
@@ -34,9 +39,9 @@ async function getAllUsers(req, res) {
 
     return res.status(200).json(mappedUsers);
   } catch (e) {
-    console.error(e.message);
+    console.error(e);
 
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 }
 
@@ -61,7 +66,7 @@ async function patchUserProfile(req, res) {
     throw new Error();
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 }
 
@@ -71,31 +76,8 @@ async function editUserProfile(req, res) {
     firstname, lastname, description, companyId, careerStart, technologies, position,
   } = req.body;
   const userPhoto = req.file?.path.replace(/^public\//, '');
-
+  const parsedCareerStart = dayjs(careerStart).format('DD.MM.YYYY');
   try {
-    // let result;
-    // if (req.file) {
-    //   console.log(userPhoto);
-    //   [result] = await db.User.update({
-    //     firstname,
-    //     lastname,
-    //     userPhoto,
-    //     description,
-    //     companyId,
-    //     careerStart,
-    //   }, { where: { id: userId } });
-    // } else {
-    //   [result] = await db.User.update({
-    //     firstname,
-    //     lastname,
-    //     userPhoto: undefined,
-    //     description,
-    //     companyId,
-    //     careerStart,
-    //   }, { where: { id: userId } });
-    // }
-
-    console.log(userPhoto);
     const [result] = await db.User.update({
       firstname,
       lastname,
@@ -103,7 +85,7 @@ async function editUserProfile(req, res) {
       description,
       companyId,
       position,
-      careerStart,
+      careerStart: parsedCareerStart,
     }, { where: { id: userId } });
 
     if (!result) throw new Error();
@@ -124,7 +106,7 @@ async function editUserProfile(req, res) {
     return res.json(userData);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 }
 

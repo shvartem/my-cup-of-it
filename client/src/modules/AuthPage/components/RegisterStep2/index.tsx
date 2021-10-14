@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import moment from 'moment';
 import {
   OnChangeRegisterValuesType, RegisterSubmitType, IRegisterProps,
 } from '../../types';
@@ -37,10 +38,6 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
     });
 
     dispatch(actions.registerUserPending(formdata));
-
-    // axios.post('/api/register', formdata, {
-    //   headers: { 'Content-Type': 'multipart/form-data' },
-    // });
   };
 
   const handleChangePhoto = (info: any) => {
@@ -67,6 +64,10 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
     dispatch(actions.getAllTechnologiesPending());
   }, [dispatch]);
 
+  function disabledDate(current: any) {
+    return current > moment();
+  }
+
   return (
     <Card hoverable title="Продолжение регистрации" style={{ width: 700 }}>
       <Form
@@ -75,7 +76,6 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
         labelCol={{
           span: registerData.isMentor ? 6 : 3,
         }}
-        // initialValues={initialRegisterFormValues}
         onFinish={onSubmit}
         autoComplete="off"
       >
@@ -91,8 +91,9 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
                   message: 'Введите дату начала работы',
                 },
               ]}
+              initialValue=""
             >
-              <DatePicker placeholder="01-01-2021" format="DD-MM-YYYY" />
+              <DatePicker placeholder="01-01-2021" format="DD-MM-YYYY" disabledDate={disabledDate} />
             </Form.Item>
             <Form.Item
               label="Место работы"
@@ -148,11 +149,7 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
         <Form.Item
           label="О себе"
           name="description"
-          rules={[
-            {
-              message: 'Введите информацию о себе',
-            },
-          ]}
+          initialValue=""
         >
           <Input.TextArea showCount maxLength={140} />
         </Form.Item>

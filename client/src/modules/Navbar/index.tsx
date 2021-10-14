@@ -9,15 +9,16 @@ import { actions } from '../../redux/slices';
 import { useAppDispatch } from '../../hooks';
 
 const MenuItemWrapper = styled.div`
-  justify-content: center;
   display: flex;
+  justify-content: center;
+  align-items: center;
 `;
+
 interface INavbarProps {
-  isAuth: boolean,
   isAdmin: boolean,
 }
 
-const Navbar: React.FC<INavbarProps> = ({ isAuth, isAdmin }) => {
+const Navbar: React.FC<INavbarProps> = ({ isAdmin }) => {
   const dispatch = useAppDispatch();
 
   function logoutHandler() {
@@ -27,48 +28,22 @@ const Navbar: React.FC<INavbarProps> = ({ isAuth, isAdmin }) => {
     return dispatch(actions.logoutUserPending());
   }
 
-  // if (!isAuth && !isAdmin) {
-  //   return (
-  //     <PageHeader style={{ backgroundColor: 'fff' }}>
-  //       <Menu theme="light" mode="horizontal">
-
-  //         <Menu.Item key="Register">
-  //           <Link to="/register">Регистрация</Link>
-  //         </Menu.Item>
-
-  //         <Menu.Item key="Login">
-  //           <Link to="/login">Войти</Link>
-  //         </Menu.Item>
-
-  //       </Menu>
-  //     </PageHeader>
-  //   );
-  // }
-
   return (
     <PageHeader style={{ padding: '0 0 10px' }}>
-      <Menu style={{ display: 'flex', justifyContent: 'space-around' }} theme="light" mode="horizontal" defaultSelectedKeys={['Home']}>
+      <Menu style={{ display: 'flex', justifyContent: 'space-around', padding: '0 130px' }} theme="light" mode="horizontal" defaultSelectedKeys={['Home']}>
         <MenuItemWrapper>
-          <Menu.Item key="Home">
-            <NavLink to="/home" activeClassName="nav-link--active"><i className="fas fa-mug-hot nav-link" /></NavLink>
-          </Menu.Item>
+          <NavLink to="/home" activeClassName="nav-link--active"><i className="fas fa-mug-hot nav-link" /></NavLink>
         </MenuItemWrapper>
 
-        <MenuItemWrapper style={{ width: '40%' }}>
-          <Menu.Item key="Users">
-            <NavLink to="/users" activeClassName="nav-link--active">
-              <Button>Найти собеседника</Button>
-            </NavLink>
-          </Menu.Item>
+        <MenuItemWrapper style={{ width: '60%' }}>
+          <NavLink to="/users" activeClassName="nav-link--active">
+            <Button>Найти собеседника</Button>
+          </NavLink>
         </MenuItemWrapper>
 
         <MenuItemWrapper>
-          <Menu.Item key="Рrofile">
-            <NavLink to="/profile" activeClassName="nav-link--active"><i className="fas fa-user-circle nav-link" /></NavLink>
-          </Menu.Item>
-          <Menu.Item key="Logout">
-            <Button type="link" style={{ color: 'black' }} onClick={logoutHandler}><i className="fas fa-sign-out-alt nav-link" /></Button>
-          </Menu.Item>
+          <NavLink to="/profile" style={{ lineHeight: 1 }} activeClassName="nav-link--active"><i className="fas fa-user-circle nav-link" /></NavLink>
+          <Button type="link" style={{ color: 'black', padding: 0 }} onClick={logoutHandler}><i className="fas fa-sign-out-alt nav-link" /></Button>
         </MenuItemWrapper>
       </Menu>
     </PageHeader>

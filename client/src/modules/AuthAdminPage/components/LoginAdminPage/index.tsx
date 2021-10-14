@@ -42,7 +42,7 @@ const LoginAdminPage: React.FC = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="Admin"
+            label="Логин"
             name="admin"
             rules={[
               {

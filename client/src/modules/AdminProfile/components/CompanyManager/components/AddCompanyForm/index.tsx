@@ -4,7 +4,6 @@ import {
 } from 'antd';
 import styled from 'styled-components';
 
-import { FormInstance } from 'antd/lib/form';
 import { useAppDispatch } from '../../../../../../hooks';
 import { actions } from '../../../../../../redux/slices';
 import { HandleSubmitAddCompanyFormType } from './types';

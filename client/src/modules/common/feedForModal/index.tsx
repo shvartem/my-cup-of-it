@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { List, Modal, Input } from 'antd';
 import styled from 'styled-components';
-import KnockingModal from '../../Home/componenets/knockingModal/index';
+import KnockingModal from '../../Home/componenets/KnockingModal/index';
 import { modalFunc } from '../../Home/componenets/Feed/types';
 import UserCard from '../../Home/componenets/UserCard/index';
 import { FeedProps } from './types';

@@ -4,8 +4,9 @@
 }
 
 .nav-link {
-  font-size: 20px;
+  font-size: 25px;
   color: #454658;
+  padding: 0 20px;
 }
 
 .nav-link--active i {

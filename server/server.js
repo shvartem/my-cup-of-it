@@ -1,7 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-
+const path = require('path');
 const logger = require('morgan');
 const testConnect = require('./db/testConnect');
 
@@ -15,6 +15,9 @@ const meetsRouter = require('./routes/meets.router');
 const socialsRouter = require('./routes/social.router');
 
 const PORT = process.env.PORT ?? 5000;
+
+const builtHtml = path.resolve(__dirname, '..', 'client', 'build', 'index.html');
+const builtStatic = path.resolve(__dirname, '..', 'client', 'build');
 
 const sessionConfig = {
   store: new FileStore(),
@@ -33,6 +36,7 @@ app.use(session(sessionConfig));
 
 app.use(logger('dev'));
 app.use(express.static('public'));
+app.use(express.static(builtStatic));
 app.use(express.json());
 
 app.use('/api', authRouter);
@@ -43,6 +47,10 @@ app.use('/api/technologies', technologiesRouter);
 app.use('/api/top-secret-route', adminsRouter);
 app.use('/api/feedbacks', feedbacksRouter);
 app.use('/api/socials', socialsRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(builtHtml);
+});
 
 app.listen(PORT, () => {
   console.log(`Server started on http://localhost:${PORT}`);

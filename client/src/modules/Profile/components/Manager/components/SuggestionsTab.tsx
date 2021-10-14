@@ -2,12 +2,14 @@ import React from 'react';
 import { List } from 'antd';
 
 import MeetCard from './MeetCardTab';
-import IManagerProps from '../types';
-import { CustomButton, CustomCancelButton } from './CustomButton';
+import { IFeatureMeetsManagerProps } from '../types';
+import { ShowModalButton, CustomCancelButton } from './CustomButton';
 
-const SuggestionsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor }) => (
+const SuggestionsTab: React.FC<IFeatureMeetsManagerProps> = ({
+  meets, changeMeetsStatus, isMentor, handleModalClick,
+}) => (
   <>
-    {(meets && !!meets.length) && (
+    {(meets && !!meets.length) ? (
       <List
         itemLayout="vertical"
         size="large"
@@ -23,7 +25,7 @@ const SuggestionsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isM
             <MeetCard
               key={meet.id}
               buttons={isMentor ? [
-                <CustomButton key="1" buttonText="Принять встречу" clickHandler={() => changeMeetsStatus('accepted', meet.id)} />,
+                <ShowModalButton key="1" buttonText="Принять встречу" clickHandler={() => handleModalClick(meet)} />,
                 <CustomCancelButton key="2" buttonText="Отклонить встречу" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />,
               ] : [<CustomCancelButton key="1" buttonText="Отменить встречу" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />]}
               meetData={meet}
@@ -32,7 +34,7 @@ const SuggestionsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isM
           </List.Item>
         )}
       />
-    )}
+    ) : <p>{isMentor ? 'У вас пока нет предложений' : 'Вы пока не отправили ни одной заявки'}</p>}
 
   </>
 );
