@@ -9,7 +9,7 @@ const FeatureMeets: React.FC<IFeatureMeetsManagerProps> = ({
   meets, changeMeetsStatus, isMentor, handleModalClick,
 }) => (
   <>
-    <CustomCalendar meets={meets} />
+    {meets && meets.length && <CustomCalendar meets={meets} />}
     {(meets && !!meets.length) ? (
       <List
         itemLayout="vertical"
