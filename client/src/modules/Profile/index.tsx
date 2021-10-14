@@ -47,19 +47,10 @@ const Profile: React.FC = () => {
 
     if (Object.keys(values).length) {
       dispatch(actions.changeMeetDatePending(data));
+      dispatch(actions.changeUserMeetStatusPending({ status: 'accepted', id: meet.id }));
       return;
     }
     dispatch(actions.changeUserMeetStatusPending({ status: 'accepted', id: meet.id }));
-  }
-
-  if (!isMe) {
-    return (
-      <Contaiter>
-        <InnerContainer>
-          <InfoPage isMe={isMe} profileData={user} />
-        </InnerContainer>
-      </Contaiter>
-    );
   }
 
   return (
@@ -67,17 +58,23 @@ const Profile: React.FC = () => {
       <Tabs type="card">
         <TabPane tab="Профиль" key="1">
           <InnerContainer>
-            <InfoPage isMe={isMe} profileData={user} disableChangeRole={disableChangeRole} />
+            <InfoPage
+              isMe={isMe}
+              profileData={user}
+              disableChangeRole={disableChangeRole}
+            />
           </InnerContainer>
         </TabPane>
-        <TabPane tab="Менеджер встреч" key="2">
-          <Manager
-            isMentor={user?.isMentor || false}
-            meets={isCurrentUser(user) && user.meets}
-            changeMeetsStatus={changeMeetsStatus}
-            changeMeetsDate={changeMeetsDate}
-          />
-        </TabPane>
+        {isMe && (
+          <TabPane tab="Менеджер встреч" key="2">
+            <Manager
+              isMentor={user?.isMentor || false}
+              meets={isCurrentUser(user) && user.meets}
+              changeMeetsStatus={changeMeetsStatus}
+              changeMeetsDate={changeMeetsDate}
+            />
+          </TabPane>
+        )}
       </Tabs>
     </Contaiter>
   );

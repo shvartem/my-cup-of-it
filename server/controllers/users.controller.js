@@ -72,11 +72,19 @@ async function patchUserProfile(req, res) {
 
 async function editUserProfile(req, res) {
   const { userId } = req.params;
+  console.log(1111111, res.body);
   const {
-    firstname, lastname, description, companyId, careerStart, technologies, position,
+    firstname,
+    lastname,
+    description,
+    careerStart,
+    companyId,
+    position,
+    technologies = [],
   } = req.body;
   const userPhoto = req.file?.path.replace(/^public\//, '');
-  const parsedCareerStart = dayjs(careerStart).format('DD.MM.YYYY');
+  const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD-MM-YYYY') : '';
+  console.log(555555555, careerStart, parsedCareerStart);
   try {
     const [result] = await db.User.update({
       firstname,
@@ -86,9 +94,14 @@ async function editUserProfile(req, res) {
       companyId,
       position,
       careerStart: parsedCareerStart,
-    }, { where: { id: userId } });
+    },
+    {
+      where: { id: userId },
+      raw: true,
+    });
 
     if (!result) throw new Error();
+
     const user = await db.User.findOne({ where: { id: userId }, raw: true });
 
     req.session.user = {
@@ -96,13 +109,10 @@ async function editUserProfile(req, res) {
       companyId: user.companyId,
     };
 
-    try {
-      await technologiesService.clearUserStack(userId);
-      await technologiesService.addStackToUser(technologies, userId);
-    } catch (e) {
-      console.log(e);
-    }
+    await technologiesService.clearUserStack(userId);
+    await technologiesService.addStackToUser(technologies, userId);
     const userData = await userService.getFullUserData(user);
+    console.log(11111, userData);
     return res.json(userData);
   } catch (e) {
     console.log(e);
