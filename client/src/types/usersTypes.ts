@@ -3,6 +3,7 @@ import ISocial from './socialsTypes';
 
 export interface IMeet {
   id: string,
+  userId: string,
   firstname: string,
   lastname: string,
   status: string,

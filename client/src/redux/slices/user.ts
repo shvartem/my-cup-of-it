@@ -89,6 +89,7 @@ const userSlice = createSlice({
       state.error = null;
     },
     editUserProfileFullfilled: (state: IMyProfileState, action: PayloadAction<IMyProfile>) => {
+      console.log(444, action.payload);
       state.profile = action.payload;
       state.error = null;
       state.isLoading = false;

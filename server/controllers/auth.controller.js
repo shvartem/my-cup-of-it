@@ -10,7 +10,6 @@ const userService = require('../services/user.service');
 const technologiesService = require('../services/technologies.service');
 
 async function registerUser(req, res) {
-  console.log(req.body);
   const {
     firstname,
     lastname,
