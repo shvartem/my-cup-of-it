@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.Technology, { through: 'Stacks', foreignKey: 'userId' });
       this.hasMany(models.Meet, { foreignKey: 'interviewerId' });
       this.hasMany(models.Meet, { foreignKey: 'mentorId' });
+      this.belongsTo(models.Company, { foreignKey: 'companyId' });
+      this.hasMany(models.Feedback, { foreignKey: 'userId' });
+      this.hasMany(models.Social, { foreignKey: 'userId' });
     }
   }
   User.init({
@@ -42,28 +45,28 @@ module.exports = (sequelize, DataTypes) => {
     },
     isActive: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: false,
     },
     careerStart: {
       type: DataTypes.STRING,
-      defaultValue: false,
+      defaultValue: '',
     },
-    company: {
+    companyId: {
       type: DataTypes.STRING,
-      defaultValue: false,
+      defaultValue: '',
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
+    position: {
+      type: DataTypes.STRING,
+      defaultValue: '',
     },
-    updatedAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
+    userPhoto: {
+      type: DataTypes.STRING,
+      defaultValue: '',
     },
   }, {
     sequelize,
     modelName: 'User',
+    timestamps: false,
   });
   return User;
 };

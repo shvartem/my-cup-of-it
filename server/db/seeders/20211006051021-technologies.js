@@ -43,6 +43,48 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        id: 'ZiC0poCm',
+        category: 'backend',
+        title: 'SQL',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'ZiCoHCm',
+        category: 'backend',
+        title: 'MongoDB',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'Zi0poseCm',
+        category: 'frontend',
+        title: 'angular',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'ZiC0sdfgHCm',
+        category: 'backend',
+        title: 'express',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'Z0poerfH',
+        category: 'frontend',
+        title: 'antd',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: 'ZiC0sHCm',
+        category: 'backend',
+        title: 'PHP',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ], {});
     /**
      * Add seed commands here.

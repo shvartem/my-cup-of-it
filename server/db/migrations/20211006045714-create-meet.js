@@ -21,11 +21,16 @@ module.exports = {
         },
       },
       date: {
-        type: Sequelize.DATE,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       comment: {
         type: Sequelize.TEXT,
+      },
+      status: {
+        type: Sequelize.ENUM({
+          values: ['completed', 'pending', 'cancelled', 'accepted'],
+        }),
       },
       createdAt: {
         type: Sequelize.DATE,
