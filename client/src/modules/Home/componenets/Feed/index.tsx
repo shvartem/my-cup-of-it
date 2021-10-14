@@ -22,6 +22,8 @@ const CardsWrapper = styled.div`
 const Feed: React.FC = () => {
   const history = useHistory();
   const users = useAppSelector((state) => state.allUsers.data);
+  const isLoading = useAppSelector((state) => state.allUsers.isLoading);
+  const singleUserIsLoading = useAppSelector((state) => state.user.isLoading);
 
   const activeMentors = users.filter((user) => user.isMentor && user.isActive);
   const randomMentors = shuffleArray(activeMentors, 8);
@@ -30,7 +32,7 @@ const Feed: React.FC = () => {
     history.push('/users');
   };
 
-  if (!users.length) {
+  if (!users.length || isLoading || singleUserIsLoading) {
     return (
       <Spinner />
     );

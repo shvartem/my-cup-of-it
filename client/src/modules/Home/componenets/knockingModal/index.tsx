@@ -2,6 +2,7 @@ import {
   Modal, Input, DatePicker, Space, Button, Alert,
 } from 'antd';
 import React, { useState } from 'react';
+
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { IMeetBody } from '../../../../types/meetingTypes';
 import { modalFuncHandle } from '../Feed/types';
@@ -10,10 +11,14 @@ import { actions } from '../../../../redux/slices';
 
 const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsModalVisible }) => {
   const { TextArea } = Input;
+  // let email:string | null;
   const dispatch = useAppDispatch();
   const [comment, setComment] = React.useState('');
   const currentUser = useAppSelector((state) => state.user.profile);
   const [meetingDate, setDate] = useState(new Date());
+  const mentor = useAppSelector((state) => state.allUsers.data)
+    .filter((user) => user.id === mentorId);
+
   // срабатывает на кнопку ок в модалке
   const handleOk: modalFuncHandle = () => {
     const body: IMeetBody = {
@@ -23,7 +28,6 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
       status: 'pending',
       comment,
     };
-
     dispatch(actions.writeUserMeetingPending({ payload: body }));
     setComment('');
     setIsModalVisible(false);

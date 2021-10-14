@@ -11,7 +11,7 @@ async function getAllUsers(req, res) {
         'id',
         'firstname',
         'lastname',
-        'password',
+        'email',
         'description',
         'isMentor', 'isActive',
         'careerStart',

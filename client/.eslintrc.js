@@ -32,10 +32,12 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'quote-props': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'max-len': 'off',
     'no-underscore-dangle': 'off',
+    'no-prototype-builtins': 'off',
     'no-plusplus': 'off',
     'import/extensions': [
       'error',

@@ -13,7 +13,6 @@ const App: React.FC = () => {
   const currentAdmin = useAppSelector((state) => state.admin.profile);
 
   const isLoading = useAppSelector((state) => state.user.isLoading);
-
   const error = useAppSelector((state) => state.user.error);
 
   const isAuthenticated = Boolean(user?.id);
@@ -34,14 +33,11 @@ const App: React.FC = () => {
     }
   }, [dispatch, isAuthenticated, isAdmin]);
 
-  if (isLoading) {
-    return (
-      <Spinner />
-    );
-  }
-
   return (
     <>
+
+      {isLoading && <Spinner />}
+
       {error && (
         <Alert
           style={{

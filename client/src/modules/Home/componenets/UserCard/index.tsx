@@ -1,19 +1,25 @@
 import React, { FC } from 'react';
 import { Card, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { IconName, IconPrefix } from '../../../../../node_modules/@fortawesome/fontawesome-common-types/index.d';
 import { MyCard } from './types';
 import styles from './card.module.css';
 import { getExperience } from '../../../common/getExperience';
 import { useAppSelector } from '../../../../hooks';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
+import { iconsObject, iconsObject2 } from './tools';
 
+library.add(fab);
 const { Meta } = Card;
 
 const UserCard: React.FC<MyCard> = ({
   mentor, showModal,
 }) => {
   const currentUser = useAppSelector((state) => state.user.profile);
+
   return (
     <>
       <Link to={`users/${mentor.id}`}>
@@ -46,6 +52,37 @@ const UserCard: React.FC<MyCard> = ({
                 {' '}
                 {getExperience(mentor.careerStart)}
               </div>
+              <div style={{
+                display: 'flex', marginTop: '0.3rem', width: '100%', justifyContent: 'space-around', alignItems: 'center',
+              }}
+              >
+                {mentor.technologies.map((technology) => {
+                  if (iconsObject[technology.title]) {
+                    const str: IconName = iconsObject[technology.title];
+                    return (
+                      <span>
+                        <FontAwesomeIcon icon={['fab', str]} size="3x" />
+                        {' '}
+                      </span>
+                    );
+                  } if (iconsObject2[technology.title]) {
+                    return (
+                      <span>
+                        <img src={iconsObject2[technology.title]} alt={technology.title} style={{ width: '30px' }} />
+                        {' '}
+                      </span>
+
+                    );
+                  } return (
+                    <span style={{ fontWeight: 'bolder' }}>
+                      {technology.title}
+                      {' '}
+                    </span>
+                  );
+                })}
+              </div>
+              <div />
+
             </div>
           )}
 
