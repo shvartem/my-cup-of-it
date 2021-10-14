@@ -7,7 +7,7 @@ const userService = require('../services/user.service');
 const socialsService = require('../services/socials.service');
 
 async function getAllUsers(req, res) {
-  const loggedUserId = req.session.user.id.toString() ?? '';
+  const loggedUserId = req.session.user?.id.toString() ?? '';
   try {
     const users = await db.User.findAll({
       attributes: [
@@ -72,7 +72,6 @@ async function patchUserProfile(req, res) {
 
 async function editUserProfile(req, res) {
   const { userId } = req.params;
-  console.log(1111111, res.body);
   const {
     firstname,
     lastname,
@@ -82,9 +81,8 @@ async function editUserProfile(req, res) {
     position,
     technologies = [],
   } = req.body;
-  const userPhoto = req.file?.path.replace(/^public\//, '');
+  const userPhoto = req.file?.path.replace(/^..\/client\/public/, '');
   const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD-MM-YYYY') : '';
-  console.log(555555555, careerStart, parsedCareerStart);
   try {
     const [result] = await db.User.update({
       firstname,

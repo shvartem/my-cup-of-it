@@ -23,10 +23,10 @@ async function registerUser(req, res) {
     position,
     technologies = [],
   } = req.body;
-
   const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD.MM.YYYY') : '';
 
-  const userPhoto = req.file?.path.replace(/^public/, '');
+  const userPhoto = req.file?.path.replace(/^..\/client\/public/, '');
+  // const userPhoto = req.file?.path.replace(/^public/, '');
 
   let user;
   try {
