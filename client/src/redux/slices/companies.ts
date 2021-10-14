@@ -10,6 +10,16 @@ const initialState: ICompaniesState = {
   error: null,
 };
 
+const sortData = (data: ICompany[]) => data.sort((a, b) => {
+  if (a.title.toLowerCase() < b.title.toLowerCase()) {
+    return -1;
+  }
+  if (a.title.toLowerCase() > b.title.toLowerCase()) {
+    return 1;
+  }
+  return 0;
+});
+
 const companiesSlice = createSlice({
   name: 'allCompanies',
   initialState,
@@ -32,6 +42,7 @@ const companiesSlice = createSlice({
     },
     addNewCompanyFulfilled: (state: ICompaniesState, action:PayloadAction<ICompany>) => {
       state.data.push(action.payload);
+      state.data = sortData(state.data);
       state.isLoading = false;
       state.error = null;
     },
@@ -47,6 +58,7 @@ const companiesSlice = createSlice({
       state.data = state.data.map((company) => (
         company.id === action.payload.id ? action.payload : company
       ));
+      state.data = sortData(state.data);
       state.isLoading = false;
       state.error = null;
     },

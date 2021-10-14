@@ -20,9 +20,9 @@ function* getAllCompanies(): SagaIterator {
 function* addNewCompany({ payload }: IAddNewCompanyAction): SagaIterator {
   try {
     const newCompany = yield call(() => postData<ICompany>('/api/companies', payload));
-    yield put(actions.editCompanyFulfilled(newCompany));
+    yield put(actions.addNewCompanyFulfilled(newCompany));
   } catch (e) {
-    yield put(actions.editCompanyRejected(e as string));
+    yield put(actions.addNewCompanyRejected(e as string));
   }
 }
 
