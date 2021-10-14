@@ -116,6 +116,8 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
             <TimePicker
               placeholder="Выберите время"
               format="HH:mm"
+              minuteStep={15}
+              hideDisabledOptions
               disabledHours={disabledHours}
             />
           </Form.Item>

@@ -1,13 +1,10 @@
-.buttons{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 3.4rem;
-  margin-top: 0.5rem;
+.buttons {
+  height: 20%;
+  width: 100%;
 }
 
 
-.userDetails{
+.userDetails {
   display: flex;
   flex-direction: column;
   justify-content: center;
