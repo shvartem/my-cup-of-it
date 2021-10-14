@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Image, Card, Timeline, Alert,
+  Image, Card, Timeline,
 } from 'antd';
 import { ITechnology } from '../../../../types/technologiesTypes';
 import EditProfileButtons from './components/EditProfileButtons';
@@ -11,7 +11,6 @@ import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import KnockingModal from '../../../Home/componenets/knockingModal';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
-import ISocial from '../../../../types/socialsTypes';
 import { getExperience } from '../../../common/getExperience';
 
 interface ISocialClasses {
@@ -65,11 +64,9 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
     values = Object.fromEntries(values);
 
     if (!profileData.socials.length) {
-      console.log('in add', { values });
       dispatch(actions.addUserSocialsPending({ id: profileData.id, socials: values }));
       return;
     }
-    console.log('in edit', { values });
     dispatch(actions.changeUserSocialsPending({ id: profileData.id, socials: values }));
   }
 
@@ -99,14 +96,14 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
           <Timeline>
-            {(!profileData.company && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
+            {(!profileData.company && profileData.position && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
               && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
             {(profileData.company && profileData.position) && (
               <Timeline.Item>
                 {`${profileData.position} в ${profileData.company}`}
               </Timeline.Item>
             )}
-            {profileData.careerStart && (
+            {(profileData.careerStart) && (
               <Timeline.Item>
                 {`Опыт работы: ${getExperience(profileData.careerStart)}`}
               </Timeline.Item>

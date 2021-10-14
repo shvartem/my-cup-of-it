@@ -9,7 +9,6 @@ const About: React.FC = () => {
   const currentAdmin = useAppSelector((state) => state.admin.profile);
   const isAdmin = Boolean(currentAdmin?.id);
 
-  console.log(isAdmin);
   return (
     <Container>
       <LogoWrapper>

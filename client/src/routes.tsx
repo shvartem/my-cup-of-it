@@ -14,7 +14,6 @@ import Navbar from './modules/Navbar';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
-  console.log({ isAuthenticated });
   if (isAuthenticated || isAdmin) {
     return (
       <>

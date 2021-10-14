@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { Alert, Layout } from 'antd';
+import { Layout } from 'antd';
 import useRouter from './routes';
 import { actions } from './redux/slices';
 import { useAppDispatch, useAppSelector } from './hooks';
 import Spinner from './modules/common/Spinner';
+import openNotification from './modules/common/errorNotification';
 
 const { Content } = Layout;
 const App: React.FC = () => {
@@ -34,25 +35,10 @@ const App: React.FC = () => {
     }
   }, [dispatch, isAuthenticated, isAdmin]);
 
-  if (isLoading) {
-    return (
-      <Spinner />
-    );
-  }
-
   return (
     <>
-      {error && (
-        <Alert
-          style={{
-            width: 350, position: 'absolute', right: 15, top: 15, zIndex: 10,
-          }}
-          banner
-          message={error}
-          type="error"
-          closable
-        />
-      )}
+      {isLoading && <Spinner />}
+      {error && openNotification(error)}
 
       <Layout className="layout">
         <Content>
