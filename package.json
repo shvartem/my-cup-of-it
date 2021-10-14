@@ -2,9 +2,10 @@
   "name": "my-cup-of-it",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",  "scripts": {
+  "main": "index.js",  
+  "scripts": {
     "build": "cd client && yarn && yarn build",
-    "start": "cd server && npm i && npx sequelize-cli db:migrate && npm i && npx sequelize-cli db:seed:all && npm start"
+    "start": "cd server && npm i && npm start"
   },
   "repository": {
     "type": "git",

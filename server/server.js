@@ -36,6 +36,7 @@ app.use(session(sessionConfig));
 
 app.use(logger('dev'));
 app.use(express.static('public'));
+app.use(express.static(builtStatic));
 app.use(express.json());
 
 app.use('/api', authRouter);
@@ -46,7 +47,6 @@ app.use('/api/technologies', technologiesRouter);
 app.use('/api/top-secret-route', adminsRouter);
 app.use('/api/feedbacks', feedbacksRouter);
 app.use('/api/socials', socialsRouter);
-app.use(express.static(builtStatic));
 
 app.get('*', (req, res) => {
   res.sendFile(builtHtml);
