@@ -27,7 +27,7 @@ const Feed: React.FC = () => {
     history.push('/users');
   };
 
-  if (!users.length && !isAuth) {
+  if (!users.length || !isAuth) {
     return (
       <Container>
         <p>Зарегистрируйтесь чтобы получить доступ к профилям наших пользователей</p>
