@@ -80,7 +80,6 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
         labelCol={{
           span: registerData.isMentor ? 6 : 3,
         }}
-        // initialValues={initialRegisterFormValues}
         onFinish={onSubmit}
         autoComplete="off"
       >
@@ -186,7 +185,7 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
           }}
         >
           <ButtonsWrapper>
-            <Button type="link" htmlType="submit" onClick={goBack}>
+            <Button type="link" htmlType="button" onClick={goBack}>
               Назад
             </Button>
             <Button type="primary" htmlType="submit">

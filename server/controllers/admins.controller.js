@@ -13,7 +13,7 @@ async function loginAdmin(req, res) {
     });
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 
   if (foundedAdmin) {
@@ -42,7 +42,7 @@ async function logoutAdmin(req, res) {
   req.session.destroy((error) => {
     if (error) {
       console.log(error);
-      return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+      return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
     }
     return res
       .clearCookie('user_sid')

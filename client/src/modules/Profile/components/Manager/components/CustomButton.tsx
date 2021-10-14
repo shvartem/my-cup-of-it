@@ -6,6 +6,10 @@ export const CustomButton: React.FC<IMeetButton> = ({ clickHandler, buttonText }
   <Button onClick={clickHandler} style={{ margin: '0 10px' }}>{buttonText}</Button>
 );
 
+export const ShowModalButton: React.FC<IMeetButton> = ({ clickHandler, buttonText }) => (
+  <Button onClick={clickHandler} style={{ margin: '0 10px' }}>{buttonText}</Button>
+);
+
 export const CustomCancelButton: React.FC<IMeetButton> = ({ clickHandler, buttonText }) => {
   function confirm() {
     message.success('Встреча отменена');

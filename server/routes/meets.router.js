@@ -41,6 +41,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:meetId', meetsController.editMeets);
+router.patch('/:meetId', meetsController.editMeets);
+router.put('/:meetId', meetsController.editMeetDate);
 
 module.exports = router;

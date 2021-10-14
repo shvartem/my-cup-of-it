@@ -7,7 +7,7 @@ import { IMeet } from '../../../../../types/usersTypes';
 
 const PastMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor }) => (
   <>
-    {(meets && !!meets.length) && (
+    {(meets && !!meets.length) ? (
       <List
         itemLayout="vertical"
         size="large"
@@ -29,8 +29,7 @@ const PastMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor
           </List.Item>
         )}
       />
-    )}
-
+    ) : <p>У вас пока нет прошедших встреч</p>}
   </>
 );
 
