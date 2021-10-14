@@ -22,7 +22,6 @@ const EditButton: React.FC<IEditButtonProp> = (props) => {
   const handleSubmitForm: HandleSubmitEditCompanyFormType = (values) => {
     dispatch(actions.editCompanyPending({ ...company, ...values }));
     setIsModalVisible(false);
-    console.log(company, values);
   };
 
   const handleCancel = () => {
