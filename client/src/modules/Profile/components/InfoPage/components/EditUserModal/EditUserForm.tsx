@@ -20,7 +20,6 @@ const normFile = (e: any) => {
 const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, profileData, form }) => {
   const companies = useAppSelector((state) => state.companies.data);
   const technologies = useAppSelector((state) => state.technologies.data);
-
   const companyId = companies.find((company) => company.title === profileData.company)?.id;
   const technologiesTitles = profileData.technologies.map((tech) => tech.title);
 
@@ -32,7 +31,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
   const handleUploadFile = (photo: any) => false;
 
   function disabledDate(current: any) {
-    return current && current < moment();
+    return current && current > moment();
   }
 
   return (
@@ -73,13 +72,25 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
             key="careerStart"
             label="Начало карьеры"
             name="careerStart"
+            rules={[
+              {
+                required: !profileData.careerStart,
+                message: 'Введите дату начала работы',
+              },
+            ]}
           >
-            <DatePicker defaultPickerValue={profileData.careerStart ? moment(profileData.careerStart) : moment()} format="YYYY-MM-DD" disabledDate={disabledDate} />
+            <DatePicker format="YYYY-MM-DD" disabledDate={disabledDate} />
           </Form.Item>
           <Form.Item
             key="companyId"
             label="Место работы"
             name="companyId"
+            rules={[
+              {
+                required: !profileData.company,
+                message: 'Введите дату начала работы',
+              },
+            ]}
             initialValue={companyId}
           >
             <Select>
@@ -92,6 +103,12 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
             label="Должность"
             name="position"
             initialValue={profileData.position}
+            rules={[
+              {
+                required: !profileData.position,
+                message: 'Введите дату начала работы',
+              },
+            ]}
           >
             <Input placeholder="Старший разработчик" />
           </Form.Item>

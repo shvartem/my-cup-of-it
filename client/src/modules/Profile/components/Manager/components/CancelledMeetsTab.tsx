@@ -5,7 +5,7 @@ import MeetCard from './MeetCardTab';
 
 const CancelledMeetsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor }) => (
   <>
-    {meets && !!meets.length && (
+    {(meets && !!meets.length) ? (
       <List
         itemLayout="vertical"
         size="large"
@@ -27,7 +27,7 @@ const CancelledMeetsTab: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, 
           </List.Item>
         )}
       />
-    )}
+    ) : <p>У вас пока нет отмененных встреч</p>}
   </>
 );
 

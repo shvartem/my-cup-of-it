@@ -73,9 +73,9 @@ const LoginPage: React.FC = () => {
           </Form.Item>
 
           <LinksWrapper>
-            <Text>Еще не зарегестрированы?</Text>
+            <Text>Еще не зарегистрированы?</Text>
             <Button type="link">
-              <Link to="/register">Зарегестрироваться</Link>
+              <Link to="/register">Зарегистрироваться</Link>
             </Button>
           </LinksWrapper>
         </Form>

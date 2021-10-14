@@ -10,8 +10,24 @@ async function editMeets(req, res) {
     return res.sendStatus(201);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 }
 
-module.exports = { editMeets };
+async function editMeetDate(req, res) {
+  const {
+    id,
+    comment = '',
+    date = '',
+  } = req.body;
+  try {
+    if (comment) await db.Meet.update({ comment }, { where: { id } });
+    if (date) await db.Meet.update({ date }, { where: { id } });
+    return res.sendStatus(201);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
+  }
+}
+
+module.exports = { editMeets, editMeetDate };

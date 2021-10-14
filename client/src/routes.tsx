@@ -11,13 +11,15 @@ import Filters from './modules/Users/components/Filters';
 
 import { Container } from './modules/common/style';
 import Navbar from './modules/Navbar';
+import NonAuthNavbar from './modules/Navbar/nonAuthNavbar';
 
 const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   const users = useAppSelector((state) => state.allUsers.data);
+
   if (isAuthenticated || isAdmin) {
     return (
       <>
-        <Navbar isAuth={isAuthenticated} isAdmin={isAdmin} />
+        <Navbar isAdmin={isAdmin} />
         <Switch>
 
           <Route path="/home">
@@ -49,21 +51,28 @@ const useRouter = (isAuthenticated: boolean, isAdmin: boolean) => {
   }
 
   return (
-    <Switch>
-      <Route path="/login">
-        <LoginPage />
-      </Route>
+    <>
+      <NonAuthNavbar />
+      <Switch>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
 
-      <Route path="/register">
-        <RegisterPage />
-      </Route>
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
 
-      <Route path="/top-secret-route">
-        <LoginAdminPage />
-      </Route>
+        <Route path="/top-secret-route">
+          <LoginAdminPage />
+        </Route>
 
-      <Redirect to="/login" />
-    </Switch>
+        <Route path="/home">
+          <Home />
+        </Route>
+
+        <Redirect to="/home" />
+      </Switch>
+    </>
   );
 };
 export default useRouter;

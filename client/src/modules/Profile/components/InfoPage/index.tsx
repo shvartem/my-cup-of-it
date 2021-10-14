@@ -9,7 +9,7 @@ import CommunicateButtons from './components/CommunicateButtons';
 import { IInfoPageProps } from './types';
 import { actions } from '../../../../redux/slices';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import KnockingModal from '../../../Home/componenets/knockingModal';
+import KnockingModal from '../../../Home/componenets/KnockingModal';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
 import { getExperience } from '../../../common/getExperience';
 
@@ -41,13 +41,16 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
   }
 
   function editProfile(values: any) {
+    console.log(values);
     values.technologies = values.technologies.map((el: string) => technologies.find((elem: ITechnology) => elem.title === el)?.id);
-
+    values.careerStart = values.careerStart ? values.careerStart.toISOString() : profileData.careerStart;
     const formData = new FormData();
     Object.entries(values).forEach((value: [string, any]) => {
       if (value[0] === 'userPhoto' && value[1]) formData.append(`${value[0]}`, value[1][0].originFileObj);
       else formData.append(`${value[0]}`, value[1]);
     });
+
+    console.log(555, { formData, userId: currentUser.id });
     dispatch(actions.editUserProfilePending({ formData, userId: currentUser.id }));
   }
 
@@ -96,14 +99,14 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
       <CardWrapper>
         <Card title={`${profileData.firstname} ${profileData.lastname}`}>
           <Timeline>
-            {(!profileData.company && profileData.position && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
-              && <p style={{ color: '#ff4d4f' }}>Заполните информацию о себе в редактировании профиля</p>}
-            {(profileData.company && profileData.position) && (
+            {(!profileData.company && !profileData.position && !profileData.careerStart && !profileData.technologies.length && !profileData.description)
+              && <p style={{ color: '#2b2c3e' }}>{isMe ? 'Заполните информацию о себе в редактировании профиля' : 'Пользователь пока не заполнил информацию о себе'}</p>}
+            {((profileData.company || profileData.position) && profileData.isMentor) && (
               <Timeline.Item>
-                {`${profileData.position} в ${profileData.company}`}
+                {`${profileData.position ? profileData.position : 'Работаю'} в ${profileData.company}`}
               </Timeline.Item>
             )}
-            {(profileData.careerStart) && (
+            {(profileData.careerStart && profileData.isMentor) && (
               <Timeline.Item>
                 {`Опыт работы: ${getExperience(profileData.careerStart)}`}
               </Timeline.Item>

@@ -26,6 +26,7 @@ async function findTecnnologiesByUserId(userId) {
 }
 
 async function addStackToUser(technologies, userId) {
+  if (!technologies.length) return;
   const technologiesArr = technologies.split(',');
   try {
     for await (const tech of technologiesArr) {

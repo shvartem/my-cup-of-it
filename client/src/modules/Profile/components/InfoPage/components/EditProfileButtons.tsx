@@ -8,9 +8,10 @@ import EditSocialModal from './EditSocialModal/EditSocialModal';
 const EditProfileButtons: React.FC<IEditButtons> = ({
   profileData, changeRole, changeStatus, editProfile, editSocials, disableChangeRole,
 }) => {
-  const content = 'Отмените все встречи для смены статуса';
+  const content = 'Отмените все встречи для смены роли';
   return (
     <BtnsWrapper>
+
       {disableChangeRole ? (
         <Popover content={content}>
           <Button
@@ -33,11 +34,26 @@ const EditProfileButtons: React.FC<IEditButtons> = ({
       )}
 
       <EditUserProfileModal editProfile={editProfile} profileData={profileData} />
-      {profileData.isMentor && (
-        <Button onClick={changeStatus}>
+
+      {disableChangeRole ? (
+        <Popover content={content}>
+          <Button
+            style={{ width: '100%' }}
+            onClick={changeStatus}
+            disabled
+          >
+            {profileData.isActive ? 'Сменить статус на неактивный' : 'Сменить статус на активный'}
+          </Button>
+        </Popover>
+      ) : (
+        <Button
+          onClick={changeStatus}
+          disabled={false}
+        >
           {profileData.isActive ? 'Сменить статус на неактивный' : 'Сменить статус на активный'}
         </Button>
       )}
+
       <EditSocialModal socials={profileData.socials} editSocials={editSocials} />
     </BtnsWrapper>
   );

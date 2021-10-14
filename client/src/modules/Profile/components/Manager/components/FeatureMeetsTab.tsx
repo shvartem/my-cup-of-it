@@ -1,13 +1,16 @@
 import React from 'react';
 import { List } from 'antd';
-import IManagerProps from '../types';
+import { IFeatureMeetsManagerProps } from '../types';
 import MeetCard from './MeetCardTab';
-import { CustomButton, CustomCancelButton } from './CustomButton';
-import { IMeet } from '../../../../../types/usersTypes';
+import { CustomButton, CustomCancelButton, ShowModalButton } from './CustomButton';
+import CustomCalendar from './Calendar';
 
-const FeatureMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor }) => (
+const FeatureMeets: React.FC<IFeatureMeetsManagerProps> = ({
+  meets, changeMeetsStatus, isMentor, handleModalClick,
+}) => (
   <>
-    {(meets && !!meets.length) && (
+    {meets && meets.length && <CustomCalendar meets={meets} />}
+    {(meets && !!meets.length) ? (
       <List
         itemLayout="vertical"
         size="large"
@@ -23,18 +26,18 @@ const FeatureMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMen
             <MeetCard
               key={meet.id}
               buttons={isMentor ? [
-                <CustomButton buttonText="Встреча состоялась" key="1" clickHandler={() => changeMeetsStatus('completed', meet.id)} />,
-                <CustomCancelButton buttonText="Отменить встречу" key="2" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />,
+                <ShowModalButton buttonText="Редактировать встречу" key="1" clickHandler={() => handleModalClick(meet)} />,
+                <CustomButton buttonText="Встреча состоялась" key="2" clickHandler={() => changeMeetsStatus('completed', meet.id)} />,
+                <CustomCancelButton buttonText="Отменить встречу" key="3" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />,
               ]
-                : [<CustomButton buttonText="Отменить встречу" key="2" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />]}
+                : [<CustomButton buttonText="Отменить встречу" key="4" clickHandler={() => changeMeetsStatus('cancelled', meet.id)} />]}
               meetData={meet}
               isMentor={isMentor}
             />
           </List.Item>
         )}
       />
-    )}
-
+    ) : <p>У вас пока нет предстоящих встреч</p>}
   </>
 );
 

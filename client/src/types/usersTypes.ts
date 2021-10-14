@@ -3,6 +3,7 @@ import ISocial from './socialsTypes';
 
 export interface IMeet {
   id: string,
+  userId: string,
   firstname: string,
   lastname: string,
   status: string,
@@ -92,6 +93,17 @@ export interface IChangeMeetStatusAction {
 export interface IChangeMeetStatusPayload {
   id: string,
   status: string
+}
+
+export interface IChangeMeetDateAction {
+  type: string,
+  payload: IChangeMeetDatePayload
+}
+
+export interface IChangeMeetDatePayload {
+  id: string,
+  date?: string,
+  comment?: string
 }
 
 export interface IEditUserSocialsAction {

@@ -5,12 +5,23 @@ import {
   ITechnologiesState,
   ITechnology,
 } from '../../types/technologiesTypes';
+import { ICompany } from '../../types/companiesTypes';
 
 const initialState: ITechnologiesState = {
   data: [],
   isLoading: false,
   error: null,
 };
+
+const sortData = (data: ITechnology[]) => data.sort((a, b) => {
+  if (a.title.toLowerCase() < b.title.toLowerCase()) {
+    return -1;
+  }
+  if (a.title.toLowerCase() > b.title.toLowerCase()) {
+    return 1;
+  }
+  return 0;
+});
 
 const technologiesSlice = createSlice({
   name: 'technologies',
@@ -35,6 +46,7 @@ const technologiesSlice = createSlice({
     },
     addNewTechnologyFulfilled: (state: ITechnologiesState, action:PayloadAction<ITechnology>) => {
       state.data.push(action.payload);
+      state.data = sortData(state.data);
       state.isLoading = false;
       state.error = null;
     },
@@ -50,6 +62,7 @@ const technologiesSlice = createSlice({
       state.data = state.data.map((technology) => (
         technology.id === action.payload.id ? action.payload : technology
       ));
+      state.data = sortData(state.data);
       state.isLoading = false;
       state.error = null;
     },

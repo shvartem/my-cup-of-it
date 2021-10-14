@@ -1,26 +1,49 @@
 import React, { FC } from 'react';
 import { Card, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import styled from 'styled-components';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { IconName, IconPrefix } from '../../../../../node_modules/@fortawesome/fontawesome-common-types/index.d';
 import { MyCard } from './types';
 import styles from './card.module.css';
 import { getExperience } from '../../../common/getExperience';
 import { useAppSelector } from '../../../../hooks';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
+import { iconsObject, iconsObject2 } from './tools';
 
+library.add(fab);
 const { Meta } = Card;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const IconsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: '0.3rem';
+  width: 80%;
+`;
 
 const UserCard: React.FC<MyCard> = ({
   mentor, showModal,
 }) => {
   const currentUser = useAppSelector((state) => state.user.profile);
+
   return (
     <>
       <Link to={`users/${mentor.id}`}>
         <Card
           hoverable
           size="small"
-          style={{ width: 240, margin: '1rem' }}
+          style={{
+            width: 240, height: 450, margin: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center',
+          }}
           cover={(
             <img
               alt="example"
@@ -34,39 +57,68 @@ const UserCard: React.FC<MyCard> = ({
           )}
         >
           <Meta title={mentor.firstname} />
-          {mentor.isMentor && (
-            <div className={styles.userDetails}>
-              <div>
-                Работает в:
-                {' '}
-                {mentor.company}
-              </div>
-              <div>
-                Опыт работы:
-                {' '}
-                {getExperience(mentor.careerStart)}
-              </div>
-            </div>
-          )}
+          <Container>
+            <div style={{ height: 120 }}>
+              {mentor.isMentor && (
+                <div className={styles.userDetails}>
+                  <div>
+                    Работает в:
+                    {' '}
+                    {mentor.company}
+                  </div>
+                  <div>
+                    Опыт работы:
+                    {' '}
+                    {getExperience(mentor.careerStart)}
+                  </div>
+                  <IconsWrapper>
+                    {mentor.technologies.map((technology) => {
+                      if (iconsObject[technology.title]) {
+                        const str: IconName = iconsObject[technology.title];
+                        return (
+                          <span>
+                            <FontAwesomeIcon icon={['fab', str]} size="3x" />
+                            {' '}
+                          </span>
+                        );
+                      } if (iconsObject2[technology.title]) {
+                        return (
+                          <span>
+                            <img src={iconsObject2[technology.title]} alt={technology.title} style={{ width: '30px' }} />
+                            {' '}
+                          </span>
 
-          <div className={styles.buttons}>
-            {mentor.isMentor && !currentUser.isMentor && (
-              <Button
-                size="small"
-                type="primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  showModal(mentor.id);
-                }}
-                disabled={!mentor.isActive}
-              >
-                Постучаться
-              </Button>
-              // <Button size="small" type="primary" disabled={!mentor.isActive}>
-              //   <Link to={`users/${mentor.id}`}>Профиль</Link>
-              // </Button>
-            )}
-          </div>
+                        );
+                      } return (
+                        <span style={{ fontWeight: 'bolder' }}>
+                          {technology.title}
+                          {' '}
+                        </span>
+                      );
+                    })}
+                  </IconsWrapper>
+                  <div />
+
+                </div>
+              )}
+            </div>
+
+            <div className={styles.buttons}>
+              {mentor.isMentor && !currentUser.isMentor && (
+                <Button
+                  size="small"
+                  type="primary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    showModal(mentor.id);
+                  }}
+                  disabled={!mentor.isActive || !currentUser.isActive}
+                >
+                  Постучаться
+                </Button>
+              )}
+            </div>
+          </Container>
         </Card>
       </Link>
     </>

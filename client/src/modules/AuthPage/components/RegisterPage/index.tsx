@@ -17,7 +17,7 @@ export const initialRegisterFormValues: IRegisterData = {
   careerStart: '',
   company: '',
   position: '',
-  isActive: false,
+  isActive: true,
   userPhoto: '',
   technologies: [],
   socials: [],

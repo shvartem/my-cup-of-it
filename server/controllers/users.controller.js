@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const dayjs = require('dayjs');
 const db = require('../db/models');
 const { sequelize } = require('../db/models');
 const technologiesService = require('../services/technologies.service');
@@ -6,14 +7,14 @@ const userService = require('../services/user.service');
 const socialsService = require('../services/socials.service');
 
 async function getAllUsers(req, res) {
-  const loggedUserId = req.session.user.id ?? '';
+  const loggedUserId = req.session.user.id.toString() ?? '';
   try {
     const users = await db.User.findAll({
       attributes: [
         'id',
         'firstname',
         'lastname',
-        'password',
+        'email',
         'description',
         'isMentor', 'isActive',
         'position',
@@ -38,9 +39,9 @@ async function getAllUsers(req, res) {
 
     return res.status(200).json(mappedUsers);
   } catch (e) {
-    console.error(e.message);
+    console.error(e);
 
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 }
 
@@ -65,41 +66,26 @@ async function patchUserProfile(req, res) {
     throw new Error();
   } catch (e) {
     console.error(e.message);
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 }
 
 async function editUserProfile(req, res) {
   const { userId } = req.params;
+  console.log(1111111, res.body);
   const {
-    firstname, lastname, description, companyId, careerStart, technologies, position,
+    firstname,
+    lastname,
+    description,
+    careerStart,
+    companyId,
+    position,
+    technologies = [],
   } = req.body;
   const userPhoto = req.file?.path.replace(/^public\//, '');
-
+  const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD-MM-YYYY') : '';
+  console.log(555555555, careerStart, parsedCareerStart);
   try {
-    // let result;
-    // if (req.file) {
-    //   console.log(userPhoto);
-    //   [result] = await db.User.update({
-    //     firstname,
-    //     lastname,
-    //     userPhoto,
-    //     description,
-    //     companyId,
-    //     careerStart,
-    //   }, { where: { id: userId } });
-    // } else {
-    //   [result] = await db.User.update({
-    //     firstname,
-    //     lastname,
-    //     userPhoto: undefined,
-    //     description,
-    //     companyId,
-    //     careerStart,
-    //   }, { where: { id: userId } });
-    // }
-
-    console.log(userPhoto);
     const [result] = await db.User.update({
       firstname,
       lastname,
@@ -107,10 +93,15 @@ async function editUserProfile(req, res) {
       description,
       companyId,
       position,
-      careerStart,
-    }, { where: { id: userId } });
+      careerStart: parsedCareerStart,
+    },
+    {
+      where: { id: userId },
+      raw: true,
+    });
 
     if (!result) throw new Error();
+
     const user = await db.User.findOne({ where: { id: userId }, raw: true });
 
     req.session.user = {
@@ -118,17 +109,14 @@ async function editUserProfile(req, res) {
       companyId: user.companyId,
     };
 
-    try {
-      await technologiesService.clearUserStack(userId);
-      await technologiesService.addStackToUser(technologies, userId);
-    } catch (e) {
-      console.log(e);
-    }
+    await technologiesService.clearUserStack(userId);
+    await technologiesService.addStackToUser(technologies, userId);
     const userData = await userService.getFullUserData(user);
+    console.log(11111, userData);
     return res.json(userData);
   } catch (e) {
     console.log(e);
-    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернену');
+    return res.status(500).send('Что-то пошло не так, проверьте подключение к интернету');
   }
 }
 
