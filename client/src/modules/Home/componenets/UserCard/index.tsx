@@ -106,7 +106,6 @@ const UserCard: React.FC<MyCard> = ({
             <div className={styles.buttons}>
               {mentor.isMentor && !currentUser.isMentor && (
                 <Button
-                  size="small"
                   type="primary"
                   onClick={(e) => {
                     e.preventDefault();
