@@ -21,3 +21,10 @@ export const BtnsWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const IconsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-top: 0.3rem;
+`;

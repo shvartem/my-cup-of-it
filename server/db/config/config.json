@@ -1,15 +1,20 @@
 {
   "development": {
-    "username": "human",
-    "password": "human",
-    "database": "mycupit",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "username": "epvhvltihblxmm",
+    "password": "fff4bdf61801e46c3b511b42ab710d7d9fb3e1d40eaa054851b4ea5c6d6c3c95",
+    "database": "d4kr4b1oco7ou8",
+    "host": "ec2-54-170-163-224.eu-west-1.compute.amazonaws.com",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "rejectUnauthorized": false
+      }
+    }
   },
   "test": {
     "username": "elbrus_practice",
     "password": 7236,
-    "database": "",
+    "database": "my_cup_of_it",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
