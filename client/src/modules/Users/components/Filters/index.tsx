@@ -50,7 +50,6 @@ const Filters: React.FC<UserProps> = ({ users }) => {
   }
   function onChengeCheckIsActive(e: any) {
     setFilteredIsActive(e.target.checked);
-    console.log(filteredIsActive, e.target.checked);
   }
 
   const byCompanies = useCallback((user: IProfile) => {
@@ -154,7 +153,6 @@ const Filters: React.FC<UserProps> = ({ users }) => {
 
           <div className={styles.conteinerUser}>
             <FeedForModal mentors={filteredUsers} />
-            {/* {filteredUsers.map((user) => <UserCard key={user.id} mentor={user} showModal={() => console.log(11)} />)} */}
           </div>
         </div>
       </div>

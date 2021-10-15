@@ -21,10 +21,6 @@ const FeedbackManager: React.FC = () => {
   const completedFeedbacks = getFeedbacks('complete');
   const rejectedFeedbacks = getFeedbacks('reject');
 
-  function callback(key: string) {
-    console.log(key);
-  }
-
   const handleCompleteFeedback: FeedbackButtonClickType = (feedback) => {
     dispatch(actions.changeFeedbackStatusPending({ ...feedback, status: 'complete' }));
   };
@@ -43,7 +39,7 @@ const FeedbackManager: React.FC = () => {
 
   return (
     <>
-      <Tabs onChange={callback} type="line">
+      <Tabs type="line">
         <TabPane tab="Все" key="all">
           <FeedbackList
             feedbacks={feedbacks}

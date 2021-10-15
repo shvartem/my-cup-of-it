@@ -110,7 +110,6 @@ async function editUserProfile(req, res) {
     await technologiesService.clearUserStack(userId);
     await technologiesService.addStackToUser(technologies, userId);
     const userData = await userService.getFullUserData(user);
-    console.log(11111, userData);
     return res.json(userData);
   } catch (e) {
     console.log(e);

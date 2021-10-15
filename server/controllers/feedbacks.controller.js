@@ -32,7 +32,6 @@ async function getAllFeedbacks(req, res) {
 async function createFeedback(req, res) {
   if (!req.session.user) return res.status(401).send('Вы не авторизованы');
   try {
-    console.log({ ...req.body, userId: req.session.user.id });
     const feedback = await db.Feedback.create({ ...req.body, userId: req.session.user.id });
 
     return res.status(201).json(feedback);
