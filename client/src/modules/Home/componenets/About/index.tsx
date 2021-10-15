@@ -20,7 +20,7 @@ const About: React.FC = () => {
           <p>
             <a href="tel:+74951234567">+7 (495) 123-45-67</a>
           </p>
-          <a href="mailto:ask@htmlbook.ru">mailto:ask@htmlbook.ru</a>
+          <a href="mailto:mycupofit@gmail.com">mycupofit@gmail.com</a>
         </ContactsInfo>
         {!isAdmin
           && <FeedbackModal />}
