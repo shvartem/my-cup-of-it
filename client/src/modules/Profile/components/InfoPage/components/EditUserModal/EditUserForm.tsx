@@ -22,6 +22,10 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
   const companyId = companies.find((company) => company.title === profileData.company)?.id;
   const technologiesTitles = profileData.technologies.map((tech) => tech.title);
 
+  React.useEffect(() => {
+    form.resetFields();
+  }, [profileData]);
+
   const children = [];
   for (let i = 0; i < technologies.length; i += 1) {
     children.push(<Option value={technologies[i].title} key={technologies[i].id}>{technologies[i].title}</Option>);
