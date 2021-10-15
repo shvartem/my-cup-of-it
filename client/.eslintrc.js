@@ -22,6 +22,8 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'react/jsx-props-no-spreading': 'off',
+    'no-return-assign': 'off',
     'no-console': 'off',
     'no-param-reassign': 'off',
     'react/jsx-no-bind': 'off',
@@ -30,8 +32,13 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'quote-props': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    'max-len': 'off',
+    'no-underscore-dangle': 'off',
+    'no-prototype-builtins': 'off',
+    'no-plusplus': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',

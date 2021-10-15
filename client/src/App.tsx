@@ -1,34 +1,49 @@
 /* eslint-disable no-unused-vars */
-import { useEffect } from 'react';
-import Navbar from './modules/Navbar';
+import React, { useEffect } from 'react';
+import { Layout } from 'antd';
 import useRouter from './routes';
 import { actions } from './redux/slices';
-import { useAppSelector, useAppDispatch } from './redux/store';
+import { useAppDispatch, useAppSelector } from './hooks';
+import Spinner from './modules/common/Spinner';
+import openNotification from './modules/common/errorNotification';
 
-const App = () => {
+const { Content } = Layout;
+const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.profile);
+  const currentAdmin = useAppSelector((state) => state.admin.profile);
+
   const isLoading = useAppSelector((state) => state.user.isLoading);
+  const error = useAppSelector((state) => state.user.error);
+
   const isAuthenticated = Boolean(user?.id);
-  const routes = useRouter(isAuthenticated);
+  const isAdmin = Boolean(currentAdmin?.id);
+
+  const routes = useRouter(isAuthenticated, isAdmin);
 
   useEffect(() => {
+    dispatch(actions.getInitialAdminPending());
     dispatch(actions.getInitialUserPending());
   }, [dispatch]);
 
-  if (isLoading) {
-    return (
-      <>
-        <Navbar isAuth={isAuthenticated} />
-        <h1>Идёт загрузка, подождите</h1>
-      </>
-    );
-  }
+  useEffect(() => {
+    if (isAuthenticated || isAdmin) {
+      dispatch(actions.getAllUsersPending());
+      dispatch(actions.getAllCompaniesPending());
+      dispatch(actions.getAllTechnologiesPending());
+    }
+  }, [dispatch, isAuthenticated, isAdmin]);
 
   return (
     <>
-      <Navbar isAuth={isAuthenticated} />
-      {routes}
+      {isLoading && <Spinner />}
+      {error && openNotification(error)}
+
+      <Layout className="layout">
+        <Content>
+          {routes}
+        </Content>
+      </Layout>
     </>
   );
 };

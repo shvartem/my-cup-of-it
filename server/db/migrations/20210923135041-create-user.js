@@ -34,26 +34,25 @@ module.exports = {
       },
       isActive: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
+        defaultValue: true,
       },
       careerStart: {
         type: Sequelize.STRING,
-        defaultValue: null,
+        defaultValue: '',
       },
-      company: {
+      companyId: {
         type: Sequelize.STRING,
-        defaultValue: null,
+        references: {
+          model: 'Companies',
+        },
       },
-      createdAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.literal('NOW()'),
+      position: {
+        type: Sequelize.STRING,
+        defaultValue: '',
       },
-      updatedAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.literal('NOW()'),
+      userPhoto: {
+        type: Sequelize.STRING,
+        defaultValue: '',
       },
     });
   },

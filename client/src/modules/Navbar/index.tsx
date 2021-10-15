@@ -1,49 +1,52 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import { Layout, Menu, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import {
+  Menu, Button, PageHeader,
+} from 'antd';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 import { actions } from '../../redux/slices';
-import { useAppDispatch } from '../../redux/store';
+import { useAppDispatch } from '../../hooks';
 
-const { Header } = Layout;
+const MenuItemWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 interface INavbarProps {
-  isAuth: boolean;
+  isAdmin: boolean,
 }
 
-const Navbar: React.FC<INavbarProps> = ({ isAuth }) => {
+const Navbar: React.FC<INavbarProps> = ({ isAdmin }) => {
   const dispatch = useAppDispatch();
 
   function logoutHandler() {
-    dispatch(actions.logoutUserPending());
-  }
-
-  if (!isAuth) {
-    return (
-      <Header>
-        <Menu theme="dark" mode="horizontal">
-          <Menu.Item key="Register">
-            <Link to="/register">Register</Link>
-          </Menu.Item>
-          <Menu.Item key="Login">
-            <Link to="/login">Login</Link>
-          </Menu.Item>
-        </Menu>
-      </Header>
-    );
+    if (isAdmin) {
+      return dispatch(actions.logoutAdminPending());
+    }
+    return dispatch(actions.logoutUserPending());
   }
 
   return (
-    <Header>
-      <Menu theme="dark" mode="horizontal">
-        <Menu.Item key="Home">
-          <Link to="/home">Home</Link>
-        </Menu.Item>
-        <Menu.Item key="Logout">
-          <Button type="link" onClick={logoutHandler}>Logout</Button>
-        </Menu.Item>
+    <PageHeader style={{ padding: '0 0 10px' }}>
+      <Menu style={{ display: 'flex', justifyContent: 'space-around', padding: '0 130px' }} theme="light" mode="horizontal" defaultSelectedKeys={['Home']}>
+        <MenuItemWrapper>
+          <NavLink to="/home" activeClassName="nav-link--active"><i className="fas fa-mug-hot nav-link" /></NavLink>
+        </MenuItemWrapper>
+
+        <MenuItemWrapper style={{ width: '60%' }}>
+          <NavLink to="/users" activeClassName="nav-link--active">
+            <Button>Найти собеседника</Button>
+          </NavLink>
+        </MenuItemWrapper>
+
+        <MenuItemWrapper>
+          <NavLink to="/profile" style={{ lineHeight: 1 }} activeClassName="nav-link--active"><i className="fas fa-user-circle nav-link" /></NavLink>
+          <Button type="link" style={{ color: 'black', padding: 0 }} onClick={logoutHandler}><i className="fas fa-sign-out-alt nav-link" /></Button>
+        </MenuItemWrapper>
       </Menu>
-    </Header>
+    </PageHeader>
   );
 };
 

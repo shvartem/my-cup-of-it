@@ -29,11 +29,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     comment: {
       type: DataTypes.TEXT,
+    },
+    status: {
+      type: DataTypes.ENUM({
+        values: ['completed', 'pending', 'cancelled', 'accepted'],
+      }),
     },
     createdAt: {
       type: DataTypes.DATE,
