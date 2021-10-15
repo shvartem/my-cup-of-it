@@ -5,7 +5,7 @@ import { ICommunicateButtons } from './types';
 import { useAppSelector } from '../../../../../../hooks';
 
 const CommunicateButtons: React.FC<ICommunicateButtons> = (props) => {
-  const { isActive, onKnock } = props;
+  const { isActive, onKnock, isDisabled } = props;
 
   const handleKnockButton = () => {
     onKnock(true);
@@ -13,7 +13,13 @@ const CommunicateButtons: React.FC<ICommunicateButtons> = (props) => {
 
   return (
     <BtnsWrapper>
-      <Button type="primary" disabled={!isActive} onClick={handleKnockButton}>Постучаться</Button>
+      <Button
+        type="primary"
+        disabled={!isActive || isDisabled}
+        onClick={handleKnockButton}
+      >
+        Постучаться
+      </Button>
     </BtnsWrapper>
   );
 };

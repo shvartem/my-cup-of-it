@@ -25,7 +25,7 @@ async function registerUser(req, res) {
   } = req.body;
   const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD.MM.YYYY') : '';
 
-  const userPhoto = req.file?.path.replace(/^..\/client\/public/, '');
+  const userPhoto = req.file?.path.replace(/^..\/client\/build/, '');
   // const userPhoto = req.file?.path.replace(/^public/, '');
 
   let user;

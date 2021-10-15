@@ -93,7 +93,7 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
               editSocials={editSocials}
               disableChangeRole={disableChangeRole}
             />
-          ) : (profileData.isMentor && !currentUser.isMentor && <CommunicateButtons isActive={profileData.isActive} onKnock={setIsModalVisible} />)
+          ) : (profileData.isMentor && !currentUser.isMentor && <CommunicateButtons isDisabled={!currentUser.isActive} isActive={profileData.isActive} onKnock={setIsModalVisible} />)
         }
       </ImageWrapper>
       <CardWrapper>
