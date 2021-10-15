@@ -10,6 +10,7 @@ const middlewares = [sagaMiddleware];
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => [...getDefaultMiddleware(), ...middlewares],
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type StateInterface = ReturnType<typeof store.getState>
