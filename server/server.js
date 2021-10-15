@@ -18,6 +18,7 @@ const PORT = process.env.PORT ?? 5000;
 
 const buildHtml = path.resolve(process.env.PWD, '..', 'client', 'build', 'index.html');
 const buildStatic = path.resolve(process.env.PWD, '..', 'client', 'build');
+const serverStatic = path.resolve(process.env.PWD, 'public');
 
 const sessionConfig = {
   store: new FileStore(),
@@ -36,6 +37,7 @@ app.use(session(sessionConfig));
 
 app.use(logger('dev'));
 app.use(express.static(buildStatic));
+app.use(express.static(serverStatic));
 app.use(express.json());
 
 app.use('/api', authRouter);

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { nanoid } = require('nanoid');
+const sendEmailToUser = require('./emailingLogic');
 
 const meetsService = require('../services/meets.service');
 const meetsController = require('../controllers/meets.controller');
@@ -7,6 +8,15 @@ const { Meet, User, sequelize } = require('../db/models');
 
 router.post('/', async (req, res) => {
   try {
+    const {
+      userEmail, mentorId, interviewerId, date, comment,
+    } = await req.body.payload;
+    const whoIswriting = await User.findByPk(mentorId);
+    const interviewee = whoIswriting.firstname;
+    const usertoInterview = await User.findByPk(interviewerId);
+    const interviewer = `${usertoInterview.firstname} ${usertoInterview.lastname}`;
+
+    sendEmailToUser(userEmail, interviewee, interviewer, comment, date);
     const existingMeets = await meetsService.findUpcomingMeets(
       req.body.payload.interviewerId,
       req.body.payload.mentorId,
@@ -15,7 +25,7 @@ router.post('/', async (req, res) => {
       return res.status(400).send('У вас уже запланирована встреча с этим пользователем');
     }
     const newMeeting = await Meet.create({ id: nanoid(6), ...req.body.payload });
-    const { mentorId } = newMeeting;
+    const intervieweeId = newMeeting.mentorId;
     const newUserMeeting = await Meet.findOne({
       where: { id: newMeeting.id },
       attributes: [
@@ -30,7 +40,7 @@ router.post('/', async (req, res) => {
       include: {
         model: User,
         as: 'Mentor',
-        where: { id: mentorId },
+        where: { id: intervieweeId },
         attributes: [],
       },
     });

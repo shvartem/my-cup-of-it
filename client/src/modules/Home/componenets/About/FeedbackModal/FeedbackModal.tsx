@@ -13,7 +13,6 @@ const FeedbackModal: React.FC = () => {
 
   const onCreate: FeedbackSubmitType = (values) => {
     setIsModalVisible(false);
-    console.log(values);
     dispatch(actions.addNewFeedbackPending(values));
   };
 

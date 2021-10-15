@@ -10,11 +10,6 @@ const CardAction: React.FC<IFeedbackItemProps> = (props) => {
     feedback, onComplete, onAccept, onReject,
   } = props;
 
-  function handleButtonClick(e: any) {
-    message.info('Click on left button.');
-    console.log('click left button', e);
-  }
-
   function handleMenuClick(e: any) {
     e.domEvent.preventDefault();
 
@@ -36,7 +31,6 @@ const CardAction: React.FC<IFeedbackItemProps> = (props) => {
 
       default:
     }
-    console.log('click', e);
   }
 
   const menu = (

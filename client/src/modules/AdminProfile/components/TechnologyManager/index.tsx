@@ -10,16 +10,12 @@ const { TabPane } = Tabs;
 const TechnologyManager: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  function callback(key: string) {
-    console.log(key);
-  }
-
   useEffect(() => {
     dispatch(actions.getAllCompaniesPending());
   }, [dispatch]);
 
   return (
-    <Tabs onChange={callback} type="line">
+    <Tabs type="line">
       <TabPane tab="Все" key="all">
         <TechnologyList />
       </TabPane>

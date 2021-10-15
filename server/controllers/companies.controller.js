@@ -46,7 +46,6 @@ async function editCompany(req, res) {
 async function deleteCompany(req, res) {
   if (!req.session.user?.isAdmin) return res.status(401).send('У вас недостаточно полномочий');
   const { companyId } = req.params;
-  console.log({ companyId });
   try {
     await db.Company.destroy({ where: { id: companyId } });
 
