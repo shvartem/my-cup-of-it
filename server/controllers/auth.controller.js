@@ -10,7 +10,6 @@ const userService = require('../services/user.service');
 const technologiesService = require('../services/technologies.service');
 
 async function registerUser(req, res) {
-  console.log(req.body);
   const {
     firstname,
     lastname,
@@ -24,10 +23,10 @@ async function registerUser(req, res) {
     position,
     technologies = [],
   } = req.body;
-
   const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD.MM.YYYY') : '';
 
-  const userPhoto = req.file?.path.replace(/^public/, '');
+  const userPhoto = req.file?.path.replace(/^..\/client\/build/, '');
+  // const userPhoto = req.file?.path.replace(/^public/, '');
 
   let user;
   try {

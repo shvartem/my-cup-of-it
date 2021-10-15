@@ -5,7 +5,6 @@ export type GetExperienceType = (careerStart: string) => void
 export const getExperience: GetExperienceType = (careerStart) => {
   const start = moment(careerStart, 'DD.MM.YYYY');
   const experience = start.toNow(true).split(' ');
-  console.log(start.toNow(true));
   if (experience[1].match(/days$/) || experience[1].match(/hours$/)) return 'меньше месяца';
 
   if (experience[0].match(/1[2-4]$/)) {
@@ -23,6 +22,10 @@ export const getExperience: GetExperienceType = (careerStart) => {
   if (experience[0].match(/[2-4]$/)) {
     if (experience[1].match(/months$/)) return `${experience[0]} месяца`;
     return `${experience[0]} года`;
+  }
+  if (experience[0].match(/[5-9]$/)) {
+    if (experience[1].match(/months$/)) return `${experience[0]} месяцев`;
+    return `${experience[0]} лет`;
   }
   return `${experience[0]} лет`;
 };

@@ -16,8 +16,8 @@ const socialsRouter = require('./routes/social.router');
 
 const PORT = process.env.PORT ?? 5000;
 
-const builtHtml = path.resolve(__dirname, '..', 'client', 'build', 'index.html');
-const builtStatic = path.resolve(__dirname, '..', 'client', 'build');
+const buildHtml = path.resolve(process.env.PWD, '..', 'client', 'build', 'index.html');
+const buildStatic = path.resolve(process.env.PWD, '..', 'client', 'build');
 
 const sessionConfig = {
   store: new FileStore(),
@@ -35,8 +35,7 @@ const app = express();
 app.use(session(sessionConfig));
 
 app.use(logger('dev'));
-app.use(express.static('public'));
-app.use(express.static(builtStatic));
+app.use(express.static(buildStatic));
 app.use(express.json());
 
 app.use('/api', authRouter);
@@ -49,7 +48,7 @@ app.use('/api/feedbacks', feedbacksRouter);
 app.use('/api/socials', socialsRouter);
 
 app.get('*', (req, res) => {
-  res.sendFile(builtHtml);
+  res.sendFile(buildHtml);
 });
 
 app.listen(PORT, () => {

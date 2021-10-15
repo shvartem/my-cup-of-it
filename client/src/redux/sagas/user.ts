@@ -23,7 +23,9 @@ function* writeUserMeeting({ payload }: IWriteMeetingAction): SagaIterator {
 
 function* editUserProfile({ payload }: IEditUserProfileAction): SagaIterator {
   try {
+    console.log(11, payload);
     const updatedUser = yield call(() => editUser<IMyProfile>('/api/users', payload));
+    console.log({ updatedUser });
     yield put(actions.editUserProfileFullfilled(updatedUser));
   } catch (e) {
     yield put(actions.editUserProfileRejected(e as string));
@@ -117,7 +119,6 @@ function* addUserSocials({ payload }: IEditUserSocialsAction): SagaIterator {
 function* editMeetDate({ payload }: IChangeMeetDateAction): SagaIterator {
   try {
     yield call(() => editData<IChangeMeetDatePayload>('/api/meets', payload));
-    yield put(actions.changeUserMeetStatusFullfilled({ id: payload.id, status: 'accepted' }));
     yield put(actions.changeMeetDateFullfilled(payload));
   } catch (e) {
     yield put(actions.changeMeetDateRejected(e as string));

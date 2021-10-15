@@ -10,13 +10,14 @@ const CustomCalendar: React.FC<ICalendar> = ({ meets }) => {
 
   function getListData(value: any) {
     const currentMeets = meets ? meets.map((meet: any) => ({
-      id: meet.id, date: +meet.date.split('-')[1], time: getTime(meet.date), comment: meet.comment, username: `${meet.firstname} ${meet.lastname}`,
+      id: meet.id, date: +getDate(meet.date).split('.')[0], time: getTime(meet.date), comment: meet.comment, username: `${meet.firstname} ${meet.lastname}`,
     })) : [];
 
     const meetengs: any[] = [];
 
-    currentMeets.forEach((meet) => {
+    currentMeets.forEach((meet, i) => {
       if (meet.date === value.date()) {
+        console.log(i, 'here');
         meetengs.push(meet);
       }
     });
