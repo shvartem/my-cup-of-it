@@ -1,9 +1,11 @@
 const multer = require('multer');
 const dayjs = require('dayjs');
+const path = require('path');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, '../client/build/images');
+    // cb(null, path.resolve(process.cwd(), '..', '..', 'client', 'build', 'images'));
+    cb(null, path.resolve(process.cwd(), 'public', 'images'));
   },
   filename(req, file, cb) {
     const date = dayjs().format('DDMMYYYY_HHmmss_SSS');
