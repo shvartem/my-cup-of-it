@@ -13,6 +13,8 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.user.profile);
+  const mentor = useAppSelector((state) => state.allUsers.data)
+    .filter((user) => user.id === mentorId);
 
   function disabledDate(current: any) {
     return current && current < moment();
@@ -39,6 +41,7 @@ const KnockingModal: React.FC<modalProps> = ({ mentorId, isModalVisible, setIsMo
       date: meetingDate,
       status: 'pending',
       comment,
+      userEmail: mentor[0].email,
     };
     dispatch(actions.writeUserMeetingPending({ payload: body }));
     setIsModalVisible(false);
