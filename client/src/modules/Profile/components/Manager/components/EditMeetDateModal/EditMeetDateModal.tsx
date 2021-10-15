@@ -112,6 +112,8 @@ const EditMeetDateModal: React.FC<IEditMeetDateModalProps> = ({
             <TimePicker
               placeholder="Выберите время"
               format="HH:mm"
+              minuteStep={15}
+              hideDisabledOptions
               disabledHours={disabledHours}
             />
           </Form.Item>

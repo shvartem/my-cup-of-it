@@ -21,9 +21,6 @@ const FeedbackList: React.FC<IFeedbackListProps> = (props) => {
       itemLayout="vertical"
       size="large"
       pagination={{
-        onChange: (page) => {
-          console.log(page);
-        },
         pageSize: 10,
       }}
       dataSource={feedbacks}

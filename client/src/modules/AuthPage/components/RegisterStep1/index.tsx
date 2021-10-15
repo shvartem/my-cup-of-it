@@ -105,7 +105,7 @@ const RegisterStepOne: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
           </Button>
         </Form.Item>
         <LinksWrapper>
-          <Text>Уже зарегестрированы?</Text>
+          <Text>Уже зарегистрированы?</Text>
           <Button type="link">
             <Link to="/login">Войти</Link>
           </Button>

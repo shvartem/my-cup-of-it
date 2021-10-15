@@ -12,9 +12,6 @@ const PastMeets: React.FC<IManagerProps> = ({ meets, changeMeetsStatus, isMentor
         itemLayout="vertical"
         size="large"
         pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
           pageSize: 2,
         }}
         dataSource={meets}

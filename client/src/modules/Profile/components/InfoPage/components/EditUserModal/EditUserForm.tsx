@@ -10,7 +10,6 @@ import { IEditUserProfileForm } from '../../types';
 const { Option } = Select;
 
 const normFile = (e: any) => {
-  console.log('Upload:', e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -22,6 +21,10 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
   const technologies = useAppSelector((state) => state.technologies.data);
   const companyId = companies.find((company) => company.title === profileData.company)?.id;
   const technologiesTitles = profileData.technologies.map((tech) => tech.title);
+
+  React.useEffect(() => {
+    form.resetFields();
+  }, [profileData]);
 
   const children = [];
   for (let i = 0; i < technologies.length; i += 1) {
@@ -121,7 +124,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
         name="description"
         initialValue={profileData.description}
       >
-        <Input.TextArea showCount maxLength={140} />
+        <Input.TextArea showCount maxLength={500} />
       </Form.Item>
       <Form.Item
         key="technologies"

@@ -13,7 +13,6 @@ import ISocial from '../../types/socialsTypes';
 
 function* writeUserMeeting({ payload }: IWriteMeetingAction): SagaIterator {
   try {
-    console.log(payload);
     const newMeeting = yield call(() => postData<IMeetBody>('/api/meets', payload));
     yield put(actions.writeUserMeetingFulfilled(newMeeting));
   } catch (e) {
@@ -23,9 +22,7 @@ function* writeUserMeeting({ payload }: IWriteMeetingAction): SagaIterator {
 
 function* editUserProfile({ payload }: IEditUserProfileAction): SagaIterator {
   try {
-    console.log(11, payload);
     const updatedUser = yield call(() => editUser<IMyProfile>('/api/users', payload));
-    console.log({ updatedUser });
     yield put(actions.editUserProfileFullfilled(updatedUser));
   } catch (e) {
     yield put(actions.editUserProfileRejected(e as string));
@@ -99,7 +96,6 @@ function* loginInitialUser(): SagaIterator {
 function* editUserSocials({ payload }: IEditUserSocialsAction): SagaIterator {
   try {
     const allSocials = yield call(() => editData<IEditUserSocialsPayload>('/api/socials', payload));
-    console.log('IN EDIT SOC', { allSocials });
     yield put(actions.changeUserSocialsFullfilled(allSocials as ISocial[]));
   } catch (e) {
     yield put(actions.changeUserSocialsRejected(e as string));
@@ -109,7 +105,6 @@ function* editUserSocials({ payload }: IEditUserSocialsAction): SagaIterator {
 function* addUserSocials({ payload }: IEditUserSocialsAction): SagaIterator {
   try {
     const allSocials = yield call(() => postData<IEditUserSocialsPayload>('/api/socials', payload));
-    console.log('IN ADD SOC', { allSocials });
     yield put(actions.addUserSocialsFullfilled(allSocials as ISocial[]));
   } catch (e) {
     yield put(actions.addUserSocialsRejected(e as string));

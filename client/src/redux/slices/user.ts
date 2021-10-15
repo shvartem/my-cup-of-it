@@ -89,7 +89,6 @@ const userSlice = createSlice({
       state.error = null;
     },
     editUserProfileFullfilled: (state: IMyProfileState, action: PayloadAction<IMyProfile>) => {
-      console.log(444, action.payload);
       state.profile = action.payload;
       state.error = null;
       state.isLoading = false;
@@ -182,12 +181,10 @@ const userSlice = createSlice({
     changeMeetDateFullfilled: (state: IMyProfileState, action: PayloadAction<IChangeMeetDatePayload>) => {
       state.profile.meets = state.profile.meets.map((meet) => {
         if (meet.id === action.payload.id) {
-          console.log('встреча изменена');
           meet.date = (action.payload.date) ? action.payload.date : meet.date;
           meet.comment = (action.payload.comment) ? action.payload.comment : meet.comment;
           return meet;
         }
-        console.log('встреча НЕ изменена');
         return meet;
       });
       state.error = null;

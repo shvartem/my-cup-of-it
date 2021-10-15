@@ -81,7 +81,7 @@ async function editUserProfile(req, res) {
     position,
     technologies = [],
   } = req.body;
-  const userPhoto = req.file?.path.replace(/^..\/client\/build/, '');
+  const userPhoto = req.file?.path.replace(/.*\/public/, '');
   const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD-MM-YYYY') : '';
   try {
     const [result] = await db.User.update({
@@ -110,7 +110,6 @@ async function editUserProfile(req, res) {
     await technologiesService.clearUserStack(userId);
     await technologiesService.addStackToUser(technologies, userId);
     const userData = await userService.getFullUserData(user);
-    console.log(11111, userData);
     return res.json(userData);
   } catch (e) {
     console.log(e);

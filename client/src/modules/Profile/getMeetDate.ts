@@ -6,7 +6,7 @@ export function getDate(date: string) {
 export function getTime(date: string) {
   const fullMeetTime = date ? date.split('T')[1].split('.')[0].split(':') : [];
   fullMeetTime[0] = `${+fullMeetTime[0] + 4}`;
-  fullMeetTime.pop();
+  if (fullMeetTime.length === 3) fullMeetTime.pop();
   const trimmedTime = fullMeetTime.join(':');
   return trimmedTime;
 }

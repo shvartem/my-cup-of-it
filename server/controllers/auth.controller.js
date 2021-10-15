@@ -25,8 +25,7 @@ async function registerUser(req, res) {
   } = req.body;
   const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD.MM.YYYY') : '';
 
-  const userPhoto = req.file?.path.replace(/^..\/client\/build/, '');
-  // const userPhoto = req.file?.path.replace(/^public/, '');
+  const userPhoto = req.file?.path.replace(/.*\/public/, '');
 
   let user;
   try {
@@ -108,8 +107,14 @@ async function getLoggedUser(req, res) {
   const { id } = req.session.user;
 
   try {
-    user = await db.User.findOne({ where: { id }, raw: true });
+    if (req.session.user.isAdmin) {
+      return res.json(req.session.user);
+    }
 
+    user = await db.User.findOne({ where: { id }, raw: true });
+    if (!user) {
+      return res.json({});
+    }
     const userData = await userService.getFullUserData(user);
     return res.json(userData);
   } catch (e) {

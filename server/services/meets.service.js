@@ -23,7 +23,6 @@ async function findUserMeets(user) {
       },
       include: { model: db.User, as: configMeets.targetTable, attributes: [] },
     });
-    console.log(userMeets);
     return userMeets;
   } catch (e) {
     throw new Error(e.message);
