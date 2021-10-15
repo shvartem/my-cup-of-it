@@ -25,7 +25,6 @@ function* addNewFeedback({ payload }: IAddNewFeedbackAction): SagaIterator {
 
 function* changeFeedbackStatus({ payload }: IChangeFeedbackStatusAction): SagaIterator {
   try {
-    console.log({ payload });
     const result = yield call(() => patchData<IFeedback>('/api/feedbacks', payload));
     yield put(actions.changeFeedbackStatusFulfilled(payload));
   } catch (e) {

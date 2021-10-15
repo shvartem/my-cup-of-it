@@ -43,7 +43,6 @@ const feedbacksSlice = createSlice({
       state.isLoading = true;
     },
     changeFeedbackStatusFulfilled: (state:IFeedbackState, action:PayloadAction<IChangeFeedbackStatusData>) => {
-      console.log(action);
       state.data = state.data.map((feedback) => {
         if (feedback.id !== action.payload.id) return feedback;
 

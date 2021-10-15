@@ -16,7 +16,6 @@ import { ButtonsWrapper } from '../style';
 const { Option } = Select;
 
 const normFile = (e: any) => {
-  console.log('Upload:', e);
   if (Array.isArray(e)) {
     return e;
   }
@@ -38,10 +37,6 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
     });
 
     dispatch(actions.registerUserPending(formdata));
-  };
-
-  const handleChangePhoto = (info: any) => {
-    console.log(info);
   };
 
   const handleUploadFile = (photo: any) => false;

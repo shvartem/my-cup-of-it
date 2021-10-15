@@ -10,7 +10,6 @@ import { IEditUserProfileForm } from '../../types';
 const { Option } = Select;
 
 const normFile = (e: any) => {
-  console.log('Upload:', e);
   if (Array.isArray(e)) {
     return e;
   }

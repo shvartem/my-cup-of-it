@@ -17,7 +17,6 @@ const CustomCalendar: React.FC<ICalendar> = ({ meets }) => {
 
     currentMeets.forEach((meet, i) => {
       if (meet.date === value.date()) {
-        console.log(i, 'here');
         meetengs.push(meet);
       }
     });
