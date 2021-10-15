@@ -11,7 +11,8 @@ import styles from './card.module.css';
 import { getExperience } from '../../../common/getExperience';
 import { useAppSelector } from '../../../../hooks';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
-import { iconsObject, iconsObject2 } from './tools';
+import { iconsObject, iconsObject2 } from '../../../common/tools';
+import Icons from '../../../common/Icons';
 
 library.add(fab);
 const { Meta } = Card;
@@ -26,7 +27,7 @@ const IconsWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: '0.3rem';
+  margin-top: 0.3rem;
   width: 80%;
 `;
 
@@ -42,7 +43,13 @@ const UserCard: React.FC<MyCard> = ({
           hoverable
           size="small"
           style={{
-            width: 240, height: 450, margin: '1rem', display: 'flex', flexDirection: 'column', alignItems: 'center',
+            width: 240,
+            height: 450,
+            margin: '1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            overflow: 'hidden',
           }}
           cover={(
             <img
@@ -72,33 +79,9 @@ const UserCard: React.FC<MyCard> = ({
                     {getExperience(mentor.careerStart)}
                   </div>
                   <IconsWrapper>
-                    {mentor.technologies.map((technology) => {
-                      if (iconsObject[technology.title]) {
-                        const str: IconName = iconsObject[technology.title];
-                        return (
-                          <span>
-                            <FontAwesomeIcon icon={['fab', str]} size="3x" />
-                            {' '}
-                          </span>
-                        );
-                      } if (iconsObject2[technology.title]) {
-                        return (
-                          <span>
-                            <img src={iconsObject2[technology.title]} alt={technology.title} style={{ width: '30px' }} />
-                            {' '}
-                          </span>
-
-                        );
-                      } return (
-                        <span style={{ fontWeight: 'bolder' }}>
-                          {technology.title}
-                          {' '}
-                        </span>
-                      );
-                    })}
+                    <Icons technologies={mentor.technologies} />
                   </IconsWrapper>
                   <div />
-
                 </div>
               )}
             </div>

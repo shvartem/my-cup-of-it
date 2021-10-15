@@ -108,8 +108,14 @@ async function getLoggedUser(req, res) {
   const { id } = req.session.user;
 
   try {
-    user = await db.User.findOne({ where: { id }, raw: true });
+    if (req.session.user.isAdmin) {
+      return res.json(req.session.user);
+    }
 
+    user = await db.User.findOne({ where: { id }, raw: true });
+    if (!user) {
+      return res.json({});
+    }
     const userData = await userService.getFullUserData(user);
     return res.json(userData);
   } catch (e) {

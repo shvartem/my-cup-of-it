@@ -121,7 +121,7 @@ const EditUserProfileForm: React.FC<IEditUserProfileForm> = ({ editProfile, prof
         name="description"
         initialValue={profileData.description}
       >
-        <Input.TextArea showCount maxLength={140} />
+        <Input.TextArea showCount maxLength={500} />
       </Form.Item>
       <Form.Item
         key="technologies"

@@ -4,7 +4,9 @@ import {
 } from 'antd';
 import { ITechnology } from '../../../../types/technologiesTypes';
 import EditProfileButtons from './components/EditProfileButtons';
-import { Container, CardWrapper, ImageWrapper } from './style';
+import {
+  Container, CardWrapper, ImageWrapper, IconsWrapper,
+} from './style';
 import CommunicateButtons from './components/CommunicateButtons';
 import { IInfoPageProps } from './types';
 import { actions } from '../../../../redux/slices';
@@ -12,6 +14,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import KnockingModal from '../../../Home/componenets/KnockingModal';
 import defaultUserPhotoUrl from '../../../common/defaultUserPhotoUrl';
 import { getExperience } from '../../../common/getExperience';
+import Icons from '../../../common/Icons';
 
 interface ISocialClasses {
   [key: string]: string
@@ -41,7 +44,6 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
   }
 
   function editProfile(values: any) {
-    console.log(values);
     values.technologies = values.technologies.map((el: string) => technologies.find((elem: ITechnology) => elem.title === el)?.id);
     values.careerStart = values.careerStart ? values.careerStart.toISOString() : profileData.careerStart;
     const formData = new FormData();
@@ -49,8 +51,6 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
       if (value[0] === 'userPhoto' && value[1]) formData.append(`${value[0]}`, value[1][0].originFileObj);
       else formData.append(`${value[0]}`, value[1]);
     });
-
-    console.log(555, { formData, userId: currentUser.id });
     dispatch(actions.editUserProfilePending({ formData, userId: currentUser.id }));
   }
 
@@ -112,7 +112,11 @@ const InfoPage: React.FC<IInfoPageProps> = ({ isMe, profileData, disableChangeRo
               </Timeline.Item>
             )}
             {profileData.technologies.length && (
-              <Timeline.Item>{`Мой стек: ${profileData.technologies.map((el: ITechnology) => el.title).join(', ')}`}</Timeline.Item>
+              <Timeline.Item>
+                <IconsWrapper>
+                  <Icons technologies={profileData.technologies} />
+                </IconsWrapper>
+              </Timeline.Item>
             )}
             {profileData.description && (
               <Timeline.Item>

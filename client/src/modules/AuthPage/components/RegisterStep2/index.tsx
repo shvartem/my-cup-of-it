@@ -151,7 +151,7 @@ const RegisterStepTwo: React.FC<IRegisterProps> = ({ registerData, setRegisterDa
           name="description"
           initialValue=""
         >
-          <Input.TextArea showCount maxLength={140} />
+          <Input.TextArea showCount maxLength={500} />
         </Form.Item>
 
         <Form.Item
