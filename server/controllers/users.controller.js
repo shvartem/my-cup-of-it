@@ -81,7 +81,7 @@ async function editUserProfile(req, res) {
     position,
     technologies = [],
   } = req.body;
-  const userPhoto = req.file?.path.replace(/^..\/client\/public/, '');
+  const userPhoto = req.file?.path.replace(/^..\/client\/build/, '');
   const parsedCareerStart = careerStart ? dayjs(careerStart).format('DD-MM-YYYY') : '';
   try {
     const [result] = await db.User.update({

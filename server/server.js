@@ -16,8 +16,8 @@ const socialsRouter = require('./routes/social.router');
 
 const PORT = process.env.PORT ?? 5000;
 
-const buildHtml = path.resolve(__dirname, '..', 'client', 'build', 'index.html');
-const buildStatic = path.resolve(__dirname, '..', 'client', 'public');
+const buildHtml = path.resolve(process.env.PWD, '..', 'client', 'build', 'index.html');
+const buildStatic = path.resolve(process.env.PWD, '..', 'client', 'build');
 
 const sessionConfig = {
   store: new FileStore(),
@@ -35,7 +35,6 @@ const app = express();
 app.use(session(sessionConfig));
 
 app.use(logger('dev'));
-// app.use(express.static('public'));
 app.use(express.static(buildStatic));
 app.use(express.json());
 
