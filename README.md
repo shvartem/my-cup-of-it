@@ -33,36 +33,36 @@
 ### В данном проекте реализованы:
 #### Просмотр главной страницы для неавторизованных пользователей
 
-[](/readme-assets/main.png)
+![](/readme-assets/main.png)
 
 #### Регистрация и авторизация пользователей
 Зарегистрироваться можно в одной из двух ролей: начинающий специалист, ментор
 
-[](/readme-assets/register.png)
+![](/readme-assets/register.png)
 
 #### Имеется страница для поиска пользователей, подходящих под выставленные фильтры
-[](/readme-assets/filters.png)
+![](/readme-assets/filters.png)
 
 #### Можно просмотреть профили других пользователей сайта
-[](/readme-assets/profile.png)
+![](/readme-assets/profile.png)
 
 #### Нажатие на кнопку "Постучаться", открывает вам модальное окно, в котором вы можете запросить встречу 
-[](/readme-assets/requesting-meet.png)
+![](/readme-assets/requesting-meet.png)
 
 #### Личный кабинет с данными вашего профиля и менеджером встреч
-[](/readme-assets/meets-manager.png)
+![](/readme-assets/meets-manager.png)
 
 #### Можно отредактировать свой профиль
-[](/readme-assets/edit-profile.png)
+![](/readme-assets/edit-profile.png)
 
 #### Обратная связь, где можно оставить пожелания по развитию проекта или оставить заявку на добавление новых данных (например, добавить новую компанию или технологию)
-[](/readme-assets/feedback.png)
+![](/readme-assets/feedback.png)
 
 #### Авторизация администратора
-[](/readme-assets/login-admin.png)
+![](/readme-assets/login-admin.png)
 
 #### Личный кабинет администратора для управления заявками из обратной связи, списком компаний, списком технологий и списком
-[](/readme-assets/admin-feedbacks.png)
-[](/readme-assets/admin-technologies.png)
+![](/readme-assets/admin-feedbacks.png)
+![](/readme-assets/admin-technologies.png)
 
 [github]: https://github.com/shvartem/my-cup-of-it
